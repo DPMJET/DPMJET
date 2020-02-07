@@ -75,7 +75,7 @@ This code is part of the heritage of
           University of Siegen
           D-57068 Siegen, Germany
 
-who was one of the original authors of the many predecessor codes.
+who inspired this one and the many predecessor codes.
 
 # Literature and references
 
