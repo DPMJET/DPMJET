@@ -8,8 +8,8 @@ COMP_TYPE=gfortran
 COMP_MODE=release
 
 # Extension for PYTHON library
-LIBEXT = .so
-
+LEXT?=.so
+LIB_DIR?=lib
 # Version
 # BUILD_VERSION = 19.1.0
 # BUILD_DATE = 2019/09/02
@@ -96,8 +96,7 @@ dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
-pylib = lib/dpmjetIII191$(LIBEXT)
-
+pylib = dpmjetIII191$(LEXT)
 F2PY = python -m numpy.f2py
 
 all: exe 
@@ -108,7 +107,10 @@ pylib: $(pylib)
 $(pylib): lib/libDPMJET.a common/dpmjetIII191.pyf
 	$(F2PY) -c $(F2PY_COMP) --opt="$(FOPT)" \
 	     $(INCLU) common/dpmjetIII191.pyf -Llib -lDPMJET
-	mv dpmjetIII191*$(LIBEXT) lib
+
+.PHONY: install
+install: $(pylib)
+	cp *$(LEXT) $(LIB_DIR)
 
 .PHONY: exe
 exe: $(APP_OBJS) lib/libDPMJET.a
