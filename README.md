@@ -53,9 +53,9 @@ We are in the process of compiling more documentation and/or examples. For now, 
 
 ## Authors:
           [Anatoli Fedynitch]*
-          Dept. of Physics                                 
-          University of Alberta                            
-          T6G 2E1 Edmonton, Alberta, Canada
+          ICRR - Institute for Cosmic Ray Research                                 
+          The University of Tokyo                            
+          Kashiwanoha 5-1-5, Kashiwa, Chiba, Japan
           
           Stefan Roesler
           CERN, DGS-RP
@@ -68,6 +68,14 @@ We are in the process of compiling more documentation and/or examples. For now, 
 
 *[maintainer](mailto:af.gh179@outlook.com)
 
+This code is part of the heritage of
+
+          Johannes Ranft
+          Dept. of Physics
+          University of Siegen
+          D-57068 Siegen, Germany
+
+who was one of the original authors of the many predecessor codes.
 
 # Literature and references
 
