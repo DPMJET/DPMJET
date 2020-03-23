@@ -18,6 +18,7 @@ C**********************************************************************
       INTEGER IARGC , id , irej , itry , k , neve, IDUM
 
       EXTERNAL PHO_PMASS
+      EXTERNAL PYDATA
 
       SAVE 
  
