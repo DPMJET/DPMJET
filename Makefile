@@ -166,7 +166,7 @@ pylib: $(pylib)
 
 $(pylib): lib/libDPMJET.a common/dpmjetIII191.pyf
 	$(F2PY) -c $(F2PY_CCONF) --opt="$(OPT)" \
-	     $(INCLU) common/dpmjetIII191.pyf -Llib -lDPMJET
+	     $(INCLU) common/dpmjetIII191.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
 
 .PHONY: install
 install: $(pylib)
