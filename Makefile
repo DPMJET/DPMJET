@@ -170,7 +170,7 @@ $(pylib): lib/libDPMJET.a common/dpmjetIII191.pyf
 
 .PHONY: install
 install: $(pylib)
-	cp *$(LEXT) $(LIB_DIR)
+	$(COPY_COMMAND) *$(LEXT) $(LIB_DIR)
 
 .PHONY: exe
 exe: $(APP_OBJS) lib/libDPMJET.a
