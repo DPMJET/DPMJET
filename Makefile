@@ -15,7 +15,7 @@ Config?="Release"
 
 ifeq ($(CVendor),"GNU")
 	#  GNU
-	FC = gfortran
+	FC := $(or $(FC), gfortran)
 	F2PY_C = gnu95
 	ifeq ($(OS),Windows_NT)
 		F2PY_CCONF = --compiler=mingw32 --fcompiler=$(F2PY_C)
@@ -67,10 +67,13 @@ endif
 #
 #######################################################################
 #general version for signature file extraction and linking
+PYTHON_EXE := $(or $(PYTHON_EXE), python3)
+
+#general version for signature file extraction and linking
 ifeq ($(Config),"Debug")
-	F2PY = python -m numpy.f2py
+	F2PY = $(PYTHON_EXE) -m numpy.f2py
 else
-	F2PY = python -m numpy.f2py# --quiet
+	F2PY = $(PYTHON_EXE)  -m numpy.f2py --quiet
 endif
 #Linker
 LD = $(FC)
@@ -120,7 +123,7 @@ ifeq ($(OS),Windows_NT)
   PATHSEP2=\\
   PATHSEP=$(strip $(PATHSEP2))
   # Shared library suffix
-  LEXT?=$(shell python -c "import sysconfig; print('.cp' + sysconfig.get_config_var('py_version_nodot') + '-' + sysconfig.get_platform().replace('-','_') + sysconfig.get_config_var('EXT_SUFFIX'))")
+  LEXT?=$(shell $(PYTHON_EXE) -c "import sysconfig; print('.cp' + sysconfig.get_config_var('py_version_nodot') + '-' + sysconfig.get_platform().replace('-','_') + sysconfig.get_config_var('EXT_SUFFIX'))")
   space := $(null) #
   comma := ,
   
