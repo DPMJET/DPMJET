@@ -1,5 +1,9 @@
-## DPMJET-III-XX.X
+## DPMJET-III
 
-Version 19.1.1:
+19.1.2:
+- Minor changes of conditional compilations for FLUKA compatibility 
+
+
+19.1.1:
 - Makefiles can build libraries with MinGW gfortran on Windows
 - Executables don't work (yet) on Windows.

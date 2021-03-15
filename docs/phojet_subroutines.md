@@ -1,6 +1,6 @@
 # PHOJET
 
-Revision: 19.1.0, Date: 2019/07/08
+Revision: 19.1.2, Date: 2019/07/08
 
 Authors: 
 - Ralph Engel, Karlsruhe Institute of Technology, Karlsruhe, Germany
