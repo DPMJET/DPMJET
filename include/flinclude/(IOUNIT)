@@ -1,29 +1,25 @@
-*$ CREATE IOUNIT.ADD
-*COPY IOUNIT
 *                                                                      *
 *=== iounit ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1990-2005      by  Alberto Fasso`, Alfredo Ferrari *
-*     All Rights Reserved.                   & Paola Sala              *
-*                                                                      *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
+*     All Rights Reserved.                                             *
 *                                                                      *
 *      Iounit: included in any routine                                 *
 *                                                                      *
-*     Created on   01 june 1990    by    Alfredo Ferrari, INFN -Milan  *
-*                                                                      *
-*     Last change on 20-jan-99     by    Alfredo Ferrari               *
+*     Created on   01 June 1990    by    Alfredo Ferrari, INFN -Milan  *
 *                                                                      *
 *         lunin  = standard input unit                                 *
 *         lunout = standard output unit                                *
 *         lunerr = standard error unit                                 *
-*         lunber = input file for bertini nuclear data                 *
-*         lunech = echo file for pegs dat                              *
+*         lunber = input file for the nuclear data file                *
+*         lunech = echo file for pemf dat (obsolete, no longer used)   *
 *         lunflu = input file for photoelectric edges and X-ray fluo-  *
 *                  rescence data                                       *
 *         lungeo = scratch file for combinatorial geometry             *
-*         lunpmf = input file for pegs material data                   *
+*         lunpmf = input file for pemf material data (obsolete, no     *
+*                  longer used)                                        *
 *         lunran = output file for the final random number seed        *
 *         lunxsc = input file for low energy neutron cross sections    *
 *         lundet = output file for the detect option                   *
@@ -32,6 +28,7 @@
 *                  files to be closed just after reading               *
 *         lunrd2 = unit number for reading (extra) auxiliary external  *
 *                  files to be closed just after reading               *
+*         lundpm = output unit for Dpmjet2.5/3                         *
 *         lunscr = unit number to be used for temporary scratch files  *
 *         lunpgo = output file for plotgeom                            *
 *         lunpgs = store (formatted/unformatted) file for plotgeom     *

@@ -1,19 +1,14 @@
-*$ CREATE IOIOCM.ADD
-*COPY IOIOCM
 *
 *=== Ioiocm ===========================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 2002-2006      by  Alfredo Ferrari                 *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     IOn-IOn CoMmon:                                                  *
 *                                                                      *
 *     Ion-Ion collision common for Fluka9x/Fluka200x....:              *
-*                                                                      *
-*     Last change  on  19-apr-06   by  Alfredo Ferrari, INFN-Milan     *
 *                                                                      *
 *     Description of the variable(s):                                  *
 *                                                                      *

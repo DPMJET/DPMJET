@@ -1,17 +1,12 @@
-*$ CREATE PAREVT.ADD
-*COPY PAREVT
 *                                                                      *
 *=== parevt ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1990-2010      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
 *                                                                      *
-*                                                                      *
-*     Created on 28-march-90 by A. Ferrari, INFN - Milan               *
-*                                                                      *
-*     Last change  on  22-mar-10    by   Alfredo Ferrari               *
+*     Created on 28-March-90 by A. Ferrari, INFN - Milan               *
 *                                                                      *
 *           included in:                                               *
 *                                                                      *
@@ -124,6 +119,7 @@
 *           lsngch = logical flag for allowing single chain events     *
 *           lschdf = logical flag for allowing single chain events     *
 *                    in diffractive interactions                       *
+*           lbmprq = logical flag for allowing preequilibrium in BME   *
 *           lhadri = logical flag for indicating whether the resonance *
 *                    model was used or not for primary interactions    *
 *           lnucri = logical flag for indicating whether the Nucriv    *
@@ -131,6 +127,8 @@
 *           lpeanu = logical flag for indicating whether the Peanut    *
 *                    model was used or not for the current interaction *
 *           levbme = logical flag for indicating whether the BME       *
+*                    model was used or not for the current interaction *
+*           levrqm = logical flag for indicating whether the rQMD      *
 *                    model was used or not for the current interaction *
 *           lphdrc = logical flag for indicating whether a photonuc-   *
 *                    lear interaction is a "direct" one or not         *
@@ -153,22 +151,18 @@
 *                                                                      *
 *----------------------------------------------------------------------*
 *
-*
-*  30% of events, randomly choosen, are diffractive events!!
-*  Now 20% (J. Ranft & A. Ferrari, 25-3-90)
-*  Actually it is no longer used!!
-      PARAMETER ( FRDIFF = 0.2D+00 )
       PARAMETER ( ETHSEA = 1.0D+00 )
 *
       LOGICAL LDIFFR, LINCTV, LEVPRT, LHEAVY, LDEEXG, LGDHPR, LPREEX,
-     &        LHLFIX, LPRFIX, LPARWV, LPOWER, LSNGCH, LSCHDF, LHADRI,
-     &        LNUCRI, LPEANU, LEVBME, LPHDRC, LATMSS, LISMRS, LCHDCY,
-     &        LCHDCR, LMLCCR, LRVKIN, LVP2XX, LV2XNW, LNWV2X, LEVFIN
+     &        LHLFIX, LPRFIX, LPARWV, LPOWER, LSNGCH, LSCHDF, LBMPRQ,
+     &        LHADRI, LNUCRI, LPEANU, LEVBME, LEVRQM, LPHDRC, LATMSS,
+     &        LISMRS, LCHDCY, LCHDCR, LMLCCR, LRVKIN, LVP2XX, LV2XNW,
+     &        LNWV2X, LEVFIN
       COMMON / PAREVT / DPOWER, FSPRD0, FSHPFN, RN1GSC, RN2GSC, RNSWTC,
      &                  LDIFFR (NALLWP),LPOWER, LINCTV, LEVPRT, LHEAVY,
      &                  LDEEXG, LGDHPR, LPREEX, LHLFIX, LPRFIX, LPARWV,
-     &                  LSNGCH, LSCHDF, LHADRI, LNUCRI, LPEANU, LEVBME,
-     &                  LPHDRC, LATMSS, LISMRS, LCHDCY, LCHDCR, LMLCCR,
-     &                  LRVKIN, LVP2XX, LV2XNW, LNWV2X, LEVFIN
+     &                  LSNGCH, LSCHDF, LBMPRQ, LHADRI, LNUCRI, LPEANU,
+     &                  LEVBME,	LEVRQM, LPHDRC, LATMSS, LISMRS, LCHDCY,
+     &                  LCHDCR, LMLCCR, LRVKIN, LVP2XX, LV2XNW, LNWV2X,
+     &                  LEVFIN
       SAVE / PAREVT /
-

@@ -1,29 +1,24 @@
-*$ CREATE BEAMCM.ADD
-*COPY BEAMCM
 *
 *=== Beamcm ===========================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
 *     Partial (the additions wrt the original one)                     *
-*     Copyright (C) 1996-2010      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     BEAM properties CoMmon:                                          *
 *                                                                      *
 *     Version for Fluka9x/200x of the old BEAM common for Fluka87:     *
 *                                                                      *
-*     Created on    22 october 1993   by  Alfredo Ferrari & Paola Sala *
+*     Created on    22 October 1993   by  Alfredo Ferrari & Paola Sala *
 *                                                INFN - Milan          *
-*                                                                      *
-*     Last change: on  22-Jun-2010    by       Alfredo Ferrari         *
 *                                                                      *
 *        Pbeam  = average beam particle momentum (GeV/c)               *
 *        Pbmmax = maximum momentum for which tabulations must be       *
 *                 generated (GeV/c)                                    *
 *        Dpbeam = beam momentum spread (GeV/c)                         *
-*        Divbm  = beam angular divergense (mrad)                       *
+*        Divbm  = beam angular divergense (rad)                        *
 *        Xspot  = beam width in (beam frame) x-direction (cm)          *
 *        Yspot  = beam width in (beam frame) y-direction (cm)          *
 *        Xbeam  = beam spot centre (geom frame) x-coordinate (cm)      *

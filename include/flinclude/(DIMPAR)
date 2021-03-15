@@ -1,18 +1,12 @@
-*$ CREATE DIMPAR.ADD
-*COPY DIMPAR
 *                                                                      *
 *=== dimpar ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1989-2012      by  Alberto Fasso`, Alfredo Ferrari *
-*     All Rights Reserved.                   & Paola Sala              *
-*                                                                      *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
+*     All Rights Reserved.                                             *
 *                                                                      *
 *     DIMension PARameters:                                            *
-*                                                                      *
-*     Last change on  27-Feb-12    by    Alfredo Ferrari               *
-*                                                                      *
 *                                                                      *
 *      DIMPAR: included in any routine                                 *
 *                                                                      *
@@ -32,6 +26,7 @@
 *          Mxeshl = maximum number of electronic shells                *
 *          Mxgnpr = maximum number of generalized particles            *
 *          Kxheav = maximum number of heavy fragment types             *
+*          Mevprd = maximum number of possible evaporation products    *
 *          Nallwp = number of allowed particles                        *
 *          Nelemx = number of maximum allowed elements of a compound   *
 *                   or mixture                                         *
@@ -65,9 +60,12 @@
 *          Mkbmx2 = dimension for KWB int. spare array in Fluka Stack  *
 *          Mxirrd = maximum number of irradiation sub-intervals        *
 *          Mxtrdc = maximum number of decay (cooling) times            *
+*          Mxrpns = maximum stack for parenthesis                      *
+*          Mxcwdf = maximum number of #define/#let definitions         *
+*          Nprdfn = number of predefined #define definitions           *
+*          Nchprs = number of characters in the parsing element arrays *
 *          Nktl   = overall dimension parameter for EMF bremsstrahlung *
 *          Nblnmx = blank common dimension in real*8 units!            *
-*                                                                      *
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
@@ -80,25 +78,26 @@
       PARAMETER ( MXPRSN =  100 )
       PARAMETER ( MXPDPM =  800 )
       PARAMETER ( MXPSCS =60000 )
-      PARAMETER ( MXFRAG =   20 )
+      PARAMETER ( MXFRAG =   30 )
       PARAMETER ( MXGLWN =  300 )
       PARAMETER ( MXOUTU =   50 )
-      PARAMETER ( MXKNWC =   13 )
+      PARAMETER ( MXKNWC =   45 )
       PARAMETER ( MXESHL =   32 )
       PARAMETER ( MXGNPR =   60 )
-      PARAMETER ( KXHEAV =   30 )
+      PARAMETER ( MEVPRD =  700 )
+      PARAMETER ( KXHEAV =   40 )
       PARAMETER ( NALLWP =   64 )
-      PARAMETER ( NELEMX =   80 )
+      PARAMETER ( NELEMX =   90 )
       PARAMETER ( MPDPDX =   33 )
       PARAMETER ( MXHTTR =  260 )
       PARAMETER ( MXSEAX =   30 )
       PARAMETER ( MXHTNC = MXSEAX + 1 )
-      PARAMETER ( ICOMAX = 2400 )
+      PARAMETER ( ICOMAX = 4000 )
       PARAMETER ( ICHMAX = ICOMAX + MXXMDF )
       PARAMETER ( NSTBIS =  304 )
       PARAMETER ( NQSTIS =   46 )
       PARAMETER ( NTSTIS = NSTBIS + NQSTIS )
-* Till 3-aug-99:
+* Till  3-Aug-99:
 *     PARAMETER ( MXPABL =  110 )
       PARAMETER ( MXPABL =  120 )
       PARAMETER ( IDMAXP =  450 )
@@ -112,9 +111,13 @@
       PARAMETER ( MKBMX2 =   11 )
       PARAMETER ( MXIRRD = 2500 )
       PARAMETER ( MXTRDC = 1500 )
+      PARAMETER ( MXRPNS =  100 )
+      PARAMETER ( MXCWDF = 2100 )
+      PARAMETER ( NPRDFN =    7 )
+      PARAMETER ( NCHPRS =   60 )
       PARAMETER ( NKTL   =   17 )
-      PARAMETER ( MXNBLN = 55000000 )
+      PARAMETER ( MXNBLN = 85000000 )
 * Start_G77_seq
-      PARAMETER ( NBLNMX = MXNBLN )
+*      PARAMETER ( NBLNMX = MXNBLN )
 * End_G77_seq
 

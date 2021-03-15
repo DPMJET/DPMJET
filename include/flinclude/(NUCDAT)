@@ -1,20 +1,15 @@
-*$ CREATE NUCDAT.ADD
-*COPY NUCDAT
 *                                                                      *
 *=== nucdat ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1990-2012      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     Include file Nucdat                                              *
 *                                                                      *
 *     Created on 20 April 1990  by            Alfredo Ferrari          *
 *                                               INFN Milan             *
-*                                                                      *
-*     Last change on 31-Mar-12                                         *
 *                                                                      *
 *     Included in the following routines:                              *
 *                                                                      *
@@ -50,6 +45,7 @@
       PARAMETER ( AMPROT = AMPRTN )
 *     PARAMETER ( AMNEUT = 0.9395731   D+00 )
       PARAMETER ( AMNEUT = AMNTRN )
+      PARAMETER ( AMELEC = AMELCT )
       PARAMETER ( R0NUCL = 1.12        D+00 )
       PARAMETER ( RCCOUL = 1.7         D+00 )
       PARAMETER ( COULPR = COUGFM )
@@ -68,7 +64,7 @@
 *
       COMMON /NUCDAT/ AV0WEL,     APFRMX,     AEFRMX,     AEFRMA,
      &                RDSNUC,     V0WELL (2), PFRMMX (2), EFRMMX (2),
-     &                EFRMAV (2), AMNUCL (3), AMNUSQ (3), EBNDNG (2),
+     &                EFRMAV (2), AMNUCL (2), AMNUSQ (2), EBNDNG (2),
      &                VEFFNU (2), ESLOPE (2), PKMNNU (2), EKMNNU (2),
      &                PKMXNU (2), EKMXNU (2), EKMNAV (2), EKINAV (2),
      &                EXMNAV (2), EKUPNU (2), EXMNNU (2), EXUPNU (2),
