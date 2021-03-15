@@ -19,7 +19,9 @@ C  input/output channels
       SAVE 
  
 #ifdef FOR_FLUKA
-      CALL OAUXFI(Tablefile(1:Lenfname, LUNRDB,'OLD',IERR)
+      LQ = INDEX (Tablefile,'/') + 1
+      IF ( LQ .LT. 0 ) LQ = 0
+      CALL OAUXFI(Tablefile(LQ:Lenfname), LUNRDB,'OLD',IERR)
       IF (IERR.GT.0) GOTO 100
       CALL PHO_READPDS0 (LUNRDB)
       CLOSE (LUNRDB)

@@ -7,8 +7,6 @@
       INCLUDE '(PAREVT)'
 #else
       IMPLICIT NONE
-C particle properties (BAMJET index convention)
-      INCLUDE 'inc/dtpart'
       LOGICAL LEVprt
       PARAMETER ( LEVprt =  .False. )
 #endif
@@ -26,7 +24,8 @@ C event history
       INCLUDE 'inc/dtevt1'
 C extended event history
       INCLUDE 'inc/dtevt2'
-
+C particle properties (BAMJET index convention)
+      INCLUDE 'inc/dtpart'
 C Lorentz-parameters of the current interaction
       INCLUDE 'inc/dtltra'
 C flags for input different options

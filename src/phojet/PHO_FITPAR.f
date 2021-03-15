@@ -5,7 +5,12 @@ C
 C     read input parameters according to PDFs
 C
 C**********************************************************************
+#ifdef FOR_FLUKA
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      INCLUDE '(IOUNIT)'
+#else
       IMPLICIT NONE
+#endif
       DOUBLE PRECISION alam2 , DEFA , DEFB , dummy , PHO_ALPHAS , 
      &                 q2max , q2min , THOUS , xmax , xmin
       INTEGER i , i1 , i2 , idpa1 , idpa2 , ierr , ifound , ifpas , 
@@ -14,9 +19,6 @@ C**********************************************************************
  
       PARAMETER (DEFA=-99999.D0,DEFB=-100000.D0,THOUS=1.D3)
  
-#ifdef FOR_FLUKA
-      INCLUDE '(IOUNIT)'
-#endif
 C  input/output channels
       INCLUDE 'inc/poinou'
 C  event debugging information
@@ -453,15 +455,15 @@ C  get parameters of soft cross sections from dpmjpar.dat
      &         'PHO_FITPAR: loading parameter set from file dpmjpar.dat'
             CALL OAUXFI('dpmjpar.dat',LUNRDB,'OLD',ierr)
  
- 200        READ (LUNRDB,'(A8)',ERR=140,END=160) cname8
-            IF ( cname8.EQ.'STOP' ) GOTO 160
+ 200        READ (LUNRDB,'(A8)',ERR=220,END=240) cname8
+            IF ( cname8.EQ.'STOP' ) GOTO 240
             IF ( cname8.EQ.'NEXTDATA' ) THEN
-               READ (LUNRDB,'(I8,2X,A8,3I6)',ERR=140,END=160) idpa1 , 
+               READ (LUNRDB,'(I8,2X,A8,3I6)',ERR=220,END=240) idpa1 ,
      &               cname8 , inum
                IF ( (idpa1.EQ.IFPap(1)) .AND. (cname8.EQ.pdfna1) .AND. 
      &              (inum(1).EQ.IGRp(1)) .AND. (inum(2).EQ.ISEt(1)) )
      &              THEN
-                  READ (LUNRDB,'(I8,2X,A8,3I6)',ERR=140,END=160) idpa2 , 
+                  READ (LUNRDB,'(I8,2X,A8,3I6)',ERR=220,END=240) idpa2 ,
      &                  cname8 , inum
                   IF ( (idpa2.EQ.IFPap(2)) .AND. (cname8.EQ.pdfna2)
      &                 .AND. (inum(1).EQ.IGRp(2)) .AND. 
@@ -478,11 +480,11 @@ C  get parameters of soft cross sections from dpmjpar.dat
                      READ (LUNRDB,*) PHIsup
                      READ (LUNRDB,*) RMAss , VAR
                      ifound = 1
-                     GOTO 180
+                     GOTO 260
                   END IF
                END IF
             END IF
-            GOTO 120
+            GOTO 200
  
  220        IF ( LPRi.GT.4 ) WRITE (LO,'(/A)')
      &            ' PHO_FITPAR: cannot read file dpmjpar.dat'
