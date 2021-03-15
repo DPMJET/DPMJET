@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-### Version: 19.1.1
+### Version: 19.1.2
 ### Status: development
 ### [Official releases](https://github.com/afedynitch/dpmjet/releases)
 
