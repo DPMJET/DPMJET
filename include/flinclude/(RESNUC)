@@ -1,20 +1,15 @@
-*$ CREATE RESNUC.ADD
-*COPY RESNUC
 *                                                                      *
 *=== resnuc ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1993-2012      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     Include file Resnuc                                              *
 *                                                                      *
 *     Created on 20 April 1990  by            Alfredo Ferrari          *
 *                                               INFN Milan             *
-*                                                                      *
-*     Last change on  06-Feb-12 by  Alfredo Ferrari, INFN - Milan      *
 *                                                                      *
 *     Included in the following routines:                              *
 *                                                                      *
@@ -93,8 +88,6 @@
 *            Istres = residual nucleus stable   level index            *
 *            Ismres = residual nucleus isomeric state index            *
 *            Ihyres = residual nucleus hyperon number                  *
-*            Jspres = residual nucleus 2 x spin (hbar/2 units)         *
-*            Jprres = residual nucleus parity                          *
 *            Amnres = residual nucleus nuclear mass                    *
 *            Ammres = residual nucleus atomic  mass                    *
 *              Eres = residual nucleus total   energy                  *
@@ -112,10 +105,9 @@
 *            Anestr = residual nucleus ang. momentum before evaporation*
 *            Ichbln = charge balance counter                           *
 *                                                                      *
-*                                                                      *
 *----------------------------------------------------------------------*
 *
-      LOGICAL LRNFSS, LFRAGM
+      LOGICAL LRNFSS, LFRAGM, LFKEVT
       COMMON /RESNUC/  AMNTAR, AMMTAR, AMNZM1, AMMZM1, AMNNM1, AMMNM1,
      &                   ANOW,   ZNOW, ANCOLL, ZNCOLL, AMMLFT, AMNLFT,
      &                   ERES,  EKRES, AMNRES, AMMRES,  PTRES,  PXRES,
@@ -123,10 +115,10 @@
      &                 ANZRES, TVESTR, ANESTR, BHYRES (IHYPMX),
      &                  KTARP,  KTARN, IGREYP, IGREYN, IPDPM0, IPDPM1,
      &                 IPREEH, IPRDEU, IPRTRI, IPR3HE, IPR4HE,  ICRES,
-     &                  IBRES, ISTRES, ISMRES, IHYRES, JSPRES, JPTRES,
-     &                 IEVAPL, IEVAPH, IEVPHO, IEVNEU, IEVPRO, IEVDEU,
-     &                 IEVTRI, IEV3HE, IEV4HE, IDEEXG,  IBTAR, ICHTAR,
-     &                 IBLEFT, ICLEFT, ICHBLN, ICESTR, IBESTR, IOTHER,
-     &                 KHYRES (IHYPMX), LRNFSS, LFRAGM
+     &                  IBRES, ISTRES, ISMRES, IHYRES, IEVAPL, IEVAPH,
+     &                 IEVPHO, IEVNEU, IEVPRO, IEVDEU, IEVTRI, IEV3HE,
+     &                 IEV4HE, IDEEXG,  IBTAR, ICHTAR, IBLEFT, ICLEFT,
+     &                 ICHBLN, ICESTR, IBESTR, IOTHER, KHYRES (IHYPMX),
+     &                 LRNFSS, LFRAGM, LFKEVT
       SAVE / RESNUC /
 

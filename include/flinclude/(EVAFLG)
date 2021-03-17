@@ -1,21 +1,17 @@
-*$ CREATE EVAFLG.ADD
-*COPY EVAFLG
 *
 *=== Evaflg ===========================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1996-2011      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     EVAporation FLaGs:                                               *
 *                                                                      *
-*     Created on 04 november 1996  by    Alfredo Ferrari & Paola Sala  *
+*     Created on 04 November 1996  by    Alfredo Ferrari & Paola Sala  *
 *                                                   Infn - Milan       *
 *                                                                      *
-*     Last change on 01-Apr-11     by    Alfredo Ferrari               *
-*                                                                      *
+*                                                   Infn - Milan       *
 *                                                                      *
 *          Fdscst = multiplication factor for discrete state width     *
 *          Ilvmod = 1st level density model flag (T=0)                 *
@@ -25,11 +21,23 @@
 *          Llvmod = logical flag for using Cook's modified pairing     *
 *                   energies                                           *
 *          Jsipfl = spin/parity effect flag                            *
+*                     Jsipfl = Isipfl + 10^3 * Ksipfl + 10^6 * Msipfl  *
 *          Imssfr = flag for selecting the empirical mass formula to   *
 *                   be used                                            *
 *          Jmssfr = flag for selecting the pairing correction inside   *
 *                   eexlvl                                             *
 *          Ievfss = flag for selecting the (high energy) fission model *
+*          Ipexlv = flag about how to use experimental nuclear level   *
+*                   informations (RIPL-3 IAEA nuclear tabulation file) *
+*                   during cascade/preequilibrium stages, meaningless  *
+*                   for Lpexlv=.false.                                 *
+*          Ieexlv = flag about how to use experimental nuclear level   *
+*                   informations (RIPL-3 IAEA nuclear tabulation file) *
+*                   during evaporation, meaningless for Leexlv=.false. *
+*          Igexlv = flag about how to use experimental nuclear level   *
+*                   informations (RIPL-3 IAEA nuclear tabulation file) *
+*                   during gamma deexcitation, meaningless for         *
+*                   Lgexlv=.false.                                     *
 *          Lufull = flag for full level density vs excitation energy   *
 *                   treatment                                          *
 *          Lnwlow = flag for flag for new low excitation treatment     *
@@ -72,11 +80,14 @@
 *          Lqcskp = flag for "quick" skipping of heavy evaporation when*
 *                   below threshold                                    *
 *          Lpexlv = flag for using experimental nuclear level informa- *
-*                   tions during cascade/preequilibrium stages         *
+*                   tions (RIPL-3 IAEA nuclear tabulation file) during *
+*                   cascade/preequilibrium stages                      *
 *          Leexlv = flag for using experimental nuclear level informa- *
 *                   tions during evaporation                           *
 *          Lgexlv = flag for using experimental nuclear level informa- *
 *                   tions during gamma deexcitation                    *
+*          Levxpl = flag true when the evaporation option is explicitly*
+*                    set by the user                                   *
 *          Mxahev = maximum A to be used for heavy evaporation if act- *
 *                   ivated                                             *
 *          Mxzhev = maximum Z to be used for heavy evaporation if act- *
@@ -170,16 +181,16 @@
      &        LDSCGM, LNDSLD, LMNJPR, LBRPEN, LNWBRP, LIFKEY, LOLDSM,
      &        LNAIPR, LGUSPR, LFLKCO, LLVMOD, LHVEVP, LHVECN, LHVCAL,
      &        LHVRAL, LHVSGF, LTMCRR, LBZZCR, LQCSKP, LPEXLV, LEEXLV,
-     &        LGEXLV
+     &        LGEXLV, LEVXPL
       COMMON / EVAFLG /     BRPNFR (0:2), EBRPFR (0:2), EMVBRP (0:2),
      &        FDSCST,
      &        ILVMOD, JLVMOD, JSIPFL, IMSSFR, JMSSFR, IEVFSS, MXAHEV,
      &        MXZHEV, IFHVFL, IFKYMX, IGMCMP, MPMODE, MSMODE, MUMODE,
      &        MFMODE, MEMODE, MRMODE, ITMCRR, IASYCR, IFSBCR, IFSSBR,
+     &        IPEXLV, IEEXLV, IGEXLV,
      &        LOLDEV, LUFULL, LNWLOW, LASMEN, LGMCMP, LGDRFT, LDSCLV,
      &        LDSCGM, LNDSLD, LMNJPR, LBRPEN, LNWBRP, LIFKEY, LOLDSM,
      &        LNAIPR, LGUSPR, LFLKCO, LLVMOD, LHVEVP, LHVECN, LHVCAL,
      &        LHVRAL, LHVSGF, LTMCRR, LBZZCR, LQCSKP, LPEXLV, LEEXLV,
-     &        LGEXLV
+     &        LGEXLV, LEVXPL
       SAVE / EVAFLG /
-

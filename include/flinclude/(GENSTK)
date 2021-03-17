@@ -1,14 +1,11 @@
-*$ CREATE GENSTK.ADD
-*COPY GENSTK
 *
 *=== Genstk ===========================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
 *     Partial (the additions wrt the original one)                     *
-*     Copyright (C) 1990-2006      by    Alfredo Ferrari & Paola Sala  *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     hadron GENerator STacK for FLUKA: (new version of old Finuc of   *
 *     FLUKA86 by J.Ranft)                                              *
@@ -18,11 +15,8 @@
 *     !!!!                 G E N S T K 2                     !!!!      *
 *     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      *
 *                                                                      *
-*     Created on  20 january 1996  by    Alfredo Ferrari & Paola Sala  *
+*     Created on  20 January 1996  by    Alfredo Ferrari & Paola Sala  *
 *                                                   Infn - Milan       *
-*                                                                      *
-*     Last change on 02-mar-06     by    Alfredo Ferrari               *
-*                                                                      *
 *                                                                      *
 *     /Genstk/ is the storage for secondaries created in hadronic      *
 *              events                                                  *

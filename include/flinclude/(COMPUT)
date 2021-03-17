@@ -1,22 +1,19 @@
-*$ CREATE COMPUT.ADD
-*COPY COMPUT
 *
 *=== comput ===========================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1994-2005      by         Alberto Fasso`           *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
-*                                                                      *
 *                                                                      *
 *     include file: comput copy           created 23/08/94 by A.Fasso` *
 *                                                                      *
-*     Last change  on  09-nov-98   by   Alfredo Ferrari, CERN          *
 *     included in the following subroutines or functions:              *
 *                                                                      *
 *                               bdtrns                                 *
 *                               cmsppr                                 *
 *                               dtimst                                 *
+*                               echinp                                 *
 *                               elsgrd                                 *
 *                               epilog                                 *
 *                               feeder                                 *
@@ -41,7 +38,6 @@
 *                                                                      *
 *     description of the common block(s) and variable(s)               *
 *                                                                      *
-*                                                                      *
 *     /comput/ contains information about the computer used            *
 *              and about the input file                                *
 *         komput       = system (1=OpenVms,  2=ibm-vm,   3=ibm-mvs,    *
@@ -50,12 +46,14 @@
 *         Cpuspe       = computer speed with respect to IBM 370/168-3  *
 *                        or to VAX 780/11 or to IBM RISC/6000 7012/370 *
 *         Cpujob       = cpu limit (s) for the current job             *
+*         Kinpnm       = last non blank character of Inpnam            *
 *         Kpwdir       = last non blank character of Pwddir            *
 *         Kfldir       = last non blank character of Hfldir            *
 *         Khmdir       = last non blank character of Homdir            *
 *         Mxftnu       = maximum fortran unit number allowed           *
 *         Comptr       = model                                         *
-*         Inpfil       = input file                                    *
+*         Inpfil       = input file name (old VM way)                  *
+*         Inpnam       = input file name (new Linux way)               *
 *         Pwddir       = current work directory                        *
 *         Hfldir       = home FLUKA directory                          *
 *         Homdir       = user  home directory                          *
@@ -66,11 +64,11 @@
 *----------------------------------------------------------------------*
 *
       CHARACTER COMPTR*50 , INPFIL*200, PWDDIR*200, HFLDIR*200,
-     &          HOMDIR*200, HOSTNM*200, USRFLK*200, GRPFLK*200
-      COMMON / COMPUT / CPUSPE, CPUJOB, KOMPUT, KPWDIR, KFLDIR, KHMDIR,
-     &                  MXFTNU
+     &          HOMDIR*200, HOSTNM*200, USRFLK*200, GRPFLK*200,
+     &          INPNAM*200, CHINPF*256, HFPATH*200
+      COMMON / COMPUT / CPUSPE, CPUJOB, KOMPUT, KINPNM, KPWDIR, KFLDIR,
+     &                  KHMDIR, MXFTNU, KFPATH
       COMMON / CHCMPT / COMPTR, INPFIL, PWDDIR, HFLDIR, HOMDIR, HOSTNM,
-     &                  USRFLK, GRPFLK
+     &                  USRFLK, GRPFLK, INPNAM, CHINPF, HFPATH
       SAVE / COMPUT /
       SAVE / CHCMPT /
-

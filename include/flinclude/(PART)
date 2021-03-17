@@ -1,18 +1,13 @@
-*$ CREATE PART.ADD
-*COPY PART
 *
 *=== part =============================================================*
 *
 *----------------------------------------------------------------------*
 *                                                                      *
 *     Partial (extensions to the original one by the Leipzig group)    *
-*     Copyright (C) 1996-2011      by Alfredo Ferrari & Johannes Ranft *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
 *     All Rights Reserved.                                             *
 *                                                                      *
-*                                                                      *
 *     Include file: part            Revised on 20-Aug-96 by A. Ferrari *
-*                                                                      *
-*     Last change   on   15-Mar-11     by       Alfredo Ferrari        *
 *                                                                      *
 *     Included in the following subroutines or functions:              *
 *                                                                      *

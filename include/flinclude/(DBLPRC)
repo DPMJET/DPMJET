@@ -1,20 +1,13 @@
-*$ CREATE DBLPRC.ADD
-*COPY DBLPRC
 *                                                                      *
 *=== dblprc ===========================================================*
 *                                                                      *
 *----------------------------------------------------------------------*
 *                                                                      *
-*     Copyright (C) 1989-2011      by  Alberto Fasso`, Alfredo Ferrari *
-*     All Rights Reserved.                   & Paola Sala              *
-*                                                                      *
+*     Copyright (C) 2003-2019:  CERN & INFN                            *
+*     All Rights Reserved.                                             *
 *                                                                      *
 *      Dblprc: included in any routine, machine, mathematical and      *
 *              physical constants plus global declarations             *
-*                                                                      *
-*                                                                      *
-*     Last change on  21-Sep-11    by      Alfredo Ferrari             *
-*                                                                      *
 *                                                                      *
 *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   *
 *  !!!! O N   M A C H I N E S   W H E R E   T H E   D O U B L E !!!!   *
@@ -72,11 +65,6 @@
 *         Lnminp = set to true for a name-based Fluka input            *
 *         Lfrfmt = set to true for a free-format based Fluka input     *
 *         Ldpmcr = set to true for allowing dump cores inside Flabrt   *
-* Start_VMC_seq
-**        Lfdrtr = set to true for going in/out feeder/flukam at each  *
-**                 event                                               *
-**                                                                     *
-* End_VMC_seq
 *----------------------------------------------------------------------*
 *                                                                      *
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
@@ -97,8 +85,10 @@
       PARAMETER ( ONEMNS = 0.999999999999999  D+00 )
       PARAMETER ( ONEPLS = 1.000000000000001  D+00 )
       PARAMETER ( CSNNRM = 2.0D-15 )
-      PARAMETER ( DMXTRN = 1.0D+08 )
+      PARAMETER ( DMXTRN = 1.0D+15 * 1.000001378D+00 )
       PARAMETER ( RHFLMN = 1.0D-10 )
+*      PARAMETER ( DMXTRN = 1.0D+15 )
+*      PARAMETER ( RHFLMN = 1.0D-13 )
 *
 *======================================================================*
 *======================================================================*
@@ -107,6 +97,10 @@
 *=========                                                   ==========*
 *======================================================================*
 *======================================================================*
+*                                                                      *
+*   Numerical constants (long integer):                                *
+*                                                                      *
+*         I8zero = "0" for Integer*8                                   *
 *                                                                      *
 *   Numerical constants (single precision):                            *
 *                                                                      *
@@ -166,10 +160,13 @@
 *         Tenlog = logarithm of 10                                     *
 *         Atnfou = Atan[4]                                             *
 *         Atnsix = Atan[6]                                             *
+*         Alpemd = 2 / exp(Eulero) / Sqrt[e]                           *
 *                                                                      *
 *----------------------------------------------------------------------*
 *
+      INTEGER*8 I8ZERO
       REAL ZERSNG
+      PARAMETER ( I8ZERO =      0 )
       PARAMETER ( ZERSNG = 0.E+00 )
       PARAMETER ( ZERZER = 0.D+00 )
       PARAMETER ( ONEONE = 1.D+00 )
@@ -224,6 +221,7 @@
       PARAMETER ( TENLOG = 2.302585092994045684017991454684D+00 )
       PARAMETER ( ATNFOU = 1.3258176636680326D+00 )
       PARAMETER ( ATNSIX = 1.4056476493802699D+00 )
+      PARAMETER ( ALPEMD = TWOTWO / EULEXP /SQRENT )
 *
 *======================================================================*
 *======================================================================*
@@ -242,6 +240,7 @@
 *         Plckbr = reduced Planck constant (erg s)                     *
 *         Elccgs = elementary charge (CGS unit)                        *
 *         Elcmks = elementary charge (MKS unit)                        *
+*         Pvcmu0 = vacuum permeability constant (MKS unit)             *
 *         Epsil0 = vacuum dielectric constant (MKS unit)               *
 *         Amugrm = Atomic mass unit (g)                                *
 *         Ammumu = Muon    mass (amu)                                  *
@@ -263,12 +262,19 @@
 *         Amprtn = Proton  mass (GeV) = Amprmu * Amugev                *
 *         Amntrn = Neutron mass (GeV) = Amnemu * Amugev                *
 *         Amdeut = Deuteron mass (GeV)                                 *
+*         Amtrtn = Triton   mass (GeV) (derived from the CODATA value  *
+*                  in kg, and the amu value in kg->GeV)                *
+*         Am3hel = 3-He     mass (GeV) (derived from the CODATA value  *
+*                  in kg, and the amu value in kg->GeV)                *
 *         Amalph = Alpha    mass (GeV) (derived from the excess mass   *
 *                  and an (approximate) atomic binding not a really    *
 *                  measured constant)                                  *
+*         Ampiop = Pion+  mass (GeV)                                   *
+*         Ampiom = Pion-  mass (GeV)                                   *
+*         Ampio0 = Pion0  mass (GeV)                                   *
 *         Cougfm = e^2 (GeV fm) = Elccgs^2 / Elcmks * 10^-7 * 10^-9    *
 *                * 10^13 (10^..=erg cm->joule cm->GeV cm->GeV fm       *
-*                it is equal to 0.00144 GeV fm                         *
+*                  it is equal to 0.00144 GeV fm                       *
 *         Fscto2 = (Fine structure constant)^2                         *
 *         Fscto3 = (Fine structure constant)^3                         *
 *         Fscto4 = (Fine structure constant)^4                         *
@@ -285,6 +291,9 @@
 *         Prmgnm = proton  magnetic moment (magneton)                  *
 *         Anmgnm = neutron magnetic moment (magneton)                  *
 *         S0Thms = sigma_0 Thomson, 8/3 pi r_e^2 (mb)                  *
+*         Plfrcs = plasma frequency constant = 28.816 eV               *
+*                = Sqrt[ 4 pi alpha hbar^3 / m_e] with hbar in [eV cm] *
+*                  and m_e in [eV]                                     *
 *                                                                      *
 *   Astronomical constants:                                            *
 *                                                                      *
@@ -308,6 +317,8 @@
 *         Fms2mb = from fermi^2 to millibarns                          *
 *         Ba2cmq = from barns to square centimetres                    *
 *         Cmq2ba = from square centimetres to barns                    *
+*         Fmi2cm = from fermi to cm                                    *
+*         Cm2fmi = from cm to fermi                                    *
 *                                                                      *
 *   Useful constants:                                                  *
 *                                                                      *
@@ -316,14 +327,40 @@
 *         Expebn = exponent to be used in the Fermi-Thomas approxima-  *
 *                  ted expression for atomic binding energies          *
 *                    B_atomic (Z) = Fertho x Z^Expebn (GeV)            *
+*         Bex1hy = 1-H atomic binding energies (GeV)                   *
+*         Bex2hy = 2-H atomic binding energy   (GeV) as obtained from  *
+*                  the 2-H (nuclear) mass, the 2-H atomic excess mass  *
+*                  and the amu and electron masses. Consistent within  *
+*                  the p and 2-H mass uncertainties with Bex1hy        *
+*         Bex3hy = 3-H atomic binding energy   (GeV) as obtained from  *
+*                  the 3-H (nuclear) mass, the 3-H atomic excess mass  *
+*                  and the amu and electron masses. Consistent within  *
+*         Bex3he = 3-He atomic binding energy  (GeV) as obtained from  *
+*                  the 3-He (nuclear) mass, the 3-He atomic excess mass*
+*                  and the amu and electron masses. Consistent within  *
+*                  the alpha and 3-He mass uncertainties with Bex4he   *
+*         Bex4he = 4-He atomic binding energy  (GeV) as obtained from  *
+*                  the 4-He (nuclear) mass, the 4-He atomic excess mass*
+*                  and the amu and electron masses. Consistent within  *
+*                  the alpha and 3-He mass uncertainties with Bex4he   *
 *         Bexc12 = Fermi-Thomas approximated expression for 12-C ato-  *
 *                  mic binding energies (GeV)                          *
+*         Bhfzxx = Hartree-Fock atomic binding energies for Z=xx, from *
+*                  Adndt18 243 (1976) and Density-Functional Theory of *
+*                  Atoms and Molecules, R.G.Parr and W.Yang            *
+*                  Please note that the original values are in units   *
+*                  of 2 x Bex1hy                                       *
 *         Amunmu = difference between the atomic and nuclear mass units*
 *         Amuc12 = "Nuclear" mass unit = 1/12 M_nucl (12-C),           *
 *                  M_nucl (12-C) = M_atom (12-C) - 6 m_e + B_atom(12-C)*
+*         Ex1hmv = 1-H (atomic) excess mass in MeV,                    *
+*                  [(Amprtn - Amugev) + Amelct - Bex1hy] x GeVMeV      *
+*         Exnemv = Neutron excess mass in MeV,                         *
+*                  [Amntrn - Amugev] x GeVMeV                          *
 *                                                                      *
 *----------------------------------------------------------------------*
 *
+*  Clight is exact:
       PARAMETER ( CLIGHT = 2.99792458         D+10 )
       PARAMETER ( AVOGAD = 6.0221367          D+23 )
       PARAMETER ( BOLTZM = 1.380658           D-23 )
@@ -337,6 +374,9 @@
       PARAMETER ( AMNEMU = 1.008664904        D+00 )
       PARAMETER ( EPSIL0 = 8.854187817        D-12 )
 *     PARAMETER ( ALPFSC = 1.D+00 / 137.035989561D+00 )
+*  Pvcmu0 is exact:
+      PARAMETER ( PVCMU0 = TWOTWO * TWOPIP * 1.D-07 )
+*  Epsilon0 is exact since c has been fixed:
 *     PARAMETER ( FSCTO2 = ALPFSC * ALPFSC )
 *     PARAMETER ( FSCTO3 = FSCTO2 * ALPFSC )
 *     PARAMETER ( FSCTO4 = FSCTO3 * ALPFSC )
@@ -365,15 +405,28 @@
       PARAMETER ( AMPRTN = 0.93827231         D+00 )
       PARAMETER ( AMNTRN = 0.93956563         D+00 )
       PARAMETER ( AMDEUT = 1.87561339         D+00 )
+      PARAMETER ( AMTRTN = 2.808921005        D+00 )
+      PARAMETER ( AM3HEL = 2.808391482        D+00 )
+*      PARAMETER ( AMALPH = 3.727379239        D+00 )
       PARAMETER ( AMALPH = 3.72738025692891   D+00 )
+      PARAMETER ( AMPIOP = 1.3957018          D-01 )
+      PARAMETER ( AMPIOM = AMPIOP                  )
+      PARAMETER ( AMPIO0 = 1.349766           D-01 )
       PARAMETER ( COUGFM = ELCCGS * ELCCGS / ELCMKS * 1.D-07 * 1.D+13
      &                   * 1.D-09 )
+*      PARAMETER ( RCLSEL = 2.8179403267       D-13 )
       PARAMETER ( RCLSEL = 2.8179409183694872 D-13 )
       PARAMETER ( ALAMB0 = TWOTWO * PIPIPI * RCLSEL / ALPFSC )
+*      PARAMETER ( BLTZMN = 8.6173324          D-14 )
       PARAMETER ( BLTZMN = 8.617385           D-14 )
       PARAMETER ( A0BOHR = PLABRC / ALPFSC / AMELCT )
+*      PARAMETER ( GFOHB3 = 1.1663787          D-05 )
       PARAMETER ( GFOHB3 = 1.16639            D-05 )
       PARAMETER ( GFERMI = GFOHB3 * PLABRC * PLABRC * PLABRC )
+*      PARAMETER ( SIN2TW = 0.23126            D+00 )
+*      PARAMETER ( SIN2TW = 0.23155            D+00 )
+*      PARAMETER ( PRMGNM = 2.792847356        D+00 )
+*      PARAMETER ( ANMGNM =-1.9130427          D+00 )
       PARAMETER ( SIN2TW = 0.2319             D+00 )
       PARAMETER ( PRMGNM = 2.792847386        D+00 )
       PARAMETER ( ANMGNM =-1.91304275         D+00 )
@@ -390,12 +443,23 @@
       PARAMETER ( FMS2MB = 1.0                D+01 )
       PARAMETER ( BA2CMQ = 1.0                D-24 )
       PARAMETER ( CMQ2BA = 1.0                D+24 )
+      PARAMETER ( FMI2CM = 1.0                D-13 )
+      PARAMETER ( CM2FMI = 1.0                D+13 )
+      PARAMETER ( AKG2GR = 1.0                D+03 )
       PARAMETER ( ALGVMV = 6.90775527898214   D+00 )
       PARAMETER ( RADDEG = 180.D+00 / PIPIPI )
       PARAMETER ( DEGRAD = PIPIPI / 180.D+00 )
+      PARAMETER ( GEVGRA = ELCMKS * GEV2EV * AKG2GR )
       PARAMETER ( GEVOMG = CLIGHT * 1.D+13 / PLABRC )
       PARAMETER ( S0THMS = EIGEIG / THRTHR * PIPIPI * RCLSEL * RCLSEL
      &                   * CMQ2MB )
+*  Plasma frequency constant, to be recomputed every time alpha, m_e,
+*  hbar or N_av change, it requires a Sqrt ergo it cannot be
+*  parametrized explicitly as a function of the above constants
+*     PARAMETER ( PLFRCS = SQRT ( ALPFSC * FOUFOU * PIPIPI
+*    &                   * ( PLABRC * FMI2CM )**3 / AMELCT * AVOGAD )
+*    &                   * GEV2EV )
+      PARAMETER ( PLFRCS = 2.8815937226648276D+01 )
 *  Old Fermi-Thomas parametrization of atomic binding energies:
 *     PARAMETER ( FERTHO = 15.73       D-09 )
 *     PARAMETER ( EXPEBN = 7.D+00 / 3.D+00  )
@@ -403,9 +467,31 @@
 *  New Fermi-Thomas parametrization of atomic binding energies:
       PARAMETER ( FERTHO = 14.33       D-09 )
       PARAMETER ( EXPEBN = 2.39        D+00 )
+      PARAMETER ( BEX1HY = 13.61       D-09 )
+      PARAMETER ( BEX2HY = 14.188      D-09 )
+      PARAMETER ( BEX3HY = 14.818      D-09 )
+      PARAMETER ( BEX3HE = 81.346      D-09 )
+      PARAMETER ( BEX4HE = 77.246      D-09 )
+      PARAMETER ( BHFZ02 = TWOTWO * BEX1HY * 2.8615  D+00 )
+      PARAMETER ( BHFZ03 = TWOTWO * BEX1HY * 7.4290  D+00 )
+      PARAMETER ( BHFZ04 = TWOTWO * BEX1HY * 14.569  D+00 )
+      PARAMETER ( BHFZ05 = TWOTWO * BEX1HY * 24.530  D+00 )
       PARAMETER ( BEXC12 = FERTHO * 72.40715579499394D+00 )
+      PARAMETER ( BHFZ06 = TWOTWO * BEX1HY * 37.645  D+00 )
+      PARAMETER ( BHFZ07 = TWOTWO * BEX1HY * 54.303  D+00 )
+      PARAMETER ( BHFZ08 = TWOTWO * BEX1HY * 74.801  D+00 )
+      PARAMETER ( BHFZ09 = TWOTWO * BEX1HY * 99.471  D+00 )
+      PARAMETER ( BHFZ10 = TWOTWO * BEX1HY * 128.55  D+00 )
+      PARAMETER ( BHFZ18 = TWOTWO * BEX1HY * 526.82  D+00 )
+      PARAMETER ( BHFZ36 = TWOTWO * BEX1HY * 2752.0  D+00 )
+      PARAMETER ( BHFZ54 = TWOTWO * BEX1HY * 7232.1  D+00 )
+*      PARAMETER ( AMUNMU = HLFHLF * AMELCT - BHFZ06 / 12.D+00 )
       PARAMETER ( AMUNMU = HLFHLF * AMELCT - BEXC12 / 12.D+00 )
       PARAMETER ( AMUC12 = AMUGEV - AMUNMU )
+*  p and n excess mass in MeV:
+      PARAMETER ( EX1HMV = ( ( AMPRTN - AMUGEV ) + AMELCT - BEX1HY )
+     &                       * GEVMEV )
+      PARAMETER ( EXNEMV = ( AMNTRN - AMUGEV ) * GEVMEV )
 *  Old MeV units:
       PARAMETER ( AMEMEV = GEVMEV * AMELCT )
 *  Infinite and "zero" T1/2:
@@ -414,16 +500,11 @@
 *
       LOGICAL LFLUKA, LGBIAS, LGBANA, LFLGEO, LOFLTS, LUSRIN,
      &        LUSRGL, LNMGEO, LNMINP, LFRFMT, LDMPCR
-* Start_VMC_seq
-      LOGICAL LFDRTR
-* End_VMC_seq
+      LOGICAL LLDFLR, LDPBDY
       COMMON / GLOBAL / LFLUKA, LGBIAS, LGBANA, LFLGEO, LOFLTS, LUSRIN,
      &                  LUSRGL, LNMGEO, LNMINP, LFRFMT, LDMPCR,
-* Start_VMC_seq
-     &                  LFDRTR,
-* End_VMC_seq
+     &                  LLDFLR, LDPBDY,
      &                  KFLGEO, KFLDNR
       COMMON / GLOBCH / CRVRFL
       CHARACTER*8 CRVRFL
       SAVE / GLOBAL /, / GLOBCH /
-
