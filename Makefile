@@ -188,6 +188,7 @@ common/dpmjetIII191.pyf:
 	$(DEL_COMMAND) f2pytemp.f f2py_cpp.f f2pytemp.s
 
 lib/libDPMJET.a:  $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DPMJET_OBJS) $(DUMMY_OBJS)
+	if [ ! -d lib ]; then $(MKDIR_COMMAND) lib; fi
 	ar -crs lib/libDPMJET.a $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
 
 .f.o:
