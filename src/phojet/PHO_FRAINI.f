@@ -57,7 +57,7 @@ C  declare stable particles
  
 C  load optimized parameters
 C*anfe try PYTHIA default
-      IF ( idefab.GE.3 .AND. .FALSE. ) THEN
+      IF ( idefab.GE.3 ) THEN
  
 C       PARJ(19)=0.19
 C  Lund a-parameter

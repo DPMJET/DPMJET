@@ -217,7 +217,7 @@ C*anfe Reset all parameters before changing anything.
  
 C PHOJET settings
 C*anfe try PYTHIA default
-      IF ( Mode.EQ.1 .OR. Mode.EQ.2 ) THEN
+      IF ( Mode.EQ.1 ) THEN
  
 C*anfe 26.08.2015 fragmentation parameters
 C* Fragmentation parameters for 'new' Popcorn in PYTHIA
@@ -264,7 +264,21 @@ C* Parameters for traditional popcorn model
          PARj(21) = 0.42D0
          PARj(41) = 0.3D0
          PARj(42) = 0.85D0
- 
+
+#ifdef FOR_FLUKA
+**FLUKA4 parameters
+         PARJ(1) = 0.09D0
+         PARJ(2) = 0.22D0
+         PARJ(3) = 0.9D0
+         PARJ(5) = 0.1D0
+         PARJ(7) = 0.95D0
+         PARj(18)= 1D0
+         PARJ(21)= 0.42D0
+         PARJ(41)= 0.3D0
+         PARJ(42)= 1.0D0
+         MSTj(12)= 2
+#endif
+
          IF ( NPArj.GT.0 ) THEN
             DO i = 1 , NPArj
                IF ( IPArj(i).GT.0 ) PARj(IPArj(i)) = PARjx(i)
