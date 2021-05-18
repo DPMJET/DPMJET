@@ -1,5 +1,9 @@
 ## DPMJET-III
 
+19.2.0:
+- Synchronization of fragmentation parameters between this and the previous FLUKa version of DPMJET
+- Minor but notable change to physics 
+
 19.1.2:
 - Minor changes of conditional compilations for FLUKA compatibility 
 
