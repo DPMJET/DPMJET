@@ -89,20 +89,12 @@ C prevent particles from decaying
             DO i = 1 , 35
                IF ( i.LT.34 ) THEN
    
-                  kc = PYCOMP(idxsta(i))
-   
-                  IF ( i.EQ.2 ) THEN
-C  pi0 decay
-C                 MDCY(KC,1) = 1
-                     MDCy(kc,1) = 0
-                  ELSE
-                     MDCy(kc,1) = 0
-                  END IF
-               ELSE IF (((i.EQ.34).OR.(i.EQ.35)).AND.(ISIg0.EQ.0))
+                  kc = PYCOMP(idxsta(i))  
+                  MDCy(kc,1) = 0
+
+               ELSE IF ((ABS(idxsta(i)).EQ.3212).AND.(ISIg0.EQ.0))
      &                THEN
-   
                   kc = PYCOMP(idxsta(i))
-   
                   MDCy(kc,1) = 0
                END IF
             END DO
@@ -158,14 +150,6 @@ C and let all other particles decay (i.e. those with strong decays)
          END IF
  
 C
-C popcorn:
-C          IF (PDB.LE.ZERO) THEN
-C *   no popcorn-mechanism
-C             MSTJ(12) = 1
-C          ELSE
-C             MSTJ(12) = 3
-C             PARJ(5)  = PDB
-C          ENDIF
 C set JETSET-parameter requested by input cards
          IF ( NMStu.GT.0 ) THEN
             DO i = 1 , NMStu
@@ -216,57 +200,7 @@ C*anfe Reset all parameters before changing anything.
       MSTj(12) = mdef12
  
 C PHOJET settings
-C*anfe try PYTHIA default
       IF ( Mode.EQ.1 ) THEN
- 
-C*anfe 26.08.2015 fragmentation parameters
-C* Fragmentation parameters for 'new' Popcorn in PYTHIA
-         ! PARJ(1) = 0.5D0
-         ! ! PARJ(2) = 0.2D0
-         ! ! PARJ(3) = 0.9D0
-         ! ! PARJ(4) = 0.D0
-         ! ! PARJ(5) = 0.2D0
-         ! ! PARJ(6) = 0.9D0
-         ! ! PARJ(7) = 1.D0
-         ! ! PARJ(11) = 0.5D0
-         ! PARJ(8) = 0.1D0
-         ! PARJ(9) = 0.5D0
-         ! PARJ(10) = 1.5D0
-         ! PARJ(18)= 0.19D0
-         ! ! PARJ(19)= 0.05D0
-         ! PARJ(21)= 0.43D0
-         ! ! PARJ(41)=0.3D0
-         ! ! PARJ(42)=1.D0
-         ! PARJ(45)=2.D0
-         ! MSTJ(12)=5
-C* Parameters for traditional popcorn model
-         ! PARJ(1) = 0.25D0
-         ! PARJ(2) = 0.2D0
-         ! PARJ(3) = 0.9D0
-         ! ! PARJ(4) = 0.D0
-         ! PARJ(5) = 0.2D0
-         ! ! PARJ(6) = 0.9D0
-         ! PARJ(7) = 1.D0
-         ! PARJ(11) = 0.5D0
-         ! ! PARJ(19)= 0.05D0
-         ! PARJ(21)= 0.42D0
-         ! PARJ(41)=0.2D0
-         ! PARJ(42)=0.75D0
-         MSTj(12) = 3
- 
-         PARj(1) = 0.08D0
-         PARj(2) = 0.16D0
-         PARj(3) = 0.9D0
-         PARj(5) = 0.2D0
-         PARj(7) = 0.85D0
-         PARj(18) = 0.1D0
- 
-         PARj(21) = 0.42D0
-         PARj(41) = 0.3D0
-         PARj(42) = 0.85D0
-
-#ifdef FOR_FLUKA
-**FLUKA4 parameters
          PARJ(1) = 0.09D0
          PARJ(2) = 0.22D0
          PARJ(3) = 0.9D0
@@ -277,7 +211,6 @@ C* Parameters for traditional popcorn model
          PARJ(41)= 0.3D0
          PARJ(42)= 1.0D0
          MSTj(12)= 2
-#endif
 
          IF ( NPArj.GT.0 ) THEN
             DO i = 1 , NPArj
