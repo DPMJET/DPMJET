@@ -2,7 +2,8 @@
 
 19.2.0:
 - Synchronization of fragmentation parameters between this and the previous FLUKa version of DPMJET
-- Minor but notable change to physics 
+- Minor but notable change to physics
+- Explicit INT declaration in computed constant NXZFBK of (FRBKCM) for f2py
 
 19.1.2:
 - Minor changes of conditional compilations for FLUKA compatibility 

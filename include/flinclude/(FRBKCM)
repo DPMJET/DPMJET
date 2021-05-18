@@ -156,8 +156,10 @@
       PARAMETER ( MXAFBK =    16 )
       PARAMETER ( MXASST =    25 )
       PARAMETER ( NXAFBK = MXAFBK + 1 )
-      PARAMETER ( NXZFBK = MXZFBK + MXFFBK / 3 + MXASST - NXAFBK )
-      PARAMETER ( NXNFBK = MXNFBK + MXFFBK / 3 + MXASST - NXAFBK )
+      PARAMETER ( NXZFBK = INT(MXZFBK + MXFFBK / 3 + 
+     &   MXASST - NXAFBK) )
+      PARAMETER ( NXNFBK = INT(MXNFBK + MXFFBK / 3 + 
+     &    MXASST - NXAFBK) )
 *  Maximum number of "stable" particle states
       PARAMETER ( MXPSST =   700 )
 *  Maximum number of pre-computed break-up combinations
