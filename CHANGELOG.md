@@ -1,5 +1,9 @@
 ## DPMJET-III
 
+19.2.1:
+- No change to the model
+- Added one example for photo hadronic interactions with PHOJET w/o using input cards
+
 19.2.0:
 - Synchronization of fragmentation parameters between this and the previous FLUKa version of DPMJET
 - Minor but notable change to physics
