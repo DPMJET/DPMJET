@@ -1,4 +1,4 @@
-
+      
       SUBROUTINE DT_FICONF(Ijproj,Ip,Ipz,It,Itz,Nloop,Irej)
  
 C***********************************************************************
@@ -10,13 +10,11 @@ C This version dated 12.12.95 is written by S. Roesler.                *
 C***********************************************************************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 
-      DOUBLE PRECISION aif , aizf , akprho , AMELCT , amelec , AMNAMA , 
-     &                 AMNTRN , AMPRTN , amrcl , AMUC12 , AMUGEV , 
-     &                 AMUNMU , ANGLGB , BEXC12 , COUGFM , dlkprh , 
-     &                 DT_RNDM , ELCCGS , ELCMKS , EMVGEV
-      DOUBLE PRECISION etaeta , exc , excitf , EXMSAZ , expnuc , 
-     &                 FERTHO , frcfll , frmrdc , HLFHLF , ONE , p1in , 
-     &                 p1out , p2in , p2out , PFRMAV , prcl , prcl0 , 
+      DOUBLE PRECISION aif , aizf , akprho , amrcl , ANGLGB ,
+     &                 dlkprh ,  DT_RNDM
+      DOUBLE PRECISION etaeta , exc , excitf , expnuc , 
+     &                 frcfll , frmrdc , ONE , p1in , 
+     &                 p1out , p2in , p2out , prcl , prcl0 , 
      &                 prfrmi , prskin , ptold
       DOUBLE PRECISION ptorcl , rdcore , redctn , redori , skinrh , 
      &                 TINY10 , TINY3 , vrcl , we , wrcl , xm1 , xm2 , 
@@ -53,29 +51,19 @@ C flags for input different options
       INCLUDE 'inc/dtflg1'
 C particle properties (BAMJET index convention)
       INCLUDE 'inc/dtpart'
-      
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(GENSTK)'
-      INCLUDE '(RESNUC)'
-      PARAMETER (EMVGEV=1.0D-03)
-      PARAMETER (AMUGEV=0.93149432D+00)
-      PARAMETER (AMPRTN=0.93827231D+00)
-      PARAMETER (AMNTRN=0.93956563D+00)
-      PARAMETER (AMELCT=0.51099906D-03)
-      PARAMETER (ELCCGS=4.8032068D-10)
-      PARAMETER (ELCMKS=1.60217733D-19)
-      PARAMETER (COUGFM=ELCCGS*ELCCGS/ELCMKS*1.D-07*1.D+13*1.D-09)
-      PARAMETER (HLFHLF=0.5D+00)
-      PARAMETER (FERTHO=14.33D-09)
-      PARAMETER (BEXC12=FERTHO*72.40715579499394D+00)
-      PARAMETER (AMUNMU=HLFHLF*AMELCT-BEXC12/12.D+00)
-      PARAMETER (AMUC12=AMUGEV-AMUNMU)
-      INCLUDE '(NUCDAT)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(FHEAVY)'
- 
 C event flag
       INCLUDE 'inc/dtevno'
+      
+#ifdef FOR_FLUKA
+      INCLUDE 'inc/flkeva'
+      INCLUDE 'inc/flkpev'
+      DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
+      EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
+#else
+      INCLUDE 'inc/dpmeva'
+      INCLUDE 'inc/dpmpev'
+      INCLUDE 'inc/dpmstf'
+#endif
  
       DIMENSION inuc(2) , idxpar(2) , idpar(2) , aif(2) , aizf(2) , 
      &          amrcl(2) , prcl(2,4) , mo1(2) , mo2(2) , vrcl(2,4) , 
@@ -206,7 +194,7 @@ C mass number and charge of residual nuclei
 C masses of residual nuclei in ground state
  
 C           AMRCL0(I) = AIF(I)*AMUAMU+1.0D-3*ENERGY(AIF(I),AIZF(I))
-            AMRcl0(i) = aif(i)*AMUC12 + EMVGEV*EXMSAZ(aif(i),aizf(i),
+            AMRcl0(i) = aif(i)*AMU12C + EMV2GV*EXMSAZ(aif(i),aizf(i),
      &                  .TRUE.,izdum)
  
 C masses of residual nuclei
@@ -281,7 +269,7 @@ C  === A.F. === *
                   nnchit = MAX(inuc(i)-NTOt(i),0)
                   IF ( ilcopt.LE.2 ) THEN
 C Patch for Fermi momentum reduction correlated with impact parameter:
-                     frmrdc = MIN((PFRMAV(inuc(i))/APFrmx)**3,ONE)
+                     frmrdc = MIN((PFRMAV(inuc(i))/AMXpfr)**3,ONE)
                      dlkprh = 0.1D+00 + 0.5D+00/SQRT(DBLE(inuc(i)))
                      akprho = ONE - dlkprh
 C f x K rho_cen + (1-f) x 0.5 x K rho_cen = frmrdc x rho_cen
@@ -312,8 +300,8 @@ CD                    WRITE(77,*)' PRSKIN,FRCFLL',PRSKIN,FRCFLL
      &                        *(ONE-frcfll)*skinrh)
                            skinrh = skinrh*(ONE+etaeta)
 C                          WRITE(77,*)
-C    &               ' SKINRH,NCH,INUC(I),FRCFLL,FRMRDC,APFRMX',
-C    &                 SKINRH,NCH,INUC(I),FRCFLL,FRMRDC,APFRMX
+C    &               ' SKINRH,NCH,INUC(I),FRCFLL,FRMRDC,AMXPFR',
+C    &                 SKINRH,NCH,INUC(I),FRCFLL,FRMRDC,AMXPFR
                         END DO
                         prskin = skinrh**(nnchit-1)
                      ELSE IF ( ilcopt.EQ.2 ) THEN
@@ -476,12 +464,7 @@ C   fill resnuc only if code is not used as event generator in Fluka
 C   ground state mass of the residual nucleus (should be equal to AM0T)
  
                   AMNres = AMRcl0(i)
-#ifdef FOR_FLUKA
                   AMMres = AMNAMA(AMNres,IBRes,ICRes)
-#else
-C**af added to replace amnama from original DPMJET
-                  AMNres = AMMres - ZNOw*amelec + ELBnde(ICRes)
-#endif
  
 C  common FKFINU
                   TV = ZERO
@@ -506,7 +489,7 @@ C movd from above
                   NPHeav = 0
                   LRNfss = .FALSE.
                   LFRagm = .FALSE.
-                  CALL EVEVAP(we)
+                  WCheck = CLFLEV (we)
  
 C put evaporated particles and residual nuclei to DTEVT1
                   mo = NHKk
