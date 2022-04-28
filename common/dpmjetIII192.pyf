@@ -2630,6 +2630,132 @@ python module dpmjetIII192 ! in
             common /dtquar/ iqechr,iqbchr,iqichr,iqschr,iqcchr,iquchr,iqtchr,mquark
             common /popar2/ xm_list,tau_list,gam_list,xm_psm2_list,xm_vem2_list,xm_b82_list,xm_b102_list,xm_bb82_list,xm_bb102_list,ich3_list,iba3_list,iq_list,id_psm_list,id_vem_list,id_b8_list,id_b10_list
         end subroutine dt_flahad
+        subroutine dt_getptn(ip,nn,ncsy,irej) ! in :dpmjetIII192:f2py_cpp.f
+            integer :: ip
+            integer :: nn
+            integer :: ncsy
+            integer :: irej
+            integer :: linp
+            integer :: lout
+            integer :: ldat
+            integer :: lpri
+            integer :: nhkk
+            integer :: nevhkk
+            integer dimension(250000) :: isthkk
+            integer dimension(250000) :: idhkk
+            integer dimension(2,250000) :: jmohkk
+            integer dimension(2,250000) :: jdahkk
+            double precision dimension(5,250000) :: phkk
+            double precision dimension(4,250000) :: vhkk
+            double precision dimension(4,250000) :: whkk
+            integer dimension(250000) :: idres
+            integer dimension(250000) :: idxres
+            integer dimension(250000) :: nobam
+            integer dimension(250000) :: idbam
+            integer dimension(250000) :: idch
+            integer dimension(10) :: npoint
+            integer dimension(2,250000) :: ihist
+            integer dimension(2) :: ifrag
+            integer :: iresco
+            integer :: imshl
+            integer :: iresrj
+            integer dimension(6) :: ioulev
+            logical :: lemcck
+            logical dimension(10) :: lhadro
+            logical :: lseadi
+            logical :: levapo
+            integer :: iframe
+            integer :: itrspt
+            integer :: ifusion
+            integer :: iflow
+            integer dimension(8,5460) :: iskpch
+            integer dimension(260) :: iposp
+            integer dimension(260) :: ipost
+            integer :: icrequ
+            integer :: icsamp
+            integer :: iccpro
+            integer :: icdpr
+            integer :: icdta
+            integer :: icrjss
+            integer :: icvv2s
+            integer dimension(2,9) :: icchai
+            integer dimension(9) :: icres
+            integer dimension(5) :: icdiff
+            integer dimension(8,31) :: icevtg
+            integer :: isingd
+            integer :: idoubd
+            integer :: iflagd
+            integer :: idiff
+            double precision dimension(260) :: xpvq
+            double precision dimension(260) :: xpvd
+            double precision dimension(260) :: xtvq
+            double precision dimension(260) :: xtvd
+            double precision dimension(5200) :: xpsq
+            double precision dimension(5200) :: xpsaq
+            double precision dimension(5200) :: xtsq
+            double precision dimension(5200) :: xtsaq
+            integer dimension(260) :: ipvq
+            integer dimension(260) :: ippv1
+            integer dimension(260) :: ippv2
+            integer dimension(260) :: itvq
+            integer dimension(260) :: ittv1
+            integer dimension(260) :: ittv2
+            integer dimension(5200) :: ipsq
+            integer dimension(5200) :: ipsq2
+            integer dimension(5200) :: ipsaq
+            integer dimension(5200) :: ipsaq2
+            integer dimension(5200) :: itsq
+            integer dimension(5200) :: itsq2
+            integer dimension(5200) :: itsaq
+            integer dimension(5200) :: itsaq2
+            integer dimension(260) :: kkproj
+            integer dimension(260) :: kktarg
+            integer :: nvv
+            integer :: nsv
+            integer :: nvs
+            integer :: nss
+            integer :: ndv
+            integer :: nvd
+            integer :: nds
+            integer :: nsd
+            integer :: ixpv
+            integer :: ixps
+            integer :: ixtv
+            integer :: ixts
+            integer dimension(260) :: intvv1
+            integer dimension(260) :: intvv2
+            integer dimension(260) :: intsv1
+            integer dimension(260) :: intsv2
+            integer dimension(260) :: intvs1
+            integer dimension(260) :: intvs2
+            integer dimension(5200) :: intss1
+            integer dimension(5200) :: intss2
+            integer dimension(260) :: intdv1
+            integer dimension(260) :: intdv2
+            integer dimension(260) :: intvd1
+            integer dimension(260) :: intvd2
+            integer dimension(5200) :: intds1
+            integer dimension(5200) :: intds2
+            integer dimension(5200) :: intsd1
+            integer dimension(5200) :: intsd2
+            integer dimension(260) :: ifrovp
+            integer dimension(260) :: itovp
+            integer dimension(5200) :: ifrosp
+            integer dimension(260) :: ifrovt
+            integer dimension(260) :: itovt
+            integer dimension(5200) :: ifrost
+            common /dtflka/ linp,lout,ldat,lpri
+            common /dtevt1/ nhkk,nevhkk,isthkk,idhkk,jmohkk,jdahkk,phkk,vhkk,whkk
+            common /dtevt2/ idres,idxres,nobam,idbam,idch,npoint,ihist
+            common /dtflg1/ ifrag,iresco,imshl,iresrj,ioulev,lemcck,lhadro,lseadi,levapo,iframe,itrspt,ifusion,iflow
+            common /dtchsy/ iskpch,iposp,ipost
+            common /dtsta1/ icrequ,icsamp,iccpro,icdpr,icdta,icrjss,icvv2s,icchai,icres,icdiff,icevtg
+            common /dtflg3/ isingd,idoubd,iflagd,idiff
+            common /dtdpmx/ xpvq,xpvd,xtvq,xtvd,xpsq,xpsaq,xtsq,xtsaq
+            common /dtdpmf/ ipvq,ippv1,ippv2,itvq,ittv1,ittv2,ipsq,ipsq2,ipsaq,ipsaq2,itsq,itsq2,itsaq,itsaq2,kkproj,kktarg
+            common /dtdpmi/ nvv,nsv,nvs,nss,ndv,nvd,nds,nsd,ixpv,ixps,ixtv,ixts,intvv1,intvv2,intsv1,intsv2,intvs1,intvs2,intss1,intss2,intdv1,intdv2,intvd1,intvd2,intds1,intds2,intsd1,intsd2
+            common /dtdpm0/ ifrovp,itovp,ifrosp,ifrovt,itovt,ifrost
+        end subroutine dt_getptn
         subroutine dt_title ! in :dpmjetIII192:f2py_cpp.f
             integer :: linp
             integer :: lout
@@ -3185,5 +3311,5 @@ python module dpmjetIII192 ! in
     end interface 
 end python module dpmjetIII192
 
-! This file was auto-generated with f2py (version:1.20.2).
+! This file was auto-generated with f2py (version:2).
 ! See http://cens.ioc.ee/projects/f2py2e/
