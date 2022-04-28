@@ -4,11 +4,11 @@
 C***********************************************************************
 C                                                                      *
 C     Version September 2001      by   Stefan Roesler                  *
-C     Last change  on  05-nov-01  by   Stefan Roesler                  *
+C     Last change  on  12-Feb-22  by   Alfredo Ferrari                 *
 C                                                                      *
 C     This subroutine is part of the FLUKA interface to DPMJET 3.      *
 C     Call to DPMJET 3 for event generation.                           *
-C                                                                     *
+C                                                                      *
 C***********************************************************************
 C
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
@@ -16,8 +16,6 @@ C
       INTEGER Iap , Iat , idp , IDPmev , IHEhad , IHEnuc , IHIjpr , 
      &        IHMapr , IHMata , Ijdpm , irej , Izp , Izt , kkmat
       SAVE 
- 
-      INCLUDE '(IOUNIT)'
  
 C event flag
       INCLUDE 'inc/dtevno'
@@ -50,7 +48,7 @@ C   for virtual vector mesons assume pi0 (as in eventv)
             idp = 23
          ELSE
 C   otherwise assume pi instead
-            WRITE (LUNDPM,*) 
+            WRITE (LOUt,*) 
      &                  ' EVENTD: Particle cannot be handled by Dpmjet '
      &                  , Ijdpm , idp
             idp = 23

@@ -3,7 +3,8 @@
       
 #ifdef FOR_FLUKA
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      INCLUDE '(IOUNIT)'
+      PARAMETER ( LUNRDB = 1 )
+      INTEGER LUNRDB
 #else
       IMPLICIT NONE
 #endif
