@@ -10,18 +10,21 @@ C***********************************************************************
       IMPLICIT NONE
       DOUBLE PRECISION am1 , am2 , amds , amss , amvd , amvs , amvv , 
      &                 ech , OHALF , pp , pp1 , pp2 , pt , pt1 , pt2 , 
-     &                 ptoch , TINY10 , ZERO
+     &                 ptoch , TINY10 , ZERO, DT_CSTRMA, DT_RNDM, SMTHR
       INTEGER i , IDT_IB2PDG , idxp , idxt , ifp1 , ifp2 , ift1 , ift2 , 
      &        Ip , Irej , irej1 , istck , k , MAXINT , MAXNCL , MAXSQU , 
      &        MAXVQU , mop , mot , Ncsy
       INTEGER Nn
       SAVE 
- 
+
+      EXTERNAL DT_CSTRMA, DT_RNDM
+      
       INCLUDE 'inc/dtflka'
  
       PARAMETER (TINY10=1.0D-10,ZERO=0.0D0,OHALF=0.5D0)
  
       LOGICAL lchk
+      PARAMETER (SMTHR=0.82D0)
  
  
       PARAMETER (MAXNCL=260,MAXVQU=MAXNCL,MAXSQU=20*MAXVQU,
@@ -72,14 +75,8 @@ C sea-sea chains
                pt1(k) = XTSaq(idxt)*PHKk(k,mot)
                pt2(k) = XTSq(idxt)*PHKk(k,mot)
             END DO
-            ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &              **2+(pp1(3)+pt1(3))**2)
-            ech = pp1(4) + pt1(4)
-            am1 = (ech+ptoch)*(ech-ptoch)
-            ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &              **2+(pp2(3)+pt2(3))**2)
-            ech = pp2(4) + pt2(4)
-            am2 = (ech+ptoch)*(ech-ptoch)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
                am2 = SQRT(am2)
@@ -122,14 +119,9 @@ C disea-sea chains
                pt1(k) = XTSq(idxt)*PHKk(k,mot)
                pt2(k) = XTSaq(idxt)*PHKk(k,mot)
             END DO
-            ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &              **2+(pp1(3)+pt1(3))**2)
-            ech = pp1(4) + pt1(4)
-            am1 = (ech+ptoch)*(ech-ptoch)
-            ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &              **2+(pp2(3)+pt2(3))**2)
-            ech = pp2(4) + pt2(4)
-            am2 = (ech+ptoch)*(ech-ptoch)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
+
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
                am2 = SQRT(am2)
@@ -172,14 +164,9 @@ C sea-disea chains
                pt1(k) = XTSq(idxt)*PHKk(k,mot)
                pt2(k) = XTSaq(idxt)*PHKk(k,mot)
             END DO
-            ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &              **2+(pp1(3)+pt1(3))**2)
-            ech = pp1(4) + pt1(4)
-            am1 = (ech+ptoch)*(ech-ptoch)
-            ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &              **2+(pp2(3)+pt2(3))**2)
-            ech = pp2(4) + pt2(4)
-            am2 = (ech+ptoch)*(ech-ptoch)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
+
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
                am2 = SQRT(am2)
@@ -222,14 +209,9 @@ C disea-valence chains
                pt1(k) = XTVq(idxt)*PHKk(k,mot)
                pt2(k) = XTVd(idxt)*PHKk(k,mot)
             END DO
-            ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &              **2+(pp1(3)+pt1(3))**2)
-            ech = pp1(4) + pt1(4)
-            am1 = (ech+ptoch)*(ech-ptoch)
-            ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &              **2+(pp2(3)+pt2(3))**2)
-            ech = pp2(4) + pt2(4)
-            am2 = (ech+ptoch)*(ech-ptoch)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
+
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
                am2 = SQRT(am2)
@@ -278,6 +260,18 @@ C valence-sea chains
             ift2 = IDT_IB2PDG(ITSq(idxt),0,2)
             CALL DT_CHKCSY(ifp1,ift1,lchk)
             IF ( lchk ) THEN
+               am1 = DT_CSTRMA(pp1, pt1)
+               am2 = DT_CSTRMA(pp2, pt2)
+
+               IF (abs(ift1).eq.3) THEN
+C                  WRITE(6,*) 'Case 1:', SQRT(am1), SQRT(am2), ift1, ift2
+                  IF ((SQRT(am1).LT.SMTHR).OR.
+     &                (SQRT(am2).LT.SMTHR)) THEN
+                     ift1 = SIGN(INT(2.0D0*DT_RNDM() + 1.D0), ift1)
+                     ift2 = -ift1
+C                     WRITE(6,*) 'After swap', ift1, ift2
+                  END IF
+               ENDIF
                CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4)
      &                        ,0,0,6)
                CALL DT_EVTPUT(-32,ift1,mot,0,pt1(1),pt1(2),pt1(3),pt1(4)
@@ -286,15 +280,19 @@ C valence-sea chains
      &                        ,0,0,6)
                CALL DT_EVTPUT(-32,ift2,mot,0,pt2(1),pt2(2),pt2(3),pt2(4)
      &                        ,0,0,6)
-               ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &                 **2+(pp1(3)+pt1(3))**2)
-               ech = pp1(4) + pt1(4)
-               am1 = (ech+ptoch)*(ech-ptoch)
-               ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &                 **2+(pp2(3)+pt2(3))**2)
-               ech = pp2(4) + pt2(4)
-               am2 = (ech+ptoch)*(ech-ptoch)
             ELSE
+               am2 = DT_CSTRMA(pp1, pt2)
+               am1 = DT_CSTRMA(pp2, pt1)
+
+               IF (abs(ift1).eq.3) THEN
+C                  WRITE(6,*) 'Case 2:', SQRT(am1), SQRT(am2), ift1, ift2
+                  IF ((SQRT(am1).LT.SMTHR).OR.
+     &                (SQRT(am2).LT.SMTHR)) THEN
+                     ift1 = SIGN(INT(2.0D0*DT_RNDM() + 1.D0), ift1)
+                     ift2 = -ift1
+C                     WRITE(6,*) 'After swap', ift1, ift2
+                  END IF
+               ENDIF
                CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4)
      &                        ,0,0,6)
                CALL DT_EVTPUT(-32,ift2,mot,0,pt2(1),pt2(2),pt2(3),pt2(4)
@@ -303,14 +301,6 @@ C valence-sea chains
      &                        ,0,0,6)
                CALL DT_EVTPUT(-32,ift1,mot,0,pt1(1),pt1(2),pt1(3),pt1(4)
      &                        ,0,0,6)
-               ptoch = SQRT((pp1(1)+pt2(1))**2+(pp1(2)+pt2(2))
-     &                 **2+(pp1(3)+pt2(3))**2)
-               ech = pp1(4) + pt2(4)
-               am2 = (ech+ptoch)*(ech-ptoch)
-               ptoch = SQRT((pp2(1)+pt1(1))**2+(pp2(2)+pt1(2))
-     &                 **2+(pp2(3)+pt1(3))**2)
-               ech = pp2(4) + pt1(4)
-               am1 = (ech+ptoch)*(ech-ptoch)
             END IF
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
@@ -342,30 +332,32 @@ C sea-valence chains
                pt1(k) = XTVd(idxt)*PHKk(k,mot)
                pt2(k) = XTVq(idxt)*PHKk(k,mot)
             END DO
-            ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &              **2+(pp1(3)+pt1(3))**2)
-            ech = pp1(4) + pt1(4)
-            am1 = (ech+ptoch)*(ech-ptoch)
-            ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &              **2+(pp2(3)+pt2(3))**2)
-            ech = pp2(4) + pt2(4)
-            am2 = (ech+ptoch)*(ech-ptoch)
+            ifp1 = IDT_IB2PDG(IPSq(idxp),0,2)
+            ifp2 = IDT_IB2PDG(IPSaq(idxp),0,2)
+            ift1 = IDT_IB2PDG(ITTv1(idxt),ITTv2(idxt),2)
+            ift2 = IDT_IB2PDG(ITVq(idxt),0,2)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
+            IF (abs(ifp1).eq.3) THEN
+C               WRITE(6,*) 'Case 1:', SQRT(am1), SQRT(am2), ifp1, ifp2
+               IF ((SQRT(am1).LT.SMTHR).OR.
+     &             (SQRT(am2).LT.SMTHR)) THEN
+                  ifp1 = SIGN(INT(2.0D0*DT_RNDM() + 1.D0), ifp1)
+                  ifp2 = -ifp1
+C                  WRITE(6,*) 'After swap', ifp1, ifp2
+               END IF
+            ENDIF
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
                am2 = SQRT(am2)
                IF ( (am1.LT.amvs) .OR. (am2.LT.amss) ) THEN
                END IF
             ELSE
- 
                IF ( LPRi.GT.4 ) WRITE (LOUt,99060) NEVhkk , i , am1 , 
      &              am2
 C              WRITE(LOUT,5005) NEVHKK,I,AM1,AM2
 99060          FORMAT (1X,'incon. chain mass SV: ',2I5,2E10.3)
             END IF
-            ifp1 = IDT_IB2PDG(IPSq(idxp),0,2)
-            ifp2 = IDT_IB2PDG(IPSaq(idxp),0,2)
-            ift1 = IDT_IB2PDG(ITTv1(idxt),ITTv2(idxt),2)
-            ift2 = IDT_IB2PDG(ITVq(idxt),0,2)
             CALL DT_EVTPUT(-31,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4),0,
      &                     0,4)
             CALL DT_EVTPUT(-22,ift1,mot,0,pt1(1),pt1(2),pt1(3),pt1(4),0,
@@ -406,14 +398,8 @@ C valence-disea chains
      &                        ,0,0,7)
                CALL DT_EVTPUT(-32,ift2,mot,0,pt2(1),pt2(2),pt2(3),pt2(4)
      &                        ,0,0,7)
-               ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
-     &                 **2+(pp1(3)+pt1(3))**2)
-               ech = pp1(4) + pt1(4)
-               am1 = (ech+ptoch)*(ech-ptoch)
-               ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &                 **2+(pp2(3)+pt2(3))**2)
-               ech = pp2(4) + pt2(4)
-               am2 = (ech+ptoch)*(ech-ptoch)
+               am1 = DT_CSTRMA(pp1, pt1)
+               am2 = DT_CSTRMA(pp2, pt2)
             ELSE
                CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4)
      &                        ,0,0,7)
@@ -423,14 +409,8 @@ C valence-disea chains
      &                        ,0,0,7)
                CALL DT_EVTPUT(-32,ift1,mot,0,pt1(1),pt1(2),pt1(3),pt1(4)
      &                        ,0,0,7)
-               ptoch = SQRT((pp1(1)+pt2(1))**2+(pp1(2)+pt2(2))
-     &                 **2+(pp1(3)+pt2(3))**2)
-               ech = pp1(4) + pt2(4)
-               am1 = (ech+ptoch)*(ech-ptoch)
-               ptoch = SQRT((pp2(1)+pt1(1))**2+(pp2(2)+pt1(2))
-     &                 **2+(pp2(3)+pt1(3))**2)
-               ech = pp2(4) + pt1(4)
-               am2 = (ech+ptoch)*(ech-ptoch)
+               am1 = DT_CSTRMA(pp1, pt2)
+               am2 = DT_CSTRMA(pp2, pt1)
             END IF
             IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                am1 = SQRT(am1)
@@ -502,12 +482,8 @@ C    baryon-baryon
      &               pt2(4),0,0,8)
                   ptoch = SQRT((pp1(1)+pt1(1))**2+(pp1(2)+pt1(2))
      &                    **2+(pp1(3)+pt1(3))**2)
-                  ech = pp1(4) + pt1(4)
-                  am1 = (ech+ptoch)*(ech-ptoch)
-                  ptoch = SQRT((pp2(1)+pt2(1))**2+(pp2(2)+pt2(2))
-     &                    **2+(pp2(3)+pt2(3))**2)
-                  ech = pp2(4) + pt2(4)
-                  am2 = (ech+ptoch)*(ech-ptoch)
+                  am1 = DT_CSTRMA(pp1, pt1)
+                  am2 = DT_CSTRMA(pp2, pt2)
                ELSE
 C    antibaryon-baryon
                   CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),
@@ -518,14 +494,8 @@ C    antibaryon-baryon
      &               pp2(4),0,0,8)
                   CALL DT_EVTPUT(-22,ift1,mot,0,pt1(1),pt1(2),pt1(3),
      &               pt1(4),0,0,8)
-                  ptoch = SQRT((pp1(1)+pt2(1))**2+(pp1(2)+pt2(2))
-     &                    **2+(pp1(3)+pt2(3))**2)
-                  ech = pp1(4) + pt2(4)
-                  am1 = (ech+ptoch)*(ech-ptoch)
-                  ptoch = SQRT((pp2(1)+pt1(1))**2+(pp2(2)+pt1(2))
-     &                    **2+(pp2(3)+pt1(3))**2)
-                  ech = pp2(4) + pt1(4)
-                  am2 = (ech+ptoch)*(ech-ptoch)
+                  am1 = DT_CSTRMA(pp1, pt2)
+                  am2 = DT_CSTRMA(pp2, pt1)
                END IF
                IF ( (am1.GT.0.0D0) .AND. (am2.GT.0.0D0) ) THEN
                   am1 = SQRT(am1)
