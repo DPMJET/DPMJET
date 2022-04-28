@@ -5,4 +5,4 @@
 bin/*.exe
 .vscode/
 .DS_store
-ppLHC_*
+ppLHC_merged.txt
