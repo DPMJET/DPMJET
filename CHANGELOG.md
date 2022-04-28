@@ -1,5 +1,9 @@
 ## DPMJET-III
 
+19.3.0:
+- Proprietary FLUKA common blocks removed
+- New method in DT_GETPTN to suppress short valence-(strange-sea) chains to suppress angular peaks in kaon distributions in low-energy AA interactions
+
 19.2.1:
 - No change to the model
 - Added one example for photo hadronic interactions with PHOJET w/o using input cards

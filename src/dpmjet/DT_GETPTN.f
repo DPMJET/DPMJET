@@ -5,6 +5,7 @@ C***********************************************************************
 C This subroutine collects partons at chain ends from temporary        *
 C commons and puts them into DTEVT1.                                   *
 C This version dated 15.01.95 is written by S. Roesler                 *
+C Modified by A. Fedynitch on 28.04.22                                 *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -24,7 +25,8 @@ C***********************************************************************
       PARAMETER (TINY10=1.0D-10,ZERO=0.0D0,OHALF=0.5D0)
  
       LOGICAL lchk
-      PARAMETER (SMTHR=0.82D0)
+      PARAMETER (SMTHR=0.765D0)
+C      PARAMETER (SMTHR=0.0D0)
  
  
       PARAMETER (MAXNCL=260,MAXVQU=MAXNCL,MAXSQU=20*MAXVQU,
@@ -259,17 +261,18 @@ C valence-sea chains
             ift1 = IDT_IB2PDG(ITSaq(idxt),0,2)
             ift2 = IDT_IB2PDG(ITSq(idxt),0,2)
             CALL DT_CHKCSY(ifp1,ift1,lchk)
+            am1 = DT_CSTRMA(pp1, pt1)
+            am2 = DT_CSTRMA(pp2, pt2)
+
             IF ( lchk ) THEN
                am1 = DT_CSTRMA(pp1, pt1)
                am2 = DT_CSTRMA(pp2, pt2)
 
                IF (abs(ift1).eq.3) THEN
-C                  WRITE(6,*) 'Case 1:', SQRT(am1), SQRT(am2), ift1, ift2
                   IF ((SQRT(am1).LT.SMTHR).OR.
      &                (SQRT(am2).LT.SMTHR)) THEN
                      ift1 = SIGN(INT(2.0D0*DT_RNDM() + 1.D0), ift1)
                      ift2 = -ift1
-C                     WRITE(6,*) 'After swap', ift1, ift2
                   END IF
                ENDIF
                CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4)
@@ -284,13 +287,12 @@ C                     WRITE(6,*) 'After swap', ift1, ift2
                am2 = DT_CSTRMA(pp1, pt2)
                am1 = DT_CSTRMA(pp2, pt1)
 
+
                IF (abs(ift1).eq.3) THEN
-C                  WRITE(6,*) 'Case 2:', SQRT(am1), SQRT(am2), ift1, ift2
                   IF ((SQRT(am1).LT.SMTHR).OR.
      &                (SQRT(am2).LT.SMTHR)) THEN
                      ift1 = SIGN(INT(2.0D0*DT_RNDM() + 1.D0), ift1)
                      ift2 = -ift1
-C                     WRITE(6,*) 'After swap', ift1, ift2
                   END IF
                ENDIF
                CALL DT_EVTPUT(-21,ifp1,mop,0,pp1(1),pp1(2),pp1(3),pp1(4)
