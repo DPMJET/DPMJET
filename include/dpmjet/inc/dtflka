@@ -1,5 +1,21 @@
-
-      INTEGER LDAt , LINp , LOUt , LPRi
- 
- 
-      COMMON /DTFLKA/ LINp , LOUt , LDAt , LPRi
+cc ------------ dpmjet3.4 - authors: S.Roesler, R.Engel, J.Ranft -------
+cc ------- phojet1.12-35c - authors: S.Roesler, R.Engel, J.Ranft -------
+cc                                                      - nov'o1 -------
+cc ------------- pythia-6 - authors: Torbjorn Sjostrand, Lund'97 -------
+cc --------- fluka89-202x - authors: A.Fasso`,A.Ferrari, J.Ranft -------
+cc                                   P.R.Sala                    ------- 
+cc ---------------------------------------------------------------------
+cc                                  converted for use with FLUKA -------
+cc                                                      - apr'o4 -------
+cc                                  adapted for use in fluka202x -------
+cc                              by  Alfredo Ferrari  - 17-Sep-21 -------
+      DOUBLE PRECISION  EHFLLO, EHFLHI, AMXPFR, AMU12C, EMV2GV
+      INTEGER           IAPFLK, IZPFLK, IATFLK, IZTFLK, NPHFLK, NTHFLK,
+     &                  LINP  , LOUT  , LDAT  , LPRI  , IFLEVG
+      LOGICAL LHADCL
+      PARAMETER ( AMU12C = 9.3123868129206122D-01 )
+      PARAMETER ( EMV2GV = 1.D-03 )
+      COMMON / DTFLKA / EHFLLO, EHFLHI, AMXPFR, IAPFLK, IZPFLK, IATFLK,
+     &                  IZTFLK, NPHFLK, NTHFLK, LHADCL, LINP  , LOUT  ,
+     &                  LDAT  , LPRI  , IFLEVG
+      SAVE /DTFLKA/

@@ -36,10 +36,11 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(EVAFLG)'
-      INCLUDE '(FRBKCM)'
+#ifdef FOR_FLUKA
+      INCLUDE 'inc/flkpev'
+#else
+      INCLUDE 'inc/dpmpev'
+#endif
  
 C emulsion treatment
       INCLUDE 'inc/dtcomp'
@@ -211,7 +212,8 @@ C  in this case Epn is expected to carry the beam momentum
          what(2) = 0
          codewd = 'START     '
          lext = .TRUE.
-         LEVprt = .TRUE.
+C AFer. now included above
+C        LEVprt = .TRUE.
          GOTO 300
       END IF
 #endif

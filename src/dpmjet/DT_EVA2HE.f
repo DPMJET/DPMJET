@@ -11,10 +11,11 @@ C          = 2 target     residual nucleus                             *
 C This version dated 19.04.95 is written by S. Roesler.                *
 C***********************************************************************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(GENSTK)'
-      INCLUDE '(RESNUC)'
-      INCLUDE '(FHEAVY)'
+#ifdef FOR_FLUKA
+      INCLUDE 'inc/flkeva'
+#else
+      INCLUDE 'inc/dpmeva'
+#endif
 
       DOUBLE PRECISION am , dum , Eexcf , pe , px , py , pz , TINY10 , 
      &                 TINY3

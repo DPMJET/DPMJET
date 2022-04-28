@@ -23,8 +23,9 @@ C***********************************************************************
  
       LOGICAL lfirst , lfirdt , lfirph
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PART)'
+#ifdef FOR_FLUKA
+      INCLUDE 'inc/flkprt'
+#endif
  
       INCLUDE 'inc/pydat1'
  
@@ -111,6 +112,7 @@ C
  
 C as Fluka event-generator: allow only paprop particles to be stable
 C and let all other particles decay (i.e. those with strong decays)
+#ifdef FOR_FLUKA
          IF ( (ITRspt.EQ.1).AND.OVwtdc) THEN
             DO i = 1 , IDMAXP
                IF ( KPToip(i).NE.0 ) THEN
@@ -121,7 +123,6 @@ C and let all other particles decay (i.e. those with strong decays)
                   kc = PYCOMP(idpdg)
                   IF ( kc.GT.0 ) THEN
                      IF ( MDCy(kc,1).EQ.1 ) THEN
- 
                         IF ( LPRi.GT.4 ) WRITE (LOUt,*)
      &                        ' DT_INITJS: Decay flag for FLUKA-' , 
      &                       'transport : particle should not ' , 
@@ -148,7 +149,8 @@ C and let all other particles decay (i.e. those with strong decays)
                END IF
             END DO
          END IF
- 
+#endif
+
 C
 C set JETSET-parameter requested by input cards
          IF ( NMStu.GT.0 ) THEN

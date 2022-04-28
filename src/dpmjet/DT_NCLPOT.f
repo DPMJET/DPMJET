@@ -14,7 +14,7 @@ C***********************************************************************
  
       IMPLICIT NONE
       DOUBLE PRECISION Aferp , Afert , aip , aipz , ait , aitz , an , 
-     &                 bip , bipz , bit , bitz , EXMSAZ , fermip , 
+     &                 bip , bipz , bit , bitz , fermip , 
      &                 fermit , ONE , TINY10 , TINY2 , TINY3 , ZERO
       INTEGER i , idxpot , Ip , Ipz , It , Itz , izdum , Mode
       SAVE 
@@ -39,6 +39,12 @@ C                 asig0 asig+ atet0 atet+
  
       DATA an/0.4D0/
       DATA lstart/.TRUE./
+#ifdef FOR_FLUKA
+      DOUBLE PRECISION EXMSAZ
+      EXTERNAL EXMSAZ
+#else
+      INCLUDE 'inc/dpmstf'
+#endif
  
       IF ( Mode.EQ.0 ) THEN
          EBIndp(1) = ZERO
