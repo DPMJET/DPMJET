@@ -37,6 +37,7 @@ C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
 #ifdef FOR_FLUKA
+      INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
 #else
       INCLUDE 'inc/dpmpev'
@@ -171,6 +172,7 @@ C   set default values for input variables
          CALL DT_DEFAUL(Epn,ppn)
          Iglau = 0
          ixsqel = 0
+         iflevg = 0
 C   flag for collision energy input
          leinp = .FALSE.
          lstart = .FALSE.

@@ -7,6 +7,9 @@ C without nuclear effects (one event).                                 *
 C This subroutine is an update of the previous version (KKEVT) written *
 C by J. Ranft/ H.-J. Moehring.                                         *
 C This version dated 20.04.95 is written by S. Roesler                 *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -143,6 +146,8 @@ C        END IF
          itold = IT
          jjpold = jjproj
          eprold = EPRoj
+         NPHflk = np
+         NTHflk = nt
       END IF
  
 C force diffractive particle production in h-K interactions

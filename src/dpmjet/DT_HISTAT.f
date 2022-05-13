@@ -37,6 +37,7 @@ C parameter for intranuclear cascade
       INCLUDE 'inc/dtfoti'
  
 #ifdef FOR_FLUKA
+      INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkevf'
       INCLUDE 'inc/flkpev'
 #else

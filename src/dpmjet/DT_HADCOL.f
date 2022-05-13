@@ -11,6 +11,10 @@ C      IDXTAR        DTEVT1-index of target nucleon undergoing         *
 C                    interaction with projectile hadron                *
 C This subroutine replaces HADHAD.                                     *
 C This version dated 5.5.95 is written by S. Roesler                   *
+C                                                                      *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -99,7 +103,8 @@ C*
       iloop = 0
  100  iloop = iloop + 1
       IF ( iloop.LE.100 ) THEN
- 
+
+         Lhadcl=.True.
          CALL DT_HADRIN(Idproj,pproj,idnuc,pnuc,iproc,irej1)
          IF ( irej1.NE.1 ) THEN
  

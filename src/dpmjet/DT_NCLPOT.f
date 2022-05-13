@@ -72,9 +72,11 @@ C           EBINDN(1) = DT_EBIND(IP,IPZ)-DT_EBIND(IP-1,IPZ)
 C  A.F.
 C           EBINDP(1) = 1.0D-3*(ENERGY(ONE,ONE)+ENERGY(BIP,BIPZ)
 C    &                                          -ENERGY(AIP,AIPZ))
-            EBIndp(1) = 1.0D-3*(EXMSAZ(ONE,ONE,.TRUE.,izdum)+EXMSAZ(bip,
-     &                  bipz,.TRUE.,izdum)-EXMSAZ(aip,aipz,.TRUE.,izdum)
-     &                  )
+C  A.F.: modified for (possibly) excited target/projectile:
+            EBIndp(1) = 1.0D-3*(EXMSAZ(ONE,ONE,.TRUE.,izdum)
+     &                         +EXMSAZ(bip,bipz,.TRUE.,izdum)
+     &                         -EXMSAZ(aip,aipz,.TRUE.,izdum)
+     &                         -EXCten(1))
  
             IF ( aip.LE.aipz ) THEN
                EBIndn(1) = EBIndp(1)
@@ -86,14 +88,16 @@ C    &                                          -ENERGY(AIP,AIPZ))
 C  A.F.
 C              EBINDN(1) = 1.0D-3*(ENERGY(ONE,ZERO)+ENERGY(BIP,AIPZ)
 C    &                                             -ENERGY(AIP,AIPZ))
-               EBIndn(1) = 1.0D-3*(EXMSAZ(ONE,ZERO,.TRUE.,izdum)+EXMSAZ(
-     &                     bip,aipz,.TRUE.,izdum)
-     &                     -EXMSAZ(aip,aipz,.TRUE.,izdum))
+C  A.F.: modified for (possibly) excited target/projectile:
+               EBIndn(1) = 1.0D-3*(EXMSAZ(ONE,ZERO,.TRUE.,izdum)
+     &                            +EXMSAZ(bip,aipz,.TRUE.,izdum)
+     &                            -EXMSAZ(aip,aipz,.TRUE.,izdum)
+     &                            -EXCten(1))
  
             END IF
          END IF
-         PFErmp(1) = fermip*an*(aipz/aip)**0.333333D0
-         PFErmn(1) = fermip*an*((aip-aipz)/aip)**0.33333D0
+         PFErmp(1) = fermip*an*(aipz/aip)**0.3333333333333333D+00
+         PFErmn(1) = fermip*an*((aip-aipz)/aip)**0.333333333333333D+00
       ELSE
          PFErmp(1) = ZERO
          PFErmn(1) = ZERO
@@ -114,9 +118,11 @@ C           EBINDN(2) = DT_EBIND(IT,ITZ)-DT_EBIND(IT-1,ITZ)
 C  A.F.
 C           EBINDP(2) = 1.0D-3*(ENERGY(ONE,ONE)+ENERGY(BIT,BITZ)
 C    &                                         -ENERGY(AIT,AITZ))
-            EBIndp(2) = 1.0D-3*(EXMSAZ(ONE,ONE,.TRUE.,izdum)+EXMSAZ(bit,
-     &                  bitz,.TRUE.,izdum)-EXMSAZ(ait,aitz,.TRUE.,izdum)
-     &                  )
+C  A.F.: modified for (possibly) excited target/projectile:
+            EBIndp(2) = 1.0D-3*(EXMSAZ(ONE,ONE,.TRUE.,izdum)
+     &                         +EXMSAZ(bit,bitz,.TRUE.,izdum)
+     &                         -EXMSAZ(ait,aitz,.TRUE.,izdum)
+     &                         -EXCten(2))
  
             IF ( ait.LE.aitz ) THEN
                EBIndn(2) = EBIndp(2)
@@ -127,14 +133,16 @@ C    &                                         -ENERGY(AIT,AITZ))
 C  A.F.
 C              EBINDN(2) = 1.0D-3*(ENERGY(ONE,ZERO)+ENERGY(BIT,AITZ)
 C    &                                             -ENERGY(AIT,AITZ))
-               EBIndn(2) = 1.0D-3*(EXMSAZ(ONE,ZERO,.TRUE.,izdum)+EXMSAZ(
-     &                     bit,aitz,.TRUE.,izdum)
-     &                     -EXMSAZ(ait,aitz,.TRUE.,izdum))
+C  A.F.: modified for (possibly) excited target/projectile:
+               EBIndn(2) = 1.0D-3*(EXMSAZ(ONE,ZERO,.TRUE.,izdum)
+     &                            +EXMSAZ(bit,aitz,.TRUE.,izdum)
+     &                            -EXMSAZ(ait,aitz,.TRUE.,izdum)
+     &                            -EXCten(2))
  
             END IF
          END IF
-         PFErmp(2) = fermit*an*(aitz/ait)**0.333333D0
-         PFErmn(2) = fermit*an*((ait-aitz)/ait)**0.33333D0
+         PFErmp(2) = fermit*an*(aitz/ait)**0.3333333333333333D+00
+         PFErmn(2) = fermit*an*((ait-aitz)/ait)**0.333333333333333D+00
       ELSE
          PFErmp(2) = ZERO
          PFErmn(2) = ZERO
@@ -154,8 +162,10 @@ C Coulomb energy
       ETAcou(1) = ZERO
       ETAcou(2) = ZERO
       IF ( ICOul.EQ.1 ) THEN
-         IF ( Ip.GT.1 ) ETAcou(1) = 0.001116D0*aipz/(1.0D0+aip**0.333D0)
-         IF ( It.GT.1 ) ETAcou(2) = 0.001116D0*aitz/(1.0D0+ait**0.333D0)
+         IF ( Ip.GT.1 )
+     &      ETAcou(1) = 0.001116D0*aipz/(1.0D0+aip**0.3333333333333D+00)
+         IF ( It.GT.1 )
+     &      ETAcou(2) = 0.001116D0*aitz/(1.0D0+ait**0.3333333333333D+00)
       END IF
  
       IF ( lstart ) THEN

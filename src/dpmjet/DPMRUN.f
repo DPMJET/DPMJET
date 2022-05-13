@@ -1,5 +1,5 @@
 
-      SUBROUTINE DPMRUN(Elab,Ijdpm,Iap,Izp,Iat,Izt,Ldpmrj)
+      SUBROUTINE DPMRUN(Elab,Ijdpm,Iap,Izp,Iat,Izt,Eexprj,Eextrg,Ldpmrj)
  
 C***********************************************************************
 C                                                                      *
@@ -12,7 +12,7 @@ C                                                                      *
 C***********************************************************************
 C
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      DOUBLE PRECISION dum , Elab , riap , riat , ridp
+      DOUBLE PRECISION dum , Elab , riap , riat , ridp, Eexprj, Eextrg
       INTEGER Iap , Iat , idp , IDPmev , IHEhad , IHEnuc , IHIjpr , 
      &        IHMapr , IHMata , Ijdpm , irej , Izp , Izt , kkmat
       SAVE 
@@ -24,6 +24,7 @@ C histogram indices for Fluka-interface related statistics
      &                IDPmev
  
       INCLUDE 'inc/dtflka'
+      include 'inc/dtnpot'
  
       LOGICAL Ldpmrj
  
@@ -33,6 +34,8 @@ Cc
 Cc -----------------------------------------------------------------------------
       idp = Ijdpm
       IF ( idp.LT.0 ) idp = 1
+      Excten (1) = Eexprj
+      Excten (2) = Eextrg
 Cc ---------------------------------
 Cc
 C     WRITE(6,*)' DPMRUN(ELAB,IJDPM,IAP,IZP,IAT,IZT,LDPMRJ)',
@@ -48,7 +51,7 @@ C   for virtual vector mesons assume pi0 (as in eventv)
             idp = 23
          ELSE
 C   otherwise assume pi instead
-            WRITE (LOUt,*) 
+            WRITE (LOUt,*)
      &                  ' EVENTD: Particle cannot be handled by Dpmjet '
      &                  , Ijdpm , idp
             idp = 23

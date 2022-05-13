@@ -3,6 +3,7 @@
  
 
 #ifdef FOR_FLUKA
+      INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
 #else
       IMPLICIT NONE

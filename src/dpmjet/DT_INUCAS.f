@@ -9,6 +9,10 @@ C           IDXCAS    index of final state particle in DTEVT1          *
 C           NCAS =  1 intranuclear cascade in projectile               *
 C                = -1 intranuclear cascade in target                   *
 C This version dated 18.11.95 is written by S. Roesler                 *
+C                                                                      *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -503,6 +507,7 @@ C 2-nucleon absorption of pion
          ELSE
 C sample secondary interaction
             idnuc = IDBam(idxspe(1))
+            Lhadcl=.False.
             CALL DT_HADRIN(idcas,pcas1,idnuc,pnuc,iproc,irej1)
             IF ( irej1.EQ.1 ) THEN
                Irej = 1
