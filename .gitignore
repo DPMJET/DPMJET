@@ -6,3 +6,5 @@ bin/*.exe
 .vscode/
 .DS_store
 ppLHC_merged.txt
+ppLHC_default.txt
+test.output

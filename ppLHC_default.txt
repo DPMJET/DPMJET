@@ -1,8 +1,8 @@
  +-----------------------------------------------------------------------+
  |                                                                       |
- |                       DPMJET-III version 19.2.1                       |
+ |                       DPMJET-III version 19.3.0                       |
  |                                                                       |
- |                      (Last change:  20 July 202)                      |
+ |                      (Last change:  28 April 2022)                    |
  |                                                                       |
  |            Authors:                                                   |
  |                     Stefan Roesler     (CERN)                         |
