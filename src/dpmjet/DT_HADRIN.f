@@ -50,7 +50,8 @@ C final state from HADRIN interaction
       INTEGER   IGPART, IDD2F
       EXTERNAL  IGPART, IDD2F
 #else
-      INTEGER   IGPART, IDD2F, KK, II, LL
+      INTEGER   IGPART, IDD2F, KK, II
+      LOGICAL   LL
       IDD2F  (KK) = 0
       IGPART (KK,II,LL) = 0
 #endif
