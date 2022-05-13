@@ -1,6 +1,6 @@
 ## DPMJET-III
 
-19.3.0:
+19.3.1:
 - Proprietary FLUKA common blocks removed
 - New method in DT_GETPTN to suppress short valence-(strange-sea) chains to suppress angular peaks in kaon distributions in low-energy AA interactions
 
