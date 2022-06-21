@@ -37,15 +37,15 @@ ifeq ($(CVendor),"GNU")
 	ifeq ($(Config),"Debug")
 		# GNU Debug
 		OPT = -fPIC -Wall -fbounds-check -O0 -g \
-			  -ffpe-trap=invalid,zero,overflow -Wuninitialized
+			  -ffpe-trap=invalid,zero,overflow -Wuninitialized -std=legacy
 		OPTF90 = -fPIC -Wall -fbounds-check -O0 -g \
 			  -ffpe-trap=invalid,zero,overflow -Wuninitialized \
 			  -fno-second-underscore
 		#OPT = -fPIC -Wall -Wno-uninitialized -Wno-unused-variable -O3 -g -ffpe-trap=invalid,zero,overflow
 	else
 		# GNU Release
-		OPT = -O3 -Wno-uninitialized -fPIC
-		OPTF90 = -O3 -Wno-uninitialized -fPIC -fno-second-underscore 
+		OPT = -O3 -Wno-uninitialized -fPIC -std=legacy
+		OPTF90 = -O3 -Wno-uninitialized -fPIC -fno-second-underscore
 	endif
 else
 	ifeq ($(Config),"Debug")

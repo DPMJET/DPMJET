@@ -126,7 +126,7 @@ Cinitialize random number generator in standalone (-2) mode
      &                    '     https://github.com/afedynitch/dpmjet'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2028/05/13'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/05/13'
       IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.1'
  
       IF ( LPRi.GT.4 ) WRITE (LO,*)

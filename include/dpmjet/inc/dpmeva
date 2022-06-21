@@ -1,5 +1,3 @@
-      PARAMETER ( MXPSCS = 1000 )
-      PARAMETER ( MXHEAV =   40 )
       DOUBLE PRECISION  CXR, CYR, CZR, TKI, PLR, CXHEAV, CYHEAV,
      &                  CZHEAV, TKHEAV, PHEAVY, TV, TVCMS, TVRECL,
      &                  ERES  , PXRES  , PYRES , PZRES , PTRES ,
@@ -7,6 +5,8 @@
       INTEGER MXPSCS, MXHEAV, KPART , ICHEAV, IBHEAV, KHEAVY, IBRES,
      &        ICRES , NP    , NPHEAV
       LOGICAL LRNFSS, LFRAGM
+      PARAMETER ( MXPSCS = 1000 )
+      PARAMETER ( MXHEAV =   40 )
       COMMON / DPMEVA / CXR    (MXPSCS), CYR    (MXPSCS),
      &                  CZR    (MXPSCS), TKI    (MXPSCS),
      &                  PLR    (MXPSCS), CXHEAV (MXPSCS),
