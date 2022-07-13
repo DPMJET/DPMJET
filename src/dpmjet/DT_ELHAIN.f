@@ -37,7 +37,13 @@ C     DATA TSLOPE /10.0D0/
       Irej = 0
  
  
- 100  plab = SQRT((Elab-AAM(Ip))*(Elab+AAM(Ip)))
+ 100  continue
+C  A.F.: protected, from rounding issues (it occurred...):
+      IF (Elab .LT. AAM(Ip)) THEN
+         IF ( AAM(Ip) - Elab .LT. 1.D-06 * AAM (Ip) )
+     &      Elab = AAM (Ip)
+      END IF
+      plab = SQRT((Elab-AAM(Ip))*(Elab+AAM(Ip)))
       ekin = Elab - AAM(Ip)
 C   kinematical quantities in cms of the hadrons
       amp2 = AAM(Ip)**2

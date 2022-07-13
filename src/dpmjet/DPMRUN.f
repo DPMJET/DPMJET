@@ -1,23 +1,21 @@
 
-      SUBROUTINE DPMRUN(Elab,Ijdpm,Iap,Izp,Iat,Izt,Ldpmrj)
+      SUBROUTINE DPMRUN(Elab,Ijdpm,Iap,Izp,Iat,Izt,Eexprj,Eextrg,Ldpmrj)
  
 C***********************************************************************
 C                                                                      *
 C     Version September 2001      by   Stefan Roesler                  *
-C     Last change  on  05-nov-01  by   Stefan Roesler                  *
+C     Last change  on  12-Feb-22  by   Alfredo Ferrari                 *
 C                                                                      *
 C     This subroutine is part of the FLUKA interface to DPMJET 3.      *
 C     Call to DPMJET 3 for event generation.                           *
-C                                                                     *
+C                                                                      *
 C***********************************************************************
 C
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      DOUBLE PRECISION dum , Elab , riap , riat , ridp
+      DOUBLE PRECISION dum , Elab , riap , riat , ridp, Eexprj, Eextrg
       INTEGER Iap , Iat , idp , IDPmev , IHEhad , IHEnuc , IHIjpr , 
      &        IHMapr , IHMata , Ijdpm , irej , Izp , Izt , kkmat
       SAVE 
- 
-      INCLUDE '(IOUNIT)'
  
 C event flag
       INCLUDE 'inc/dtevno'
@@ -26,6 +24,7 @@ C histogram indices for Fluka-interface related statistics
      &                IDPmev
  
       INCLUDE 'inc/dtflka'
+      include 'inc/dtnpot'
  
       LOGICAL Ldpmrj
  
@@ -35,6 +34,8 @@ Cc
 Cc -----------------------------------------------------------------------------
       idp = Ijdpm
       IF ( idp.LT.0 ) idp = 1
+      Excten (1) = Eexprj
+      Excten (2) = Eextrg
 Cc ---------------------------------
 Cc
 C     WRITE(6,*)' DPMRUN(ELAB,IJDPM,IAP,IZP,IAT,IZT,LDPMRJ)',
@@ -50,7 +51,7 @@ C   for virtual vector mesons assume pi0 (as in eventv)
             idp = 23
          ELSE
 C   otherwise assume pi instead
-            WRITE (LUNDPM,*) 
+            WRITE (LOUt,*)
      &                  ' EVENTD: Particle cannot be handled by Dpmjet '
      &                  , Ijdpm , idp
             idp = 23

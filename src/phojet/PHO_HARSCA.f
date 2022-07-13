@@ -72,9 +72,9 @@ C                                               I
          IREjsc = 0
  150     IREjsc = IREjsc + 1
          IF ( IREjsc.GT.1000 ) THEN
-            IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,A,I10)')
+            IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,A,4I6)')
      &            'PHO_HARSCA:ERROR: too many rejections (resolved)' , 
-     &           IREjsc
+     &           IREjsc, IFAil(29), IFAil(22), IFAil(21)
             CALL PHO_ABORT
          END IF
  
@@ -102,6 +102,7 @@ C  calculate remaining distribution
 C  actualize counter for cross-section calculation
          IF ( f.LE.1.D-15 ) THEN
             f = 0.D0
+            IFAil(22) = IFAil(22) + 1
             GOTO 150
          END IF
 C       XSECT(5,MSPR) = XSECT(5,MSPR)+F
@@ -109,7 +110,11 @@ C       XSECT(6,MSPR) = XSECT(6,MSPR)+F*F
          MH_tried(MSPr,Ip,IDXmpar) = MH_tried(MSPr,Ip,IDXmpar) + 1
 C  check F against FMAX
          WEIght = f/(HWGx(MSPr,IDXmpar)+DEPS)
-         IF ( WEIght.LT.DT_RNDM(X2) ) GOTO 150
+         IF ( WEIght.LT.DT_RNDM(X2) ) THEN
+C            WRITE(LO,*) f, MSPr, (HWGx(MSPr,IDXmpar)+DEPS)
+            IFAil(21) = IFAil(21) + 1
+            GOTO 150
+         END IF
 C-------------------------------------------------------------------
          IF ( WEIght.GT.1.D0 ) THEN
             IF ( LPRi.GT.4 ) WRITE (LO,99010) MSPr , Ip , IDPdg1 , 

@@ -1,17 +1,18 @@
 
       SUBROUTINE DT_RESNCL(Epn,Nloop,Mode)
  
-      INCLUDE '(DBLPRC)'
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       SAVE 
  
-      DOUBLE PRECISION aip , aipz , ait , aitz , amsec , AMUAMU , 
+      DOUBLE PRECISION aip , aipz , ait , aitz , amsec ,
      &                 chklev , dum , dum1 , dum2 , ebipot , Epn , 
-     &                 epni , EXMSAZ , FM2MM , ONE , pei , pfsp , pm1 , 
+     &                 epni , FM2MM , ONE , pei , pfsp , pm1 , 
      &                 pm2
       DOUBLE PRECISION pmass1 , pmass2 , pmomb , pmomm , psec , psec0 , 
      &                 psecn , pseco , pzi , RNUCLE , scpot , THREE , 
      &                 thresh , TINY1 , TINY10 , TINY2 , TINY3 , TINY4 , 
      &                 TWO , ZERO
+*     DOUBLE PRECISION ON1OV3
       INTEGER i , icor , idsec , idum , idxb , idxcor , idxm , idxoth , 
      &        iflg , imode , iother , ipot , irej1 , izdum , j , jpcw , 
      &        jpmod , jpw , jtcw , jtw
@@ -30,11 +31,12 @@ C
  
       PARAMETER (ZERO=0.D0,ONE=1.D0,TWO=2.D0,THREE=3.D0,TINY3=1.0D-3,
      &           TINY2=1.0D-2,TINY1=1.0D-1,TINY4=1.0D-4,TINY10=1.0D-10)
-      PARAMETER (AMUAMU=AMUGEV,FM2MM=1.0D-12,RNUCLE=1.12D0)
- 
+      PARAMETER (FM2MM=1.0D-12,RNUCLE=1.12D0)
+*     PARAMETER (ON1OV3=1.D+00/3.D+00) 
+
       PARAMETER (MAXNCL=260,MAXVQU=MAXNCL,MAXSQU=20*MAXVQU,
      &           MAXINT=MAXVQU+MAXSQU)
- 
+
 C event history
       INCLUDE 'inc/dtevt1'
 C extended event history
@@ -59,6 +61,12 @@ C treatment of residual nuclei: 4-momenta
       DIMENSION pfsp(4) , psec(4) , psec0(4)
       DIMENSION pmomb(5000) , idxb(5000) , pmomm(10000) , idxm(10000) , 
      &          idxcor(15000) , idxoth(NMXHKK)
+#ifdef FOR_FLUKA
+      DOUBLE PRECISION EXMSAZ
+      EXTERNAL EXMSAZ
+#else
+      INCLUDE 'inc/dpmstf'
+#endif
  
       IF ( Mode.EQ.2 ) THEN
  
@@ -271,7 +279,7 @@ C*test
 C                    RDIST = SQRT((VHKK(1,IPW(JPW))/FM2MM)**2
 C    &                           +(VHKK(2,IPW(JPW))/FM2MM)**2
 C    &                           +(VHKK(3,IPW(JPW))/FM2MM)**2)
-C                    RAD   = RNUCLE*DBLE(IP)**ONETHI
+C                    RAD   = RNUCLE*DBLE(IP)**ON1OV3
 C                    FDEN  = 1.4D0*DT_DENSIT(IP,RDIST,RAD)
 C                    PSEC(4) = PSEC(4)-SCPOT*FDEN*EPOT(IPOT,IDSEC)
 C*
@@ -292,7 +300,7 @@ C*test
 C                    RDIST = SQRT((VHKK(1,ITW(JTW))/FM2MM)**2
 C    &                           +(VHKK(2,ITW(JTW))/FM2MM)**2
 C    &                           +(VHKK(3,ITW(JTW))/FM2MM)**2)
-C                    RAD   = RNUCLE*DBLE(IT)**ONETHI
+C                    RAD   = RNUCLE*DBLE(IT)**ON1OV3
 C                    FDEN  = 1.4D0*DT_DENSIT(IT,RDIST,RAD)
 C                    PSEC(4) = PSEC(4)-SCPOT*FDEN*EPOT(IPOT,IDSEC)
 C*
@@ -553,7 +561,7 @@ C         IF (IJPROJ.EQ.7) PMASS1 = AAM(33)
  
 C  A.F.
 C        PINITA(5) = AIT*AMUAMU+1.0D-3*ENERGY(AIT,AITZ)
-         PINita(5) = ait*AMUC12 + EMVGEV*EXMSAZ(ait,aitz,.TRUE.,izdum)
+         PINita(5) = ait*AMU12C + EMV2GV*EXMSAZ(ait,aitz,.TRUE.,izdum)
  
          CALL DT_LTNUC(ZERO,PINita(5),PINita(3),PINita(4),3)
       ELSE IF ( (IP.GT.1) .AND. (IT.LE.1) ) THEN
@@ -568,7 +576,7 @@ C        PINITA(5) = AIT*AMUAMU+1.0D-3*ENERGY(AIT,AITZ)
          aipz = DBLE(IPZ)
 C  A.F.
 C        PINIPR(5) = AIP*AMUAMU+1.0D-3*ENERGY(AIP,AIPZ)
-         PINipr(5) = aip*AMUC12 + EMVGEV*EXMSAZ(aip,aipz,.TRUE.,izdum)
+         PINipr(5) = aip*AMU12C + EMV2GV*EXMSAZ(aip,aipz,.TRUE.,izdum)
  
          CALL DT_LTNUC(ZERO,PINipr(5),PINipr(3),PINipr(4),2)
       ELSE IF ( (IP.GT.1) .AND. (IT.GT.1) ) THEN
@@ -576,7 +584,7 @@ C        PINIPR(5) = AIP*AMUAMU+1.0D-3*ENERGY(AIP,AIPZ)
          aipz = DBLE(IPZ)
 C  A.F.
 C        PINIPR(5) = AIP*AMUAMU+1.0D-3*ENERGY(AIP,AIPZ)
-         PINipr(5) = aip*AMUC12 + EMVGEV*EXMSAZ(aip,aipz,.TRUE.,izdum)
+         PINipr(5) = aip*AMU12C + EMV2GV*EXMSAZ(aip,aipz,.TRUE.,izdum)
  
          CALL DT_LTNUC(ZERO,PINipr(5),PINipr(3),PINipr(4),2)
          ait = DBLE(IT)
@@ -584,7 +592,7 @@ C        PINIPR(5) = AIP*AMUAMU+1.0D-3*ENERGY(AIP,AIPZ)
  
 C  A.F.
 C        PINITA(5) = AIT*AMUAMU+1.0D-3*ENERGY(AIT,AITZ)
-         PINita(5) = ait*AMUC12 + EMVGEV*EXMSAZ(ait,aitz,.TRUE.,izdum)
+         PINita(5) = ait*AMU12C + EMV2GV*EXMSAZ(ait,aitz,.TRUE.,izdum)
  
          CALL DT_LTNUC(ZERO,PINita(5),PINita(3),PINita(4),3)
       END IF

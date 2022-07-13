@@ -24,7 +24,8 @@ C***********************************************************************
       INTEGER i , id , idchk , IDT_IPDGHA , idum , idxmor , iflg , 
      &        ifrg , ih1 , ih2 , ihismo , ii , ij , ijk , ijoin , 
      &        iniemc , ip , ipje , Irej
-      INTEGER irej1 , irej3 , isdrn1 , isdrn2 , iseed1 , iseed2 , ish , 
+C     INTEGER isdrn1 , isdrn2 , iseed1 , iseed2
+      INTEGER irej1 , irej3 ,  ish , 
      &        isjoin , ismor , istsrg , iststg , jdaug , k1 , k2 , 
      &        kfmor , kk , Kmode
       INTEGER mo , mode , MXJOIN , naccep , nend , Nfrg , nlines , 
@@ -67,16 +68,16 @@ C jetset
  
       DIMENSION ijoin(MXJOIN) , isjoin(MXJOIN) , ihismo(8000) , 
      &          iflg(4000)
-      COMMON /DBGPRE/ LDBgpr
-      LOGICAL LDBgpr
+C     COMMON /DBGPRE/ LDBgpr
+C     LOGICAL LDBgpr
  
-      IF ( LDBgpr ) THEN
-         WRITE (77,*)
-         WRITE (77,'(A,5I6)') ' EVTFRG IN:' , Kmode , Nfrg , Npymem , 
-     &                        Irej , NHKk
-         CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-         WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-      END IF
+C     IF ( LDBgpr ) THEN
+C        WRITE (77,*)
+C        WRITE (77,'(A,5I6)') ' EVTFRG IN:' , Kmode , Nfrg , Npymem , 
+C    &                        Irej , NHKk
+C        CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C        WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C     END IF
       mode = Kmode
       iststg = 7
       IF ( mode.NE.1 ) iststg = 8
@@ -96,12 +97,12 @@ C    &            ((NOBAM(I).NE.0).AND.(MODE.EQ.2))
          laccep = .TRUE.
 C pick up chains from dtevt1
          idchk = IDHkk(i)/10000
-         IF ( LDBgpr ) THEN
-            WRITE (77,'(A,6I6)') ' EVTFRG LACCEP:' , i , NPOint(3) , 
-     &             NPOint(4) , idchk , istsrg , NHKk
-            CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-            WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-         END IF
+C        IF ( LDBgpr ) THEN
+C           WRITE (77,'(A,6I6)') ' EVTFRG LACCEP:' , i , NPOint(3) , 
+C    &             NPOint(4) , idchk , istsrg , NHKk
+C           CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C           WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C        END IF
          IF ( (idchk.EQ.iststg) .AND. laccep ) THEN
             IF ( idchk.EQ.7 ) THEN
                ipje = IDHkk(i) - idchk*10000
@@ -122,12 +123,12 @@ C           IF (IDCH(I).LE.8)
 C    &         ICCHAI(2,IDCH(I)) = ICCHAI(2,IDCH(I))+1
 C           IF (IDRES(I).NE.0) ICRES(IDCH(I)) = ICRES(IDCH(I))+1
 C special treatment for small chains already corrected to hadrons
-            IF ( LDBgpr ) THEN
-               WRITE (77,'(A,4I6)') ' EVTFRG NO GOTO 16:' , IDRes(i) , 
-     &                ifrg , Nfrg , NHKk
-               CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-               WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-            END IF
+C           IF ( LDBgpr ) THEN
+C              WRITE (77,'(A,4I6)') ' EVTFRG NO GOTO 16:' , IDRes(i) , 
+C    &                ifrg , Nfrg , NHKk
+C              CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C              WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C           END IF
             IF ( IDRes(i).NE.0 ) THEN
                IF ( IDRes(i).EQ.11 ) THEN
                   id = IDXres(i)
@@ -137,13 +138,13 @@ C special treatment for small chains already corrected to hadrons
                IF ( LEMcck ) THEN
                   CALL DT_EVTEMC(PHKk(1,i),PHKk(2,i),PHKk(3,i),PHKk(4,i)
      &               ,iniemc,idum,idum)
-                  IF ( LDBgpr ) THEN
-                     WRITE (77,'(A,4I6,/,1P,4G23.15)')
-     &                      ' EVTFRG EVTEMC:' , i , IDHkk(i) , iniemc , 
-     &                      NHKk , (PHKk(ijk,i),ijk=1,4)
-                     CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-                     WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-                  END IF
+C                 IF ( LDBgpr ) THEN
+C                    WRITE (77,'(A,4I6,/,1P,4G23.15)')
+C    &                      ' EVTFRG EVTEMC:' , i , IDHkk(i) , iniemc , 
+C    &                      NHKk , (PHKk(ijk,i),ijk=1,4)
+C                    CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C                    WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C                 END IF
                   iniemc = 2
                END IF
                ip = ip + 1
@@ -175,20 +176,20 @@ C special treatment for small chains already corrected to hadrons
                   IF ( LEMcck ) THEN
                      CALL DT_EVTEMC(PHKk(1,kk),PHKk(2,kk),PHKk(3,kk),
      &                  PHKk(4,kk),iniemc,idum,idum)
-                     IF ( LDBgpr ) THEN
-                        WRITE (77,'(A,4I6,/,1P,4G23.15)')
-     &                      ' EVTFRG EVTEMC-2:' , kk , IDHkk(kk) , 
-     &                     iniemc , NHKk , (PHKk(ijk,kk),ijk=1,4)
-                        CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-                        WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-                     END IF
+C                    IF ( LDBgpr ) THEN
+C                       WRITE (77,'(A,4I6,/,1P,4G23.15)')
+C    &                      ' EVTFRG EVTEMC-2:' , kk , IDHkk(kk) , 
+C    &                     iniemc , NHKk , (PHKk(ijk,kk),ijk=1,4)
+C                       CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C                       WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C                    END IF
                      CALL DT_EVTFLC(IDHkk(kk),1,iniemc,idum,idum)
-                     IF ( LDBgpr ) THEN
-                        WRITE (77,'(A,4I6)') ' EVTFRG EVTFLC:' , kk , 
-     &                     IDHkk(kk) , iniemc , NHKk
-                        CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-                        WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-                     END IF
+C                    IF ( LDBgpr ) THEN
+C                       WRITE (77,'(A,4I6)') ' EVTFRG EVTFLC:' , kk , 
+C    &                     IDHkk(kk) , iniemc , NHKk
+C                       CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C                       WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C                    END IF
                      iniemc = 2
                   END IF
                   id = IDHkk(kk)
@@ -243,11 +244,11 @@ C                  ENDIF
 C join the two-parton system
  
                CALL PYJOIN(ij,ijoin)
-               IF ( LDBgpr ) THEN
-                  WRITE (77,'(A,2I6)') ' EVTFRG PYJOIN:' , ij , NHKk
-                  CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-                  WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-               END IF
+C              IF ( LDBgpr ) THEN
+C                 WRITE (77,'(A,2I6)') ' EVTFRG PYJOIN:' , ij , NHKk
+C                 CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C                 WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C              END IF
             END IF
             IDHkk(i) = 99999
          END IF
@@ -280,12 +281,12 @@ C final state parton shower
  
                                rqlun = MIN(pt1,pt2)
                                CALL PYSHOW(ih1,ih2,rqlun)
-                               IF ( LDBgpr ) THEN
-                               WRITE (77,'(A,2I6,1P,G23.15)')
-     &                             ' EVTFRG PYSHOW:' , ih1 , ih2 , rqlun
-                               CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-                               WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-                               END IF
+C                              IF ( LDBgpr ) THEN
+C                              WRITE (77,'(A,2I6,1P,G23.15)')
+C    &                             ' EVTFRG PYSHOW:' , ih1 , ih2 , rqlun
+C                              CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C                              WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C                              END IF
  
                                isjoin(k1) = 0
                                isjoin(k2) = 0
@@ -303,19 +304,19 @@ C final state parton shower
          END DO
  
          CALL DT_INITJS(mode)
-         IF ( LDBgpr ) THEN
-            WRITE (77,'(A,2I6)') ' EVTFRG INITJS:' , mode , NHKk
-            CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-            WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-         END IF
+C        IF ( LDBgpr ) THEN
+C           WRITE (77,'(A,2I6)') ' EVTFRG INITJS:' , mode , NHKk
+C           CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C           WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C        END IF
 C hadronization
  
          CALL PYEXEC
-         IF ( LDBgpr ) THEN
-            WRITE (77,'(A,2I6)') ' EVTFRG PYEXEC:' , MSTu(24) , NHKk
-            CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-            WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-         END IF
+C        IF ( LDBgpr ) THEN
+C           WRITE (77,'(A,2I6)') ' EVTFRG PYEXEC:' , MSTu(24) , NHKk
+C           CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C           WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C        END IF
  
          IF ( MSTu(24).NE.0 ) THEN
  
@@ -410,11 +411,11 @@ C  there was no mother resonance
                END IF
             END IF
          END DO
-         IF ( LDBgpr ) THEN
-            WRITE (77,'(A,2I6)') ' EVTFRG 13:' , nlines , NHKk
-            CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
-            WRITE (77,'(2X,2Z8)') iseed1 , iseed2
-         END IF
+C        IF ( LDBgpr ) THEN
+C           WRITE (77,'(A,2I6)') ' EVTFRG 13:' , nlines , NHKk
+C           CALL FLRNOC(isdrn1,isdrn2,iseed1,iseed2)
+C           WRITE (77,'(2X,2Z8)') iseed1 , iseed2
+C        END IF
          IF ( LEMcck ) THEN
             chklev = TINY1
             CALL DT_EVTEMC(dum,dum,dum,chklev,-1,6,irej1)

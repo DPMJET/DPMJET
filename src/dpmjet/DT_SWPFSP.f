@@ -3,8 +3,8 @@
  
 
 #ifdef FOR_FLUKA
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
+      INCLUDE 'inc/flkdim'
+      INCLUDE 'inc/flkpev'
 #else
       IMPLICIT NONE
       LOGICAL LEVprt

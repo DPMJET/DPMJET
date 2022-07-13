@@ -37,15 +37,15 @@ ifeq ($(CVendor),"GNU")
 	ifeq ($(Config),"Debug")
 		# GNU Debug
 		OPT = -fPIC -Wall -fbounds-check -O0 -g \
-			  -ffpe-trap=invalid,zero,overflow -Wuninitialized
+			  -ffpe-trap=invalid,zero,overflow -Wuninitialized -std=legacy
 		OPTF90 = -fPIC -Wall -fbounds-check -O0 -g \
 			  -ffpe-trap=invalid,zero,overflow -Wuninitialized \
 			  -fno-second-underscore
 		#OPT = -fPIC -Wall -Wno-uninitialized -Wno-unused-variable -O3 -g -ffpe-trap=invalid,zero,overflow
 	else
 		# GNU Release
-		OPT = -O3 -Wno-uninitialized -fPIC
-		OPTF90 = -O3 -Wno-uninitialized -fPIC -fno-second-underscore 
+		OPT = -O3 -Wno-uninitialized -fPIC -std=legacy
+		OPTF90 = -O3 -Wno-uninitialized -fPIC -fno-second-underscore
 	endif
 else
 	ifeq ($(Config),"Debug")
@@ -156,20 +156,20 @@ DPMJET_FUNCS += pho_init pho_setpar poevt1 poevt2 pho_pname pho_pmass pho_setmdl
 pho_setpdf pycomp pho_xsect pho_borncs pho_harmci pho_fitout pho_mcini pho_ptcut \
 pytune pho_rregpar pho_sregpar pho_prevnt ipho_pdg2id ipho_id2pdg pho_harint \
 impy_openlogfile impy_closelogfile pho_harxto pho_harxpt pho_setpcomb \
-dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias
+dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
-pylib = dpmjetIII192$(LEXT)
+pylib = dpmjetIII193$(LEXT)
 
 all: exe 
 
 .PHONY: pylib
 pylib: $(pylib)
 
-$(pylib): lib/libDPMJET.a common/dpmjetIII192.pyf
+$(pylib): lib/libDPMJET.a common/dpmjetIII193.pyf
 	$(F2PY) -c $(F2PY_CCONF) --opt="$(OPT)" \
-	     $(INCLU) common/dpmjetIII192.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
+	     $(INCLU) common/dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
 
 .PHONY: install
 install: $(pylib)
@@ -179,10 +179,10 @@ install: $(pylib)
 exe: $(APP_OBJS) lib/libDPMJET.a
 	$(foreach a, $(APP_EXE), $(LD) -o bin/$(a) ./src/exe/$(a).o -Llib -lDPMJET ${\n})
 
-common/dpmjetIII192.pyf:
+common/dpmjetIII193.pyf:
 	$(CAT_COMMAND) $(PYF_SRCS) > f2pytemp.f
 	gfortran -E -cpp f2pytemp.f > f2py_cpp.f
-	$(F2PY) -m dpmjetIII192 -h common/dpmjetIII192.pyf \
+	$(F2PY) -m dpmjetIII193 -h common/dpmjetIII193.pyf \
 	--include-paths $(DPMJET_INCS):$(PHOJET_INCS):$(PYTHIA_INCS):$(DPMJET_FLUKA_INCS) \
 	--overwrite-signature only: $(DPMJET_FUNCS) : f2py_cpp.f
 	$(DEL_COMMAND) f2pytemp.f f2py_cpp.f f2pytemp.s
@@ -203,4 +203,4 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	$(DEL_COMMAND) common$(PATHSEP)dpmjetIII192.pyf
+	$(DEL_COMMAND) common$(PATHSEP)dpmjetIII193.pyf

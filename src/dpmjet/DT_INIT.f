@@ -36,10 +36,12 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(EVAFLG)'
-      INCLUDE '(FRBKCM)'
+#ifdef FOR_FLUKA
+      INCLUDE 'inc/flkdim'
+      INCLUDE 'inc/flkpev'
+#else
+      INCLUDE 'inc/dpmpev'
+#endif
  
 C emulsion treatment
       INCLUDE 'inc/dtcomp'
@@ -170,6 +172,7 @@ C   set default values for input variables
          CALL DT_DEFAUL(Epn,ppn)
          Iglau = 0
          ixsqel = 0
+         iflevg = 0
 C   flag for collision energy input
          leinp = .FALSE.
          lstart = .FALSE.
@@ -211,7 +214,8 @@ C  in this case Epn is expected to carry the beam momentum
          what(2) = 0
          codewd = 'START     '
          lext = .TRUE.
-         LEVprt = .TRUE.
+C AFer. now included above
+C        LEVprt = .TRUE.
          GOTO 300
       END IF
 #endif
