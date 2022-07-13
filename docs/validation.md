@@ -22,6 +22,21 @@ The figures for [K+](#K+_rapidity) and [Lambda0](#Lambda0_rapidity) demonstrate 
 | ![K0_S_rapidity](figures/193/ydist_K_S0_O-O.png) |  |
 | - | - |
 
+These changes imply also changes to the total particle multiplicity.
+
+| ![p+_rapidity](figures/193/totmult_p%2B_O-O.png) | ![n0_rapidity](figures/193/totmult_n0_O-O.png)
+| - | - |
+
+| ![pi+_rapidity](figures/193/totmult_pi+_O-O.png) | ![pi-_rapidity](figures/193/totmult_pi-_O-O.png) |
+| - | - |
+
+| ![K+_rapidity](figures/193/totmult_K+_O-O.png) | ![K-_rapidity](figures/193/totmult_K-_O-O.png) |
+| - | - |
+
+| ![Lambda0_rapidity](figures/193/totmult_Lambda0_O-O.png) | ![Lambdabar0_rapidity](figures/193/totmult_Lambdabar0_O-O.png)
+| - | - |
+
+
 ## DPMJET-III 19.2
 
 The version marks a return to an older set of fragmentation parameters on request by CERN FLUKA team. There is no obvious preference by data for either of the parameter sets.
