@@ -105,7 +105,7 @@ Cinitialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &            '   ----        PHOJET  19.3.0       ----   '
+     &            '   ----        PHOJET  19.3.1       ----   '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
@@ -113,7 +113,7 @@ Cinitialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.4 ) WRITE (LO,*)
      &                         '     Authors: Ralph Engel         (KIT)'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &                        '              Anatoli Fedynitch   (ICRR)'
+     &                        '              Anatoli Fedynitch  (ASIoP)'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &                '              Johannes Ranft      (Siegen Univ.)'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
@@ -126,7 +126,7 @@ Cinitialize random number generator in standalone (-2) mode
      &                    '     https://github.com/afedynitch/dpmjet'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/05/13'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/07/13'
       IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.1'
  
       IF ( LPRi.GT.4 ) WRITE (LO,*)

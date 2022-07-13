@@ -25,8 +25,8 @@ C***********************************************************************
       PARAMETER (TINY10=1.0D-10,ZERO=0.0D0,OHALF=0.5D0)
  
       LOGICAL lchk
+C string mass threshold in GeV for strange quarks at the ends      
       PARAMETER (SMTHR=0.765D0)
-C      PARAMETER (SMTHR=0.0D0)
  
  
       PARAMETER (MAXNCL=260,MAXVQU=MAXNCL,MAXSQU=20*MAXVQU,
