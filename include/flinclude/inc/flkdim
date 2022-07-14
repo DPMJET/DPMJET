@@ -1,5 +1,5 @@
 #ifdef FLUKACERN
-      INCLUDE dimpar.inc
+      INCLUDE 'dimpar.inc'
 #else
       INCLUDE '(DIMPAR)'
 #endif
