@@ -160,6 +160,11 @@ dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
+ifneq ($(FLUKACERN),)
+  CPPFLAGS = -DFORFLUKA -DFLUKACERN
+  INCLU += -I$(FLUKACERN)
+endif
+
 pylib = dpmjetIII193$(LEXT)
 
 all: exe 
@@ -204,3 +209,10 @@ clean:
 .PHONY: distclean
 distclean: clean
 	$(DEL_COMMAND) common$(PATHSEP)dpmjetIII193.pyf
+
+# **************************
+# Variable printing target
+# make print-INCPATH
+# **************************
+print-%:
+	@echo $* = $($*)
