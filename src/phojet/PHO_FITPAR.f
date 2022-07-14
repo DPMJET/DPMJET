@@ -8,7 +8,6 @@ C**********************************************************************
 #ifdef FOR_FLUKA
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       PARAMETER ( LUNRDB = 1 )
-      INTEGER LUNRDB
 #else
       IMPLICIT NONE
 #endif
