@@ -1,4 +1,11 @@
+#ifdef FLUKACERN
+      INCLUDE dimpar.inc
+      INCLUDE fheavy.inc
+      INCLUDE genstk.inc
+      INCLUDE resnuc.inc
+#else
       INCLUDE '(DIMPAR)'
       INCLUDE '(FHEAVY)'
       INCLUDE '(GENSTK)'
       INCLUDE '(RESNUC)'
+#endif

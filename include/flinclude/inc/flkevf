@@ -1,2 +1,7 @@
+#ifdef FLUKACERN
+      INCLUDE evaflg.inc
+      INCLUDE frbkcm.inc
+#else
       INCLUDE '(EVAFLG)'
       INCLUDE '(FRBKCM)'
+#endif
