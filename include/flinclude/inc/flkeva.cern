@@ -1,0 +1,4 @@
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'fheavy.inc'
+      INCLUDE 'genstk.inc'
+      INCLUDE 'resnuc.inc'
