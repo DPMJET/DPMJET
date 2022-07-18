@@ -161,7 +161,7 @@ dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
 ifneq ($(FLUKACERN),)
-  CPPFLAGS = -DFORFLUKA -DFLUKACERN
+  CPPFLAGS = -DFOR_FLUKA -DFLUKACERN
   INCLU += -I$(FLUKACERN)
 endif
 
