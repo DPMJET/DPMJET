@@ -5,7 +5,7 @@ C
 C     read input parameters according to PDFs
 C
 C**********************************************************************
-#ifdef FOR_FLUKA
+#if defined(FLUKAINFN) || defined(FLUKACERN)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       PARAMETER ( LUNRDB = 1 )
 #else
@@ -402,7 +402,7 @@ C  load parameter set from internal tables
 C  get parameters of soft cross sections from dpmjpar.dat
  100     IF ( IPAmdl(99).GT.ifound ) THEN
  
-#ifndef FOR_FLUKA
+#if !defined(FLUKAINFN) && !defined(FLUKACERN)
             kpflen = INDEX(PARfn,'.dat') + 3
             IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,A)')
      &            'PHO_FITPAR: loading parameter set from file '//

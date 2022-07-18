@@ -2,9 +2,12 @@
       SUBROUTINE DT_SWPFSP(Idx,Lfsp,Lrnl)
  
 
-#ifdef FOR_FLUKA
+#if defined(FLUKAINFN)
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
+#elif defined(FLUKACERN)
+      INCLUDE 'inc/flkdim.cern'
+      INCLUDE 'inc/flkpev.cern'
 #else
       IMPLICIT NONE
       LOGICAL LEVprt

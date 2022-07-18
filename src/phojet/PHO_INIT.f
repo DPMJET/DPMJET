@@ -84,7 +84,7 @@ C  define input/output units
          LPRi = 10
          CALL DT_RNDMST(22,54,76,92)
          LI = Linp
-#ifndef FOR_FLUKA
+#if !defined(FLUKAINFN) && !defined(FLUKACERN)
 Cinitialize random number generator in standalone (-2) mode
       ELSE IF ( Linp.EQ.-2 ) THEN
          CALL DT_RNDMST(22,54,76,92)

@@ -11,8 +11,10 @@ C          = 2 target     residual nucleus                             *
 C This version dated 19.04.95 is written by S. Roesler.                *
 C***********************************************************************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-#ifdef FOR_FLUKA
+#if defined(FLUKAINFN)
       INCLUDE 'inc/flkeva'
+#elif defined(FLUKACERN)
+      INCLUDE 'inc/flkeva.cern'
 #else
       INCLUDE 'inc/dpmeva'
 #endif

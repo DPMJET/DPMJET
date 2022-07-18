@@ -4,7 +4,7 @@ C  information about currently active beam-target configuration
       INTEGER MPMapp , MAXMAPPS , NMApp , MPAr
       DOUBLE PRECISION SQSglobmax
 
-C #ifdef FOR_FLUKA
+C #if defined(FLUKAINFN) || defined(FLUKACERN)
       PARAMETER (MPARMAX=40)
       PARAMETER (MAXMAPPS=40)
 C #else

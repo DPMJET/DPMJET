@@ -4,7 +4,7 @@
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       END
 
-#ifndef FOR_FLUKA
+#if !defined(FLUKAINFN) && !defined(FLUKACERN)
       SUBROUTINE GLAUBR(PPROJ,UMO,IBPROJ,IT,IP,info,Barr)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       END
