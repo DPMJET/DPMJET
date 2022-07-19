@@ -26,7 +26,8 @@ C***********************************************************************
 #if defined(FLUKAINFN)
       INCLUDE 'inc/flkprt'
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkprt.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'part.inc'
 #endif
  
       INCLUDE 'inc/pydat1'

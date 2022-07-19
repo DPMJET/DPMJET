@@ -6,8 +6,8 @@
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkdim.cern'
-      INCLUDE 'inc/flkpev.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
 #else
       IMPLICIT NONE
       LOGICAL LEVprt

@@ -41,9 +41,10 @@ C parameter for intranuclear cascade
       INCLUDE 'inc/flkevf'
       INCLUDE 'inc/flkpev'
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkdim.cern'
-      INCLUDE 'inc/flkevf.cern'
-      INCLUDE 'inc/flkpev.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'evaflg.inc'
+      INCLUDE 'frbkcm.inc'
+      INCLUDE 'parevt.inc'
 #else
       INCLUDE 'inc/dpmpev'
 #endif

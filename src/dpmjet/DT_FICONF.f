@@ -60,8 +60,11 @@ C event flag
       DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
       EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkeva.cern'
-      INCLUDE 'inc/flkpev.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'fheavy.inc'
+      INCLUDE 'genstk.inc'
+      INCLUDE 'resnuc.inc'
+      INCLUDE 'parevt.inc'
       DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
       EXTERNAL AMNAMA, EXMSAZ, PFRMAV
       CLFLEV (WDUMMY) = WDUMMY

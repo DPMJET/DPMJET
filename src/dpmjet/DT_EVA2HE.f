@@ -14,7 +14,10 @@ C***********************************************************************
 #if defined(FLUKAINFN)
       INCLUDE 'inc/flkeva'
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkeva.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'fheavy.inc'
+      INCLUDE 'genstk.inc'
+      INCLUDE 'resnuc.inc'
 #else
       INCLUDE 'inc/dpmeva'
 #endif

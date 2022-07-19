@@ -40,8 +40,8 @@ C names of hadrons used in input-cards
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
 #elif defined(FLUKACERN)
-      INCLUDE 'inc/flkdim.cern'
-      INCLUDE 'inc/flkpev.cern'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
 #else
       INCLUDE 'inc/dpmpev'
 #endif
