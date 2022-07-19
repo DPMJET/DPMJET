@@ -21,7 +21,6 @@ C  input/output channels
 #if defined(FLUKAINFN) || defined(FLUKACERN)
       LQ = INDEX (Tablefile,'/') + 1
       IF ( LQ .LT. 0 ) LQ = 0
-      PRINT *,"PHO_SETCT14: FILE=", Tablefile(LQ:Lenfname)
       CALL OAUXFI(Tablefile(LQ:Lenfname), LUNRDB,'OLD',IERR)
       IF (IERR.GT.0) GOTO 100
       CALL PHO_READPDS0 (LUNRDB)
