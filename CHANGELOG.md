@@ -2,6 +2,12 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.3.2:
+
+- Build system adapted to different include schemes. Thx @luillo76 for PR
+- New preprocessor flags: -DFLDOTINCL and -DFLINCINCL -PNUTINC
+- No change to physics
+
 19.3.1:
 
 - Proprietary and nonfunctional FLUKA common blocks removed
