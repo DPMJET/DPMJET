@@ -54,6 +54,9 @@ C get actual energy from /DTLTRA/
       ECMnow = UMO
       Q2 = VIRt
 C
+#ifdef FOR_CORSIKA
+      if (LPRI.GT.4) write(LOUT,*)'DT_GLAUBE:IOGLB=',IOGLB,' NIDX=',NIDX
+#endif
 C new patch for pre-initialized variable projectile/target/energy runs
       IF ( IOGlb.NE.100 ) THEN
          i1 = 1

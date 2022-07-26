@@ -78,6 +78,12 @@ C VDM parameter for photon-nucleus interactions
 C parameters for hA-diffraction
       INCLUDE 'inc/dtdiha'
  
+#ifdef FOR_CORSIKA
+cdh  datadir for path to the data sets to be read in by dpmjet/phojet
+      COMMON /DATADIR/ DATADIR
+      CHARACTER*132    DATADIR
+#endif
+
       COMPLEX*16 pp11(MAXNCL) , pp12(MAXNCL) , pp21(MAXNCL) , 
      &           pp22(MAXNCL) , ompp11 , ompp12 , ompp21 , ompp22 , 
      &           dipp11 , dipp12 , dipp21 , dipp22 , avdipp , pptmp1 , 
@@ -106,10 +112,22 @@ C not needed for these interactions..
          i = INDEX(CGLb,' ')
          IF ( i.EQ.0 ) THEN
             cfile = CGLb//'.glb'
+#ifndef FOR_CORSIKA
             OPEN (LDAt,FILE=CGLb//'.glb',STATUS='UNKNOWN')
+#else
+c  modification for use with corsika using path to data file in DATADIR
+            OPEN(LDAT,STATUS='UNKNOWN',
+     &        FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB//'.glb')
+#endif
          ELSE IF ( i.GT.1 ) THEN
             cfile = CGLb(1:i-1)//'.glb'
+#ifndef FOR_CORSIKA
             OPEN (LDAt,FILE=CGLb(1:i-1)//'.glb',STATUS='UNKNOWN')
+#else
+c  modification for use with corsika using path to data file in DATADIR
+            OPEN(LDAT,STATUS='UNKNOWN',
+     &        FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB(1:I-1)//'.glb')
+#endif
          ELSE
             STOP 'XSGLAU 1'
          END IF

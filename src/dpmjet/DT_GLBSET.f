@@ -37,7 +37,14 @@ C Glauber formalism: parameters
       INCLUDE 'inc/dtglam'
 C Glauber formalism: cross sections
       INCLUDE 'inc/dtglxs'
-C number of data sets other than protons and nuclei
+
+#ifdef FOR_CORSIKA
+cdh  datadir for path to the data sets to be read in by dpmjet/phojet
+      COMMON /DATADIR/ DATADIR
+      CHARACTER*132    DATADIR
+#endif
+
+C     number of data sets other than protons and nuclei
 C at the moment = 2 (pions and kaons)
       PARAMETER (MAXOFF=2)
       DIMENSION ijpini(5) , ioffst(25)
@@ -84,11 +91,21 @@ C
          idx = INDEX(CGLb,' ')
          k = 12
          IF ( idx.GT.1 ) k = idx - 1
+#ifndef FOR_CORSIKA
          OPEN (LDAt,FILE=CGLb(1:k)//'.glb',STATUS='UNKNOWN')
- 
          IF ( LPRi.GT.4 ) WRITE (LOUt,99010) CGLb(1:k)//'.glb'
 99010    FORMAT (/,' GLBSET: impact parameter distributions read from ',
      &           'file ',A12,/)
+#else
+c  modification for use with corsika using path to data file in DATADIR
+         IF (LPRI.GT.4)
+     &     WRITE(LOUT,*)'DT_GLBSET:read glauber parameter from file ',
+     &     DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB(1:K),'.glb',' K=',K
+
+         OPEN(LDAT,STATUS='UNKNOWN',
+     &     FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB(1:K)//'.glb')
+#endif
+
 C
 C  read binning information
          READ (LDAt,'(I4,2X,2E13.5)') nebin , elo , ehi

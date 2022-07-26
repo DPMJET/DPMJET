@@ -63,6 +63,9 @@ C  interpolation tables for hard cross section and MC selection weights
       INCLUDE 'inc/pohtab'
 #else
       INCLUDE 'inc/pohtab50'
+cdh  datadir for path to the data sets to be read in by dpmjet/phojet
+      COMMON /DATADIR/ DATADIR
+      CHARACTER*132    DATADIR
 #endif
  
 C  initialize /POCONS/
@@ -527,11 +530,16 @@ C  max. iteration number in PHO_SELSX2
 C  max. iteration number in PHO_SELSXI
       IPAmdl(183) = 50
  
-C  Default directory for data files
+C Default directory for data files
+#ifndef FOR_CORSIKA
       IF ( LENdir.EQ.0 ) THEN
-            DATDir = 'dpmdata/'
-            LENDir = 8 
+        DATDir = 'dpmdata/'
+        LENDir = 8 
       END IF
+#else
+        LENDir = INDEX(DATADIR,' ')
+        DATDir = DATADIR(1:LENDir-1)//'/'
+#endif
 C  Parameter file path
       IF ( INDEX(PARfn,'.dat').EQ.0 ) PARfn = 
      &   DATdir(1:LENdir)//'dpmjpar.dat'

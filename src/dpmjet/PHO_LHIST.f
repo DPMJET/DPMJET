@@ -1,3 +1,4 @@
+#ifndef FOR_CORSIKA
 
       SUBROUTINE PHO_LHIST(I,X)
  
@@ -9,3 +10,4 @@ C*
       SAVE 
  
       END SUBROUTINE
+#endif

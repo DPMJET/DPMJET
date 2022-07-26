@@ -438,7 +438,11 @@ C  the following patch is required to transmit the correct excitation
 C   energy to Eventd
                IF ( ITRspt.EQ.1 ) THEN
                   IF ( ABS(amrcl(i)-AMRcl0(i)-EEXc(i)).GT.1.D-04 )
-     &                 WRITE (77,*)
+#ifndef FOR_CORSIKA
+     &                WRITE (77,*)
+#else
+     &                WRITE (LOUT,*)
+#endif
      &                         ' DT_FICONF:AMRCL(I),AMRCL0(I),EEXC(I)' , 
      &                        amrcl(i) , AMRcl0(i) , EEXc(i)
                   prcl0 = prcl(i,4)

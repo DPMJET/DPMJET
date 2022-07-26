@@ -1,3 +1,4 @@
+#ifndef FOR_CORSIKA
 
       SUBROUTINE STRUCTP(Xi,Scale2,P2,Ip2,Uv,Dv,Us,Ds,Ss,Cs,Bs,Ts,Gl)
       IMPLICIT NONE
@@ -5,3 +6,4 @@
      &                 Us , Uv , Xi
       INTEGER Ip2
       END SUBROUTINE
+#endif

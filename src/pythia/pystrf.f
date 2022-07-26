@@ -188,8 +188,13 @@ C...this is usually the case!
         PARU12=4D0*PARU12
         PARU13=2D0*PARU13
         GOTO 140
+#ifndef FOR_CORSIKA
       ELSEIF(NTRY.GT.100.OR.NTRYR.GT.100) THEN
         CALL PYERRM(14,'(PYSTRF:) caught in infinite loop')
+#else
+      ELSEIF(NTRY.GT.500.OR.NTRYR.GT.500) THEN
+        CALL PYERRM( 4,'(PYSTRF:) caught in infinite loop')
+#endif
         IF(MSTU(21).EQ.2) MSTU(90)=0
         IF(MSTU(21).GE.1) RETURN
       ENDIF
