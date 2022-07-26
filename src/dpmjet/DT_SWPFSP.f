@@ -2,10 +2,10 @@
       SUBROUTINE DT_SWPFSP(Idx,Lfsp,Lrnl)
  
 
-#if defined(FLUKAINFN)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
-#elif defined(FLUKACERN)
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'parevt.inc'
 #else

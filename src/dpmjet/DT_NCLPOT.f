@@ -39,7 +39,7 @@ C                 asig0 asig+ atet0 atet+
  
       DATA an/0.4D0/
       DATA lstart/.TRUE./
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       DOUBLE PRECISION EXMSAZ
       EXTERNAL EXMSAZ
 #else

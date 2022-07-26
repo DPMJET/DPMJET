@@ -23,9 +23,9 @@ C***********************************************************************
  
       LOGICAL lfirst , lfirdt , lfirph
  
-#if defined(FLUKAINFN)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkprt'
-#elif defined(FLUKACERN)
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'part.inc'
 #endif
@@ -115,7 +115,7 @@ C
  
 C as Fluka event-generator: allow only paprop particles to be stable
 C and let all other particles decay (i.e. those with strong decays)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
          IF ( (ITRspt.EQ.1).AND.OVwtdc) THEN
             DO i = 1 , IDMAXP
                IF ( KPToip(i).NE.0 ) THEN

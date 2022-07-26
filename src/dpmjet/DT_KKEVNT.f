@@ -60,7 +60,7 @@ C*temporary
 C statistics: Glauber-formalism
       INCLUDE 'inc/dtsta3'
 C*
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     COMMON / DBGPRE / LDBGPR
 C     LOGICAL LDBGPR
 #endif
@@ -71,7 +71,7 @@ C     LOGICAL LDBGPR
       ICRequ = ICRequ + 1
       nc = 0
  
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,3I6)')
 C    &       ' KKEVNT-1:',IREJ,ICREQU,NC
@@ -93,7 +93,7 @@ C     END IF
  
 C initialize DTEVT1/DTEVT2
       CALL DT_EVTINI
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,I6)')
 C    &       ' KKEVNT EVTINI:',NHKK
@@ -129,7 +129,7 @@ C configuration changed
      &     (ABS(EPRoj-eprold).GT.TINY10) ) THEN
 C sample number of nucleon-nucleon coll. according to Glauber-form.
          CALL DT_GLAUBE(IP,IT,jjproj,BIMpac,nn,np,nt,JSSh,JTSh,Kkmat)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C        IF ( LDBGPR ) THEN
 C           WRITE (77,'(A,6I6)')
 C    &          ' KKEVNT GLAUBE:',IP,IT,JJPROJ,NN,NP,NT
@@ -166,7 +166,7 @@ C check number of involved proj. nucl. (NP) if central prod.is requested
 C get initial nucleon-configuration in projectile and target
 C rest-system (including Fermi-momenta if requested)
       CALL DT_ININUC(IJProj,IP,IPZ,PKOo,JSSh,1)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,3I6,(/,10I6))')
 C    &       ' KKEVNT ININUC-1:',IP,IPZ,MODE,(JSSH(IJK),IJK=1,IP)
@@ -178,7 +178,7 @@ C     END IF
       mode = 2
       IF ( EPRoj.LE.EHAdth ) mode = 3
       CALL DT_ININUC(IJTarg,IT,ITZ,TKOo,JTSh,mode)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,3I6,(/,10I6))')
 C    &       ' KKEVNT ININUC-2:',IT,ITZ,MODE,(JTSH(IJK),IJK=1,IT)
@@ -222,7 +222,7 @@ C   fixed threshold for onset of production via HADRIN
  
 C sampling of momentum-x fractions & flavors of chain ends
          CALL DT_SPLPTN(nn)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C        IF ( LDBGPR ) THEN
 C           WRITE (77,'(A,2I6)')
 C    &          ' KKEVNT SPLPTN:',NN,NHKK
@@ -233,7 +233,7 @@ C        END IF
  
 C Lorentz-transformation of wounded nucleons into nucl.-nucl. cms
          CALL DT_NUC2CM
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C        IF ( LDBGPR ) THEN
 C           WRITE (77,'(A,I6)')
 C    &          ' KKEVNT NUC2CM:',NHKK
@@ -244,7 +244,7 @@ C        END IF
  
 C collect momenta of chain ends and put them into DTEVT1
          CALL DT_GETPTN(IP,nn,NCSy,irej1)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C        IF ( LDBGPR ) THEN
 C           WRITE (77,'(A,3I6)')
 C    &          ' KKEVNT GETPTN:',NN,IREJ1,NHKK
@@ -295,7 +295,7 @@ C  quasi-elastic neutrino scattering
      &           ' not available - program stopped')
          STOP
       END IF
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,2I6)')
 C    &       ' KKEVNT EVENTx:',MCGENE,NHKK

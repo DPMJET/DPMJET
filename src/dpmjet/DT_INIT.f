@@ -22,7 +22,7 @@ C***********************************************************************
      &        Npmass , Ntchar , Ntmass
 
 
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       INTEGER iseed1 , iseed2 , isrnd1 , isrnd2 
 #endif
       SAVE 
@@ -36,10 +36,10 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
-#if defined(FLUKAINFN)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
-#elif defined(FLUKACERN)
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'parevt.inc'
 #else
@@ -153,7 +153,7 @@ C at the first call of INIT: initialize event generation
       IF ( lstart ) THEN
          CALL DT_TITLE
 C   initialization and test of the random number generator
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
          IF ( ITRspt.NE.1 ) THEN
  
             CALL FLRNOC(isrnd1,isrnd2,iseed1,iseed2)
@@ -185,7 +185,7 @@ C---------------------------------------------------------------------
  100  CONTINUE
 C bypass reading input cards (e.g. for use with Fluka)
 C  in this case Epn is expected to carry the beam momentum
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       IF ( Ncases.EQ.-1 ) THEN
          IP = Npmass
          IPZ = Npchar
@@ -2019,7 +2019,7 @@ C disallow Cronin's multiple scattering for nucleus-nucleus interactions
 99090       FORMAT (/,1X,'INIT:  multiple scattering disallowed',/)
             MKCron = 0
          END IF
-#if !defined(FLUKAINFN) && !defined(FLUKACERN)
+#ifndef FOR_FLUKA
 C initialization of Glauber-formalism (moved to xAEVT, sr 26.3.96)
          IF (lext) THEN
             IF ( NCOmpo.LE.0 ) THEN

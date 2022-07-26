@@ -160,9 +160,14 @@ dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
-ifneq ($(FLUKACERN_INCS),)
-  CPPFLAGS = -DFLUKACERN
-  INCLU += -I$(FLUKACERN_INCS)
+ifneq ($(FLDOTINCL_DIR),)
+  CPPFLAGS = -DFOR_FLUKA -DFLDOTINCL
+  INCLU += -I$(FLDOTINCL_DIR)
+endif
+
+ifneq ($(FLINCINCL_DIR),)
+  CPPFLAGS = -DFOR_FLUKA -DFLINCINCL -PNUTINC
+  INCLU += -I$(FLINCINCL_DIR)
 endif
 
 pylib = dpmjetIII193$(LEXT)

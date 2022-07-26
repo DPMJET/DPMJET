@@ -1,13 +1,12 @@
 
       SUBROUTINE PHO_SETCT14(Tablefile, Lenfname)
       
-#if defined(FLUKAINFN) || defined(FLUKACERN)
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER ( LUNRDB = 1 )
-#else
       IMPLICIT NONE
-#endif
 
+#ifdef FOR_FLUKA
+      INTEGER LUNRDB, LQ
+      PARAMETER ( LUNRDB = 1 )
+#endif
       INTEGER ierr , IPDsformat , IPDsset , ISEtch
  
 C  input/output channels
@@ -18,7 +17,7 @@ C  input/output channels
       DATA IPDsset , IPDsformat/0 , 0/
       SAVE 
  
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       LQ = INDEX (Tablefile,'/') + 1
       IF ( LQ .LT. 0 ) LQ = 0
       CALL OAUXFI(Tablefile(LQ:Lenfname), LUNRDB,'OLD',IERR)

@@ -5,11 +5,10 @@ C
 C     read input parameters according to PDFs
 C
 C**********************************************************************
-#if defined(FLUKAINFN) || defined(FLUKACERN)
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER ( LUNRDB = 1 )
-#else
       IMPLICIT NONE
+#ifdef FOR_FLUKA
+      INTEGER LUNRDB
+      PARAMETER ( LUNRDB = 1 )
 #endif
       DOUBLE PRECISION alam2 , DEFA , DEFB , dummy , PHO_ALPHAS , 
      &                 q2max , q2min , THOUS , xmax , xmin
@@ -402,7 +401,7 @@ C  load parameter set from internal tables
 C  get parameters of soft cross sections from dpmjpar.dat
  100     IF ( IPAmdl(99).GT.ifound ) THEN
  
-#if !defined(FLUKAINFN) && !defined(FLUKACERN)
+#ifndef FOR_FLUKA
             kpflen = INDEX(PARfn,'.dat') + 3
             IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,A)')
      &            'PHO_FITPAR: loading parameter set from file '//

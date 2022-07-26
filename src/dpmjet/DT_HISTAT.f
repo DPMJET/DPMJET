@@ -36,11 +36,11 @@ C statistics: residual nuclei
 C parameter for intranuclear cascade
       INCLUDE 'inc/dtfoti'
  
-#if defined(FLUKAINFN)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkevf'
       INCLUDE 'inc/flkpev'
-#elif defined(FLUKACERN)
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'evaflg.inc'
       INCLUDE 'frbkcm.inc'

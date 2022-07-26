@@ -45,7 +45,7 @@ C Glauber formalism: flags and parameters for statistics
       INCLUDE 'inc/dtglgp'
       INCLUDE 'inc/dtimpa'
       DIMENSION what(6)
-#if !defined(FLUKAINFN) && !defined(FLUKACERN)
+#ifndef FOR_FLUKA
 Cf2py intent(out) IREJ
 #endif
       Irej = 0

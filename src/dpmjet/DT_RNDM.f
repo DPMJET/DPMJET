@@ -54,7 +54,7 @@ C***********************************************************************
       SAVE 
  
 C random number generator
-#if !defined(FLUKAINFN) && !defined(FLUKACERN)
+#ifndef FOR_FLUKA
       COMMON /DTRAND/ U(97) , C , CD , CM , I , J
 #endif
 C counter of calls to random number generator
@@ -70,7 +70,7 @@ C        IRNCT0 = 0
 C        IRNCT1 = 0
 C        LFIRST = .FALSE.
 C     ENDIF
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       DT_RNDM = FLRNDM(Vdummy)
 #else
  100  DT_RNDM = U(I) - U(J)

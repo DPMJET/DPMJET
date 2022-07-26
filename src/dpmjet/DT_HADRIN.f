@@ -46,7 +46,7 @@ C final state from HADRIN interaction
  
       DIMENSION Ppr(5) , ppr1(5) , Pta(5) , bgta(4) , p1in(4) , p2in(4)
      &          , p1out(4) , p2out(4) , imcorr(2)
-#if defined(FLUKAINFN) || defined(FLUKACERN)
+#ifdef FOR_FLUKA
       INTEGER   IGPART, IDD2F
       EXTERNAL  IGPART, IDD2F
 #else
@@ -163,7 +163,7 @@ C direction cosines of projectile in target rest system
 C sample inelastic interaction
       IF ( Mode.EQ.1 ) THEN
          IF ( LFLEVG ) THEN
-#if defined(FLUKAINFN)
+#if defined(FOR_FLUKA) && defined(PNUTINC)
             CALL DP2HFL   (idhpr,pprto1,ppr1(4),cx,cy,cz,idhta)
             IF ( IRH .LE. 1 .AND.
      &           ( ijdhpr .LE.  2 .OR. ijdhpr .EQ. 12 .OR.
@@ -182,7 +182,7 @@ C sample inelastic interaction
 C sample elastic interaction
       ELSE IF ( Mode.EQ.2 ) THEN
          IF ( LFLEVG ) THEN
-#if defined(FLUKAINFN)
+#if defined(FOR_FLUKA) && defined(PNUTINC)
             CALL DP2HNE   (idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
 #else
             CALL DT_ELHAIN(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)

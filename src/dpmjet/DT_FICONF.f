@@ -54,12 +54,12 @@ C particle properties (BAMJET index convention)
 C event flag
       INCLUDE 'inc/dtevno'
       
-#if defined(FLUKAINFN)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkeva'
       INCLUDE 'inc/flkpev'
       DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
       EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
-#elif defined(FLUKACERN)
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'fheavy.inc'
       INCLUDE 'genstk.inc'
@@ -499,7 +499,7 @@ C movd from above
                   LRNfss = .FALSE.
                   LFRagm = .FALSE.
                   WCheck = CLFLEV (we)
-
+ 
 C put evaporated particles and residual nuclei to DTEVT1
                   mo = NHKk
                   CALL DT_EVA2HE(mo,excitf,i,irej1)
