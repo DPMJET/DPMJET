@@ -66,8 +66,7 @@ C event flag
       INCLUDE 'resnuc.inc'
       INCLUDE 'parevt.inc'
       DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
-      EXTERNAL AMNAMA, EXMSAZ, PFRMAV
-      CLFLEV (WDUMMY) = WDUMMY
+      EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
 #else
       INCLUDE 'inc/dpmeva'
       INCLUDE 'inc/dpmpev'
