@@ -54,9 +54,17 @@ C particle properties (BAMJET index convention)
 C event flag
       INCLUDE 'inc/dtevno'
       
-#ifdef FOR_FLUKA
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkeva'
       INCLUDE 'inc/flkpev'
+      DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
+      EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'fheavy.inc'
+      INCLUDE 'genstk.inc'
+      INCLUDE 'resnuc.inc'
+      INCLUDE 'parevt.inc'
       DOUBLE PRECISION AMNAMA, EXMSAZ, PFRMAV, CLFLEV
       EXTERNAL AMNAMA, EXMSAZ, PFRMAV, CLFLEV
 #else

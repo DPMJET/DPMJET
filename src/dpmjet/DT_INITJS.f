@@ -23,8 +23,11 @@ C***********************************************************************
  
       LOGICAL lfirst , lfirdt , lfirph
  
-#ifdef FOR_FLUKA
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkprt'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'part.inc'
 #endif
  
       INCLUDE 'inc/pydat1'

@@ -36,9 +36,12 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
-#ifdef FOR_FLUKA
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/flkdim'
       INCLUDE 'inc/flkpev'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
 #else
       INCLUDE 'inc/dpmpev'
 #endif

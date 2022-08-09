@@ -5,12 +5,10 @@ C
 C     read input parameters according to PDFs
 C
 C**********************************************************************
-#ifdef FOR_FLUKA
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER ( LUNRDB = 1 )
-      INTEGER LUNRDB
-#else
       IMPLICIT NONE
+#ifdef FOR_FLUKA
+      INTEGER LUNRDB
+      PARAMETER ( LUNRDB = 1 )
 #endif
       DOUBLE PRECISION alam2 , DEFA , DEFB , dummy , PHO_ALPHAS , 
      &                 q2max , q2min , THOUS , xmax , xmin
