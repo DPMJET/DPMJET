@@ -2,9 +2,12 @@
       SUBROUTINE DT_SWPFSP(Idx,Lfsp,Lrnl)
  
 
-#ifdef FOR_FLUKA
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/flkdim'
+      INCLUDE 'inc/flkpev'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
 #else
       IMPLICIT NONE
       LOGICAL LEVprt

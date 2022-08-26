@@ -1,13 +1,12 @@
 
       SUBROUTINE PHO_SETCT14(Tablefile, Lenfname)
       
-#ifdef FOR_FLUKA
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      INCLUDE '(IOUNIT)'
-#else
       IMPLICIT NONE
-#endif
 
+#ifdef FOR_FLUKA
+      INTEGER LUNRDB, LQ
+      PARAMETER ( LUNRDB = 1 )
+#endif
       INTEGER ierr , IPDsformat , IPDsset , ISEtch
  
 C  input/output channels

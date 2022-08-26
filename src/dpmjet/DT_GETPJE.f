@@ -53,8 +53,6 @@ C rejection counter
       INCLUDE 'inc/dtrejc'
  
 C  standard particle data interface
- 
- 
       INCLUDE 'inc/poevt1'
 C  extension to standard particle data interface (PHOJET specific)
       INCLUDE 'inc/poevt2'

@@ -3,3 +3,6 @@
 *.pyd
 *.a
 bin/*.exe
+.vscode/
+.DS_store
+ongoing_debugging

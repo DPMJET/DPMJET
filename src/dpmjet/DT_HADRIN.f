@@ -10,6 +10,10 @@ C      MODE  = 1     inelastic interaction                             *
 C            = 2     elastic   interaction                             *
 C Revised version of the original FHAD.                                *
 C This version dated 27.10.95 is written by S. Roesler                 *
+C                                                                      *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -19,7 +23,8 @@ C***********************************************************************
       DOUBLE PRECISION pz , TINY1 , TINY10 , TINY2 , TINY3 , TINY5 , 
      &                 xm1 , xm2 , ZERO
       INTEGER i , i1 , i2 , idhpr , idhta , Idpr , Idta , idum , 
-     &        imcorr , inthad , Irej , irej1 , k , kcorr , Mode
+     &        imcorr , inthad , Irej , irej1 , k , kcorr , Mode,
+     &        kpdhpr , ijdhpr
       SAVE 
  
       INCLUDE 'inc/dtflka'
@@ -27,7 +32,7 @@ C***********************************************************************
       PARAMETER (ZERO=0.0D0,TINY10=1.0D-10,TINY5=1.0D-5,TINY3=1.0D-3,
      &           TINY2=1.0D-2,TINY1=1.0D-1,ONE=1.0D0)
  
-      LOGICAL lcorr , lmssg
+      LOGICAL lcorr , lflevg, lchnid, lmssg
  
 C flags for input different options
       INCLUDE 'inc/dtflg1'
@@ -41,7 +46,17 @@ C final state from HADRIN interaction
  
       DIMENSION Ppr(5) , ppr1(5) , Pta(5) , bgta(4) , p1in(4) , p2in(4)
      &          , p1out(4) , p2out(4) , imcorr(2)
- 
+#ifdef FOR_FLUKA
+      INTEGER   IGPART, IDD2F
+      EXTERNAL  IGPART, IDD2F
+#else
+      INTEGER   IGPART, IDD2F, KK, II
+      LOGICAL   LL
+      IDD2F  (KK) = 0
+      IGPART (KK,II,LL) = 0
+#endif
+
+
       DATA lmssg/.TRUE./
  
       Irej = 0
@@ -57,6 +72,11 @@ C   dump initial particles for energy-momentum cons. check
          CALL DT_EVTEMC(Pta(1),Pta(2),Pta(3),Pta(4),2,idum,idum)
       END IF
  
+      IF ( MODE .EQ. 1 ) THEN
+         lflevg = MOD ( Iflevg, 10 ) .GT. 0
+      ELSE
+         Lflevg = MOD ( Iflevg, 100 ) / 10 .GT. 0
+      END IF
       amp2 = Ppr(4)**2 - Ppr(1)**2 - Ppr(2)**2 - Ppr(3)**2
       amt2 = Pta(4)**2 - Pta(1)**2 - Pta(2)**2 - Pta(3)**2
       IF ( (amp2.LT.ZERO) .OR. (amt2.LT.ZERO) .OR. 
@@ -71,14 +91,40 @@ C   dump initial particles for energy-momentum cons. check
      &           E12.4,/,20X,'AMT2 = ',E12.4,', AAM(IDTA)**2 = ',E12.4)
          lmssg = .FALSE.
          lcorr = .TRUE.
+      ELSE IF ( lflevg .AND. ((amp2.LT.ZERO).OR.(amt2.LT.ZERO) .OR.
+     &    (ABS(amp2-AAM(Idpr)**2).GT.TINY10).OR.
+     &    (ABS(Amt2-AAM(Idta)**2).GT.TINY10)) ) THEN
+cc  ---------------- conditional added (mar'04) ---
+         IF ( lmssg .AND. (IOUlev(3).GT.0) .AND. LPRi.GT.4)
+     &        WRITE (LOUt,99010) amp2 , AAM(Idpr)**2 , amt2 , AAM(Idta)
+     &        **2
+         lmssg = .FALSE.
+         lcorr = .TRUE.
       END IF
  
 C convert initial state particles into particles which can be
 C handled by HADRIN
       idhpr = Idpr
       idhta = Idta
-      IF ( (idhpr.LE.0) .OR. (idhpr.GE.111) .OR. lcorr ) THEN
-         IF ( (idhpr.LE.0) .OR. (idhpr.GE.111) ) idhpr = 1
+      IF ( lflevg ) THEN
+         kpdhpr = IDD2F (idhpr)
+         IF ( kpdhpr .LE. 0 .OR. kpdhpr .EQ. 61 ) THEN
+            lchnid = .TRUE.
+         ELSE
+            ijdhpr = IGPART ( kpdhpr, 7, .FALSE. )
+            lchnid = ijdhpr .LE. 0
+            IF ( MODE .EQ. 2 )
+     &         lflevg = ijdhpr .LE.  2 .OR.  ijdhpr .EQ. 19 .OR.
+     &                ( ijdhpr .GE.  8 .AND. ijdhpr .LE.  9 ) .OR.
+     &                ( ijdhpr .GE. 12 .AND. ijdhpr .LE. 16 ) .OR.
+     &                ( ijdhpr .GE. 23 .AND. ijdhpr .LE. 25 )
+         END IF
+         lflevg = lflevg .AND. .NOT. lchnid
+      ELSE
+         lchnid = idhpr.LE.0 .OR. idhpr.GE.111
+      END IF
+      IF ( lchnid .OR. lcorr ) THEN
+         IF ( lchnid ) idhpr = 1
          DO k = 1 , 4
             p1in(k) = Ppr(k)
             p2in(k) = Pta(k)
@@ -116,11 +162,34 @@ C direction cosines of projectile in target rest system
  
 C sample inelastic interaction
       IF ( Mode.EQ.1 ) THEN
-         CALL DT_DHADRI(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta)
+         IF ( LFLEVG ) THEN
+#if defined(FOR_FLUKA) && defined(PNUTINC)
+            CALL DP2HFL   (idhpr,pprto1,ppr1(4),cx,cy,cz,idhta)
+            IF ( IRH .LE. 1 .AND.
+     &           ( ijdhpr .LE.  2 .OR. ijdhpr .EQ. 12 .OR.
+     &             ( ijdhpr .GE.  8 .AND. ijdhpr .LE.  9 ) .OR.
+     &             ( ijdhpr .GE. 13 .AND. ijdhpr .LE. 16 ) .OR.
+     &             ( ijdhpr .GE. 23 .AND. ijdhpr .LE. 25 ) ) ) THEN
+               CALL DP2HNE(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
+            END IF
+#else
+            CALL DT_DHADRI(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta)
+#endif
+         ELSE
+            CALL DT_DHADRI(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta)
+         END IF
          IF ( IRH.EQ.1 ) GOTO 100
 C sample elastic interaction
       ELSE IF ( Mode.EQ.2 ) THEN
-         CALL DT_ELHAIN(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
+         IF ( LFLEVG ) THEN
+#if defined(FOR_FLUKA) && defined(PNUTINC)
+            CALL DP2HNE   (idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
+#else
+            CALL DT_ELHAIN(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
+#endif
+         ELSE
+            CALL DT_ELHAIN(idhpr,pprto1,ppr1(4),cx,cy,cz,idhta,irej1)
+         END IF
          IF ( irej1.NE.0 ) THEN
  
             IF ( LPRi.GT.4 .AND. IOUlev(1).GT.0 ) WRITE (LOUt,*)

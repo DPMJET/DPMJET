@@ -73,6 +73,7 @@ C common /DTNPOT/
          PFErmn(i) = ZERO
          EBIndp(i) = ZERO
          EBIndn(i) = ZERO
+         EXCten(i) = ZERO
          DO j = 1 , 210
             EPOt(i,j) = ZERO
          END DO

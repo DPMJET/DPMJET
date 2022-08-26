@@ -1,0 +1,4 @@
+      INCLUDE '(DIMPAR)'
+      INCLUDE '(FHEAVY)'
+      INCLUDE '(GENSTK)'
+      INCLUDE '(RESNUC)'
