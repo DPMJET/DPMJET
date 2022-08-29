@@ -2,6 +2,13 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.3.3:
+
+- Added preprcessor option for integration into CORSIKA 7
+- Added preprcessor option for integration with impy that disables the internal random number generator
+- Smaller fixes
+- No change to physics
+
 19.3.2:
 
 - Build system adapted to different include schemes. Thx @luillo76 for PR

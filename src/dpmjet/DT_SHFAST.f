@@ -29,7 +29,7 @@ C Glauber formalism: cross sections
      &                    IJTarg , IBTarg , Ppn
          WRITE (47,99020) RASh(1) , RBSh(1) , BMAx(1) , BSTep(1)
          WRITE (47,99030) SIGsh , ROSh , GSH
-         DO i = 1 , 100
+         DO i = 1 , KSITEB
             WRITE (47,'(1X,E15.5)') BSIte(1,1,1,i)
          END DO
          WRITE (47,99040) NSIteb , NSTatb , ECMnn(1) , XSPro(1,1,1) , 
@@ -46,7 +46,7 @@ C Glauber formalism: cross sections
      &        THEN
             READ (47,99020) RASh(1) , RBSh(1) , BMAx(1) , BSTep(1)
             READ (47,99030) SIGsh , ROSh , GSH
-            DO i = 1 , 100
+            DO i = 1 , KSITEB
                READ (47,'(1X,E15.5)') BSIte(1,1,1,i)
             END DO
             READ (47,99040) NSIteb , NSTatb , ECMnn(1) , XSPro(1,1,1) , 

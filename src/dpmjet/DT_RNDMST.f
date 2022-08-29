@@ -1,4 +1,5 @@
 
+#ifndef IMPY
       SUBROUTINE DT_RNDMST(Na1,Na2,Na3,Nb1)
  
       IMPLICIT NONE
@@ -34,3 +35,4 @@ C random number generator
       CD = 7654321.0D0/16777216.0D0
       CM = 16777213.0D0/16777216.0D0
       END SUBROUTINE
+#endif
