@@ -1,4 +1,3 @@
-#ifndef FOR_CORSIKA
 
       SUBROUTINE PHO_PHIST(Imode,Weight)
  
@@ -44,4 +43,3 @@ C    &      ' Sigma = ',XSPRO(1,1,1),' mb   used for normalization'
       END IF
  
       END SUBROUTINE
-#endif

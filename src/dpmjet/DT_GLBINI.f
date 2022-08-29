@@ -29,13 +29,6 @@ C emulsion treatment
       INCLUDE 'inc/dtcomp'
 C Glauber formalism: flags and parameters for statistics
       INCLUDE 'inc/dtglgp'
-
-#ifdef FOR_CORSIKA
-cdh  datadir for path to the data sets to be read in by dpmjet/phojet
-      COMMON /DATADIR/ DATADIR
-      CHARACTER*132    DATADIR
-#endif
-
 C number of data sets other than protons and nuclei
 C at the moment = 2 (pions and kaons)
       PARAMETER (MAXOFF=2)
@@ -94,13 +87,7 @@ C  open Glauber-data output file
       idx = INDEX(CGLb,' ')
       k = 8
       IF ( idx.GT.1 ) k = idx - 1
-#ifndef FOR_CORSIKA
       OPEN (LDAt,FILE=CGLb(1:k)//'.glb',STATUS='UNKNOWN')
-#else
-c  modification for use with corsika using path to data file in DATADIR
-      OPEN(LDAT,STATUS='UNKNOWN',
-     &  FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB(1:K)//'.glb')
-#endif
 C
 C--------------------------------------------------------------------------
 C Glauber-initialization for proton and nuclei projectiles

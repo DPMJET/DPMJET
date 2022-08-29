@@ -14,7 +14,7 @@ C***********************************************************************
       DOUBLE PRECISION xlim2 , xlim3 , xmod , xseaco , ZERO
       INTEGER i , ibin , ichain , icw , idip , idit , Idp , idt , idum , 
      &        idum1 , ifirst , Iglau , ihdum , ihshma , ii , iip , iit , 
-     &        iplow , ippn
+     &        inseed , iplow , ippn
       INTEGER iprang , iratio , irej1 , itlow , iwhat , 
      &        iwhat1 , iwhat2 , ixsqel , j , 
      &        k , kc , kframe , MXCARD , na1 , na2
@@ -23,7 +23,7 @@ C***********************************************************************
 
 
 #ifdef FOR_FLUKA
-      INTEGER inseed , iseed1 , iseed2 , isrnd1 , isrnd2 
+      INTEGER iseed1 , iseed2 , isrnd1 , isrnd2 
 #endif
       SAVE 
  
@@ -185,7 +185,7 @@ C---------------------------------------------------------------------
  100  CONTINUE
 C bypass reading input cards (e.g. for use with Fluka)
 C  in this case Epn is expected to carry the beam momentum
-#if defined(FOR_FLUKA)
+#ifdef FOR_FLUKA
       IF ( Ncases.EQ.-1 ) THEN
          IP = Npmass
          IPZ = Npchar
@@ -200,50 +200,6 @@ C  in this case Epn is expected to carry the beam momentum
          lext = .TRUE.
          GOTO 300
       END IF
-#elif defined(FOR_CORSIKA)
-C variable energy with air (TP20170630)        
-      IF (NCASES.LE.-1) THEN
-         IP      = NPMASS
-         IPZ     = NPCHAR
-         IT      = NTMASS
-         ITZ     = NTCHAR
-         PPN     = EPNSAV
-         VARELO = 10.D0
-         VAREHI = PPN*1.1D0
-         EPN     = ZERO
-         CMENER  = ZERO
-         LEINP   = .TRUE.
-         MKCRON  = 0
-         WHAT(1) = 1
-         WHAT(2) = 0
-         CODEWD  = 'START     '
-         lext = .TRUE.
-         LEVPRT = .TRUE.
-         IF(NCASES.EQ.-2)THEN
-c don't use glauber tables
-            IOGLB  = 0           
-         ELSE
-c use glauber tables
-            IOGLB  = 100         
-         ENDIF
-         GOTO 300
-c make glauber table
-      ELSEIF (NCASES.EQ.-100) THEN
-         if(ifirst.ne.1)stop
-            ifirst=2
-            IP      = NPMASS
-            IPZ     = NPCHAR
-            IT      = NTMASS
-            ITZ     = NTCHAR
-            PPN     = EPNSAV
-            WHAT(1) = 10.D0
-            WHAT(2) = PPN*1.1D0
-            WHAT(3) = 7d0
-            WHAT(4) = 56d0
-            WHAT(5) = 7d0 
-            CODEWD  = 'GLAUB-INI'
-            goto 300
-      ENDIF
 #else
       IF ( Ncases.EQ.-1 ) THEN
          IP = Npmass

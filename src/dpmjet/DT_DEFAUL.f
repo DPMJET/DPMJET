@@ -240,11 +240,7 @@ C common /DTVDMP/
 C common /DTGLGP/
       JSTatb = 1000
       JBInsb = 49
-#ifndef FOR_CORSIKA
       CGLb = '        '
-#else
-cdh   do not overwrite the glauber data set name of corsika
-#endif
       IF ( ITRspt.EQ.1 ) THEN
          IOGlb = 100
       ELSE
