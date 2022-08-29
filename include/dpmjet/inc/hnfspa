@@ -3,6 +3,6 @@
       INTEGER IRH , ITRh , MAXFIN
  
  
-      PARAMETER (MAXFIN=10)
-      COMMON /HNFSPA/ ITRh(MAXFIN) , CXRh(MAXFIN) , CYRh(MAXFIN) , 
-     &                CZRh(MAXFIN) , ELRh(MAXFIN) , PLRh(MAXFIN) , IRH
+      PARAMETER (MAXFIN=100)
+      COMMON /HNFSPA/ ELRh(MAXFIN) , PLRh(MAXFIN) , CXRh(MAXFIN) ,
+     &                CYRh(MAXFIN) , CZRh(MAXFIN) , ITRh(MAXFIN) , IRH

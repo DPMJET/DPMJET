@@ -82,10 +82,12 @@ C15   FORMAT(A12)
 C  define input/output units
       IF ( Linp.GE.0 ) THEN
          LPRi = 10
+#ifndef IMPY
          CALL DT_RNDMST(22,54,76,92)
+#endif
          LI = Linp
-#ifndef FOR_FLUKA
-Cinitialize random number generator in standalone (-2) mode
+#if !defined(FOR_FLUKA) || !defined(IMPY)
+C initialize random number generator in standalone (-2) mode
       ELSE IF ( Linp.EQ.-2 ) THEN
          CALL DT_RNDMST(22,54,76,92)
         ! CALL DT_RNDMTE(1)
@@ -105,7 +107,7 @@ Cinitialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &            '   ----        PHOJET  19.3.2       ----   '
+     &            '   ----        PHOJET  19.3.3       ----   '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
@@ -126,8 +128,8 @@ Cinitialize random number generator in standalone (-2) mode
      &                    '     https://github.com/afedynitch/dpmjet'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/07/26'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.2'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/08/30'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.3'
  
       IF ( LPRi.GT.4 ) WRITE (LO,*)
      &                         '   Code with interface to PYTHIA 6.4.27'
