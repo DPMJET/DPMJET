@@ -566,8 +566,13 @@ C   get nuclear potential barrier
 C   final state particle not able to escape nucleus
                   IF ( pe.LE.potlow ) THEN
 C     check if there are wounded nucleons
+C   AFer: Protecting NWOund(idx)>=1 in this way does not work, the
+C         compiler can well check 1st the 2nd condition or both
+C         and therefore still result in an array out of boundary
+*                    IF ( (NWOund(idx).GE.1) .AND. 
+*    &                    (pe.GE.EWOund(idx,NWOund(idx))) ) THEN
                      IF ( (NWOund(idx).GE.1) .AND. 
-     &                    (pe.GE.EWOund(idx,NWOund(idx))) ) THEN
+     &                    (pe.GE.EWOund(idx,Max(NWOund(idx),1))) ) THEN
                         npauli = npauli + 1
                         NWOund(idx) = NWOund(idx) - 1
                      ELSE
