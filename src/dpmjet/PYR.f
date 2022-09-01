@@ -1,4 +1,4 @@
-
+#ifndef IMPY
       DOUBLE PRECISION FUNCTION PYR(Idummy)
  
       IMPLICIT NONE
@@ -9,3 +9,4 @@
       dummy = DBLE(Idummy)
       PYR = DT_RNDM(dummy)
       END FUNCTION
+#endif

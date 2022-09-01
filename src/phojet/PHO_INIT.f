@@ -82,9 +82,11 @@ C15   FORMAT(A12)
 C  define input/output units
       IF ( Linp.GE.0 ) THEN
          LPRi = 10
+#ifndef IMPY
          CALL DT_RNDMST(22,54,76,92)
+#endif
          LI = Linp
-#ifndef FOR_FLUKA
+#if !(defined(FOR_FLUKA) || defined(IMPY))
 Cinitialize random number generator in standalone (-2) mode
       ELSE IF ( Linp.EQ.-2 ) THEN
          CALL DT_RNDMST(22,54,76,92)
