@@ -1,4 +1,4 @@
-
+#ifndef IMPY
       SUBROUTINE DT_RNDMOU(Uout,Cout,Cdout,Cmout,Iout,Jout)
  
       IMPLICIT NONE
@@ -21,3 +21,4 @@ C random number generator
       Jout = J
  
       END SUBROUTINE
+#endif

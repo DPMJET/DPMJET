@@ -1,4 +1,5 @@
 
+#ifndef IMPY
       SUBROUTINE DT_RNDMIN(Uin,Cin,Cdin,Cmin,Iin,Jin)
  
       IMPLICIT NONE
@@ -21,3 +22,4 @@ C random number generator
       J = Jin
  
       END SUBROUTINE
+#endif

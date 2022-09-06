@@ -111,6 +111,10 @@ APP_EXE :=$(subst ./src/exe/,,$(APP_EXE))
 
 DUMMY_SRCS :=$(wildcard ./common/*.f)
 DUMMY_OBJS :=$(DUMMY_SRCS:.f=.o)
+IMPY_RANGEN_SRC := ../rangen.fpp
+IMPY_RANGEN_OBJ := ../rangen.o
+IMPY_LOGGING_SRC := ../logging.f
+IMPY_LOGGING_OBJ := ../logging.o
 
 # Portability (I know that this is insane...)
 ifeq ($(OS),Windows_NT)
@@ -156,7 +160,7 @@ DPMJET_FUNCS += pho_init pho_setpar poevt1 poevt2 pho_pname pho_pmass pho_setmdl
 pho_setpdf pycomp pho_xsect pho_borncs pho_harmci pho_fitout pho_mcini pho_ptcut \
 pytune pho_rregpar pho_sregpar pho_prevnt ipho_pdg2id ipho_id2pdg pho_harint \
 impy_openlogfile impy_closelogfile pho_harxto pho_harxpt pho_setpcomb \
-dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn
+dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn init_rmmard
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
@@ -170,16 +174,20 @@ ifneq ($(FLINCINCL_DIR),)
   INCLU += -I$(FLINCINCL_DIR)
 endif
 
-pylib = dpmjetIII193$(LEXT)
+ifeq ($(MAKECMDGOALS),pylib)
+CPPFLAGS += -DIMPY
+endif
+
+pylib = _dpmjetIII193$(LEXT)
 
 all: exe 
 
 .PHONY: pylib
 pylib: $(pylib)
 
-$(pylib): lib/libDPMJET.a common/dpmjetIII193.pyf
-	$(F2PY) -c $(F2PY_CCONF) --opt="$(OPT)" \
-	     $(INCLU) common/dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
+$(pylib): _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(IMPY_RANGEN_OBJ) $(IMPY_LOGGING_OBJ)
+	$(F2PY) -c $(F2PY_CCONF) -DIMPY --opt="$(OPT)" \
+	     _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(IMPY_RANGEN_OBJ) $(IMPY_LOGGING_OBJ)
 
 .PHONY: install
 install: $(pylib)
@@ -189,31 +197,38 @@ install: $(pylib)
 exe: $(APP_OBJS) lib/libDPMJET.a
 	$(foreach a, $(APP_EXE), $(LD) -o bin/$(a) ./src/exe/$(a).o -Llib -lDPMJET ${\n})
 
-common/dpmjetIII193.pyf:
-	$(CAT_COMMAND) $(PYF_SRCS) > f2pytemp.f
-	gfortran -E -cpp f2pytemp.f > f2py_cpp.f
-	$(F2PY) -m dpmjetIII193 -h common/dpmjetIII193.pyf \
+_dpmjetIII193.pyf:
+	$(CAT_COMMAND) $(PYF_SRCS) $(IMPY_RANGEN_SRC) $(IMPY_LOGGING_SRC) > f2pytemp.f
+	gfortran -E -cpp $(CPPFLAGS) f2pytemp.f > f2py_cpp.f
+	$(F2PY) -m _dpmjetIII193 -h _dpmjetIII193.pyf \
 	--include-paths $(DPMJET_INCS):$(PHOJET_INCS):$(PYTHIA_INCS):$(DPMJET_FLUKA_INCS) \
 	--overwrite-signature only: $(DPMJET_FUNCS) : f2py_cpp.f
-	$(DEL_COMMAND) f2pytemp.f f2py_cpp.f f2pytemp.s
+	# $(DEL_COMMAND) f2pytemp.f f2py_cpp.f f2pytemp.s
+	$(F2PY) _dpmjetIII193.pyf
 
 lib/libDPMJET.a:  $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DPMJET_OBJS) $(DUMMY_OBJS)
 	if [ ! -d lib ]; then $(MKDIR_COMMAND) lib; fi
 	ar -crs lib/libDPMJET.a $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS)
 
 .f.o:
+	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<
+
+$(IMPY_RANGEN_OBJ): $(IMPY_RANGEN_SRC)
+	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<
+
+$(IMPY_LOGGING_OBJ): $(IMPY_LOGGING_SRC)
 	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<   
 
 .PHONY: clean
 clean:
-	$(DEL_COMMAND) lib$(PATHSEP)libDPMJET.a *.so *.pyd common$(PATHSEP)*.o *.dSYM $(COPY_DUMP)
+	$(DEL_COMMAND) lib$(PATHSEP)libDPMJET.a *.so *.pyd common$(PATHSEP)*.o *.dSYM $(COPY_DUMP) *.o
 	$(DEL_COMMAND) *.o src$(PATHSEP)pythia$(PATHSEP)*.o src$(PATHSEP)phojet$(PATHSEP)*.o src$(PATHSEP)dpmjet$(PATHSEP)*.o src$(PATHSEP)exe$(PATHSEP)*.o $(COPY_DUMP)
 	$(DEL_COMMAND) *.s src$(PATHSEP)pythia$(PATHSEP)*.s src$(PATHSEP)phojet$(PATHSEP)*.s src$(PATHSEP)dpmjet$(PATHSEP)*.s src$(PATHSEP)exe$(PATHSEP)*.s $(COPY_DUMP)
 	$(DEL_COMMAND) $(addprefix bin$(PATHSEP),$(addsuffix $(EXESUFX), $(APP_EXE))) $(COPY_DUMP)
 
 .PHONY: distclean
 distclean: clean
-	$(DEL_COMMAND) common$(PATHSEP)dpmjetIII193.pyf
+	$(DEL_COMMAND) _dpmjetIII193*
 
 # **************************
 # Variable printing target
