@@ -10,7 +10,11 @@ C***********************************************************************
       INTEGER idum , Ipos , Irej , irej1 , Mode
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10)
  

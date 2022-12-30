@@ -15,7 +15,11 @@ C***********************************************************************
       INTEGER i , Mode
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0,TINY10=1.0D-10)
       PARAMETER (TWOPI=6.283185307D0,BOG=TWOPI/360.0D0)

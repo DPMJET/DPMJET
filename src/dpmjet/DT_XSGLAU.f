@@ -44,7 +44,11 @@ C***********************************************************************
      &        MAXSQU , MAXVQU , Na , Nb , Nidx , nlines , NPOINT , ntarg
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       COMPLEX*16 czero , cone , ctwo
       CHARACTER*12 cfile

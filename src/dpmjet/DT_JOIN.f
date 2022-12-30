@@ -15,7 +15,11 @@ C***********************************************************************
      &        Idx2 , if1 , if2 , Irej , irej1 , ist1 , ist2 , j , k , 
      &        kch , mo
       SAVE 
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
  
 C event history

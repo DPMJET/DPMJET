@@ -19,7 +19,11 @@ C***********************************************************************
       INTEGER Irej , K1 , K2 , ncloop
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0)
  

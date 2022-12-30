@@ -10,7 +10,11 @@ C***********************************************************************
       DOUBLE PRECISION a , amax , amo , amu , DT_RNDM , Ecm , r , sam
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C minimum Pomeron-x for low-mass diffraction
 C     AMO = 1.5D0

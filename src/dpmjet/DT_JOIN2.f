@@ -15,7 +15,11 @@ C***********************************************************************
      &                 pptt2 , pptt3 , pptt4 , ppttmax , pt , ptpt , 
      &                 PYMASS , xm1 , xm2
       SAVE 
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C event history
  

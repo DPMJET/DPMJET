@@ -20,7 +20,11 @@ C event history
       INCLUDE 'inc/dtevt1'
 C extended event history
       INCLUDE 'inc/dtevt2'
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
 C Lorentz-parameters of the current interaction
       INCLUDE 'inc/dtltra'
 C flags

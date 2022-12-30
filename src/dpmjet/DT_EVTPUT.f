@@ -8,7 +8,11 @@
      &        Idxr , Ist , M1 , M2 , mo1 , mo2
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY4=1.0D-4,TINY3=1.0D-3,TINY2=1.0D-2,
      &           SQTINF=1.0D+15,ZERO=0.0D0)

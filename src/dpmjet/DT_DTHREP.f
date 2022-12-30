@@ -34,7 +34,11 @@ C***********************************************************************
       INTEGER i , ia , ii , iii , ith
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ANGLSQ=2.5D-31)
       PARAMETER (AZRZRZ=1.0D-30)

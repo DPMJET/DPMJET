@@ -13,7 +13,11 @@ C***********************************************************************
       INTEGER Id1 , Id2
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       LOGICAL Lchk
  

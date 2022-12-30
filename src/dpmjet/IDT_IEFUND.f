@@ -8,7 +8,11 @@
  
 C*****IEFUN CALCULATES A MOMENTUM INDEX
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       INCLUDE 'inc/hndrun'
       INCLUDE 'inc/hnredv'

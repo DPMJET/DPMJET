@@ -7,7 +7,11 @@
       DOUBLE PRECISION ONE , pp , Ppn , TINY1 , TINY10 , TWO , ZERO
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,TINY10=1.0D-10,TINY1=1.0D-1,ONE=1.0D0,
      &           TWO=2.0D0)

@@ -18,7 +18,11 @@ C***********************************************************************
      &        Mode , Mp
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,ZERO=0.0D0)
  

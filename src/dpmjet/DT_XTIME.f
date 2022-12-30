@@ -4,7 +4,11 @@
       IMPLICIT NONE
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       CHARACTER dat*9 , tim*11
  

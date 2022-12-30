@@ -13,7 +13,11 @@ C***********************************************************************
       INTEGER i , i1 , i2 , j1 , j2 , Nt , ntarg
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY14=1.0D-14,ZERO=0.0D0,ONE=1.0D0,
      &           TWO=2.0D0)

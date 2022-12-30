@@ -9,7 +9,11 @@ C flags for input different options
 C emulsion treatment
       INCLUDE 'inc/dtcomp'
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C / DTFLG1 /
       DATA IFRag/2 , 1/

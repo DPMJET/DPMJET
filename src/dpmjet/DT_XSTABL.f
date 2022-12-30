@@ -13,7 +13,11 @@
       INTEGER i , ic , iit , Iratio , Ixsqel , j , nebins , nqbins
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY2=1.0D-2,ZERO=0.0D0,DLARGE=1.0D10,
      &           OHALF=0.5D0,ONE=1.0D0,TWO=2.0D0)

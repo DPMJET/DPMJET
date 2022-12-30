@@ -20,7 +20,11 @@ C***********************************************************************
      &        IXRAST , IYRAST , IZEIL , k , kk , l , ld , llast , N
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C
       DIMENSION X(N) , Y1(N) , Y2(N)

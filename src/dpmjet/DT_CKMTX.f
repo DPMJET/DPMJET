@@ -19,7 +19,11 @@ C**********************************************************************
       SAVE 
       DOUBLE PRECISION X , Scale2 , Pd(-6:6) , cdn , cup , F2
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       DIMENSION qq(7)
 C

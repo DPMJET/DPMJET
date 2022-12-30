@@ -15,7 +15,11 @@ C     EXTERNAL PYDATA
  
 C event flag
       COMMON /DTEVNO/ NEVent , ICAsca
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
 C-----------------------------------------------------------------------
 C initialization
       LPRi = 20

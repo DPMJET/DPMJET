@@ -14,7 +14,7 @@ cc                              by  Alfredo Ferrari  - 17-Sep-21 -------
      &                  LINP  , LOUT  , LDAT  , LPRI  , IFLEVG
       LOGICAL LHADCL
 
-      PARAMETER ( AMU12C = 9.3123868129206122D-01 )
+      PARAMETER ( AMU12C = 9.3123890693621192D-01 )
 
       PARAMETER ( EMV2GV = 1.D-03 )
       COMMON / DTFLKA / EHFLLO, EHFLHI, AMXPFR, IAPFLK, IZPFLK, IATFLK,

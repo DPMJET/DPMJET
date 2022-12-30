@@ -9,7 +9,11 @@
       DOUBLE PRECISION xsam2 , yc1 , yc2 , yhi , ylo , ysam2 , ZERO
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,TINY10=1.0D-10,ONE=1.0D0,TWO=2.0D0,
      &           TENTRD=10.0D0/3.0D0,ELVTRD=11.0D0/3.0D0)

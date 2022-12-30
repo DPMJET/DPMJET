@@ -29,7 +29,11 @@ C***********************************************************************
      &        idxt , Ip , It , k , NPOINT
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 Cf2py intent(out) STOT,SELA
  

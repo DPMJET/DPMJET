@@ -17,7 +17,11 @@ C***********************************************************************
       DOUBLE PRECISION rtmp1 , rtmp2 , rtmp3
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       CHARACTER*5 cchtyp
  

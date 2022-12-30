@@ -58,7 +58,11 @@ C -
       INTEGER KALGNM , KPMX , npexpl , ntry
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (KALGNM=2)
       PARAMETER (ANGLGB=5.0D-16)

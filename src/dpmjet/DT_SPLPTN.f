@@ -11,7 +11,11 @@ C***********************************************************************
       INTEGER Nn
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C Lorentz-parameters of the current interaction
       INCLUDE 'inc/dtltra'

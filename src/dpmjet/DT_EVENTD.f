@@ -14,7 +14,11 @@ C***********************************************************************
      &        irej1 , ltyp , nhkk0 , nlines , nuctop , nuctyp
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0,TWO=2.0D0,TINY5=1.0D-5)
       PARAMETER (SQTINF=1.0D+15)

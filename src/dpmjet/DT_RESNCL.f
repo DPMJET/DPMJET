@@ -27,7 +27,11 @@ C This version dated 16.11.95 is written by S. Roesler.                *
 C***********************************************************************
  
 C
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.D0,ONE=1.D0,TWO=2.D0,THREE=3.D0,TINY3=1.0D-3,
      &           TINY2=1.0D-2,TINY1=1.0D-1,TINY4=1.0D-4,TINY10=1.0D-10)

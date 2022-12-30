@@ -14,7 +14,11 @@ C***********************************************************************
       INTEGER Ia , ia5 , Iz
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0)
  

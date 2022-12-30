@@ -15,7 +15,11 @@ C***********************************************************************
       DOUBLE PRECISION OHALF , ONE , Xm , xmi , xmn , ZERO
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,OHALF=0.5D0,ONE=1.0D0)
  

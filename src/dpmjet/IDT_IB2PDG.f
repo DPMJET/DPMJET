@@ -20,7 +20,11 @@ C***********************************************************************
       INTEGER Id1 , Id2 , ida , idb , ihkkq , ihkkqq , Mode
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       DIMENSION ihkkq(-6:6) , ihkkqq(-3:3,-3:3)
       DATA ihkkq/ - 6 , -5 , -4 , -3 , -1 , -2 , 0 , 2 , 1 , 3 , 4 , 5 , 

@@ -32,7 +32,11 @@ C     INTEGER isdrn1 , isdrn2 , iseed1 , iseed2
      &        npje , Npymem
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY3=1.0D-3,TINY1=1.0D-1)
       PARAMETER (ONE=1.0D0,ZERO=0.0D0)

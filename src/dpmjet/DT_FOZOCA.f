@@ -16,7 +16,11 @@ C***********************************************************************
      &        ncas , ncwoun , nend , nstart
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (DLARGE=1.0D10,OHALF=0.5D0,ZERO=0.0D0)
       PARAMETER (FM2MM=1.0D-12,RNUCLE=1.12D0)

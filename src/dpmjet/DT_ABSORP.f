@@ -28,7 +28,11 @@ C***********************************************************************
      &        Mode , Ncas , Nspe , nucas
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY5=1.0D-5,ONE=1.0D0,ONETHI=0.3333D0,
      &           TWOTHI=0.6666D0)

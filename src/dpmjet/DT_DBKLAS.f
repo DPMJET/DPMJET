@@ -5,7 +5,11 @@
       INTEGER I , I10 , I8 , ii , ind , J , jj , K , kk
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
 C quark-content to particle index conversion (DTUNUC 1.x)
       INCLUDE 'inc/dtq2id'

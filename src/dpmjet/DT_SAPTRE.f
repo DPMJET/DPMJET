@@ -17,7 +17,11 @@ C***********************************************************************
       INTEGER idum , Idx1 , Idx2 , irej1 , k
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY7=1.0D-7,TINY3=1.0D-3)
  

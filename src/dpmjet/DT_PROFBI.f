@@ -20,7 +20,11 @@ C***********************************************************************
      &        Ntarg
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       SAVE 
  

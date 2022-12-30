@@ -23,7 +23,11 @@ C***********************************************************************
       INTEGER Id , ida , kf , Mode , Nn
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       ida = ABS(Id)
 C diquarks

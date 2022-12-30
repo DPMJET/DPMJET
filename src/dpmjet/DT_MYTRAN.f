@@ -20,7 +20,11 @@ C***********************************************************************
       INTEGER Imode
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       IF ( Imode.EQ.1 ) THEN
          X = Cde*Cfe*Xo - Sfe*Yo + Sde*Cfe*Zo

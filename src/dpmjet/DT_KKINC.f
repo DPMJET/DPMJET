@@ -16,7 +16,11 @@ C***********************************************************************
      &        Npchar , Npmass , Ntchar , Ntmass
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0,TINY5=1.0D-5,TINY2=1.0D-2,
      &           TINY3=1.0D-3)

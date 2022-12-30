@@ -16,7 +16,11 @@ C***********************************************************************
       INTEGER i , MAXINT , MAXNCL , MAXSQU , MAXVQU , Mode , Nn
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
  
       PARAMETER (MAXNCL=260,MAXVQU=MAXNCL,MAXSQU=20*MAXVQU,

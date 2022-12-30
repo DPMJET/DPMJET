@@ -68,9 +68,11 @@ C flags for diffractive interactions (DTUNUC 1.x)
 C
       INCLUDE 'inc/pydat1'
 C flags from from/for Fluka
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
-
- 
+#endif
 C histogram indices for Fluka-interface related statistics
 C     CHARACTER*72 HEADER
       DIMENSION xdumb(40)

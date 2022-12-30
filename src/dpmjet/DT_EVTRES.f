@@ -13,7 +13,11 @@ C***********************************************************************
      &        imo21 , imo22 , Irej , irej1 , j , k
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY5=1.0D-5,TINY10=1.0D-10)
  

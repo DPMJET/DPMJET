@@ -28,7 +28,11 @@ C***********************************************************************
      &        Jdiff , kdiff , kp , kproj , kt , ktarg , Mop , Mot , Ncsy
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0,TINY10=1.0D-10,TINY5=1.0D-5,
      &           OHALF=0.5D0)

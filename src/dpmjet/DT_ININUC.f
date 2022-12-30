@@ -25,7 +25,11 @@ C***********************************************************************
      &        Nmass , nn , nneu , np
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (FM2MM=1.0D-12)
  

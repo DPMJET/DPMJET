@@ -16,7 +16,11 @@ C***********************************************************************
       INTEGER Mop1 , Mop2 , Mot1 , Mot2
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10)
  

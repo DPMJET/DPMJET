@@ -19,7 +19,11 @@ C histogram indices for Fluka-interface related statistics
       COMMON /DTFLHX/ IHMapr , IHMata , IHIjpr , IHEnuc , IHEhad , 
      &                IDPmev
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
       INCLUDE 'inc/dtsta1'
  
  

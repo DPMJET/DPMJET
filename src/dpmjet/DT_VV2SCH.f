@@ -20,7 +20,11 @@ C***********************************************************************
       INTEGER mo1 , mo2 , n1 , n2 , nc , nstop
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,TINY7=1.0D-7,TINY3=1.0D-3)
  
