@@ -67,7 +67,7 @@ C  hard cross sections and MC selection weights
  
       INCLUDE 'inc/pydat3'
  
-Cf2py intent(out) irej
+Cf2py intent(inout) irej
  
       INTEGER PYCOMP
       EXTERNAL PYCOMP, PHO_PMASS
