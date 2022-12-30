@@ -2,6 +2,11 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.3.4:
+
+- Different values for atomic mass of 12c depending on preprocessor flags
+- Change to python interface of `pho_init`
+
 19.3.3:
 
 - Added preprcessor option for integration into CORSIKA 7

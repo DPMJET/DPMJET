@@ -107,7 +107,7 @@ C initialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &            '   ----        PHOJET  19.3.3       ----   '
+     &            '   ----        PHOJET  19.3.4       ----   '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
@@ -128,8 +128,8 @@ C initialize random number generator in standalone (-2) mode
      &                    '     https://github.com/afedynitch/dpmjet'
       IF ( LPRi.GT.4 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/08/30'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.3'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2022/12/30'
+      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.3.4'
  
       IF ( LPRi.GT.4 ) WRITE (LO,*)
      &                         '   Code with interface to PYTHIA 6.4.27'
