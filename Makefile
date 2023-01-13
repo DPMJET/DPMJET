@@ -5,7 +5,7 @@
 #######################################################################
 #choose gnu, intel or g95
 CVendor = "GNU"
-Config?="Release"
+Config?=Release
 
 #######################################################################
 #
@@ -34,7 +34,7 @@ endif
 #
 #######################################################################
 ifeq ($(CVendor),"GNU")
-	ifeq ($(Config),"Debug")
+	ifeq ($(Config),Debug)
 		# GNU Debug
 		OPT = -fPIC -Wall -fbounds-check -O0 -g \
 			  -ffpe-trap=invalid,zero,overflow -Wuninitialized -std=legacy
@@ -48,7 +48,7 @@ ifeq ($(CVendor),"GNU")
 		OPTF90 = -O3 -Wno-uninitialized -fPIC -fno-second-underscore
 	endif
 else
-	ifeq ($(Config),"Debug")
+	ifeq ($(Config),Debug)
 	# Intel Debug (-gen-interfaces -warn interfaces)
 		OPT = -check bounds -O0 -g -check pointer -fpe0 -traceback
 		OPTF90 = -check bounds -O0 -g -check pointer -fpe0 -traceback \ 
