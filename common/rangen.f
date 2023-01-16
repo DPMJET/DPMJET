@@ -1,4 +1,4 @@
-#ifdef IMPY
+#ifdef CHROMO
       SUBROUTINE RMMAQD( ISEED,ISEQ,CHOPT )
 
 C---------------------------------------------------------------------

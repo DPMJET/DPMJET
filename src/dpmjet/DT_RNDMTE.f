@@ -1,4 +1,4 @@
-#ifndef IMPY
+#ifndef CHROMO
       SUBROUTINE DT_RNDMTE(Io)
  
       IMPLICIT NONE

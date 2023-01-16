@@ -1,5 +1,8 @@
 ## DPMJET-III
 
+19.1.5:
+- Renamed impy references to chromo due to name change of the package 
+
 19.1.4:
 
 - No change to physics or code. Changed python interface definition of `pho_init`

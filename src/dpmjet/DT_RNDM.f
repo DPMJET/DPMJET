@@ -1,4 +1,4 @@
-#ifndef IMPY
+#ifndef CHROMO
       DOUBLE PRECISION FUNCTION DT_RNDM(Vdummy)
 C***********************************************************************
 C                                                                      *

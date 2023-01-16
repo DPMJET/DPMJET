@@ -155,13 +155,13 @@ idt_icihad dt_xsglau pycomp dt_initjs dt_rndmst dt_rndm dt_inucas idt_ipdgha dt_
 DPMJET_FUNCS += pho_init pho_setpar poevt1 poevt2 pho_pname pho_pmass pho_setmdl \
 pho_setpdf pycomp pho_xsect pho_borncs pho_harmci pho_fitout pho_mcini pho_ptcut \
 pytune pho_rregpar pho_sregpar pho_prevnt ipho_pdg2id ipho_id2pdg pho_harint \
-impy_openlogfile impy_closelogfile pho_harxto pho_harxpt pho_setpcomb \
+chromo_openlogfile chromo_closelogfile pho_harxto pho_harxpt pho_setpcomb \
 dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias init_rmmard
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
 
 ifeq ($(MAKECMDGOALS),pylib)
-CPPFLAGS += -DIMPY
+CPPFLAGS += -DCHROMO
 endif
 
 pylib = _dpmjetIII191$(LEXT)
@@ -185,7 +185,7 @@ exe: $(APP_OBJS) lib/libDPMJET.a
 
 common/_dpmjetIII191.pyf:
 	$(CAT_COMMAND) $(PYF_SRCS) > f2pytemp.f
-	gfortran -E -cpp -DIMPY f2pytemp.f > f2py_cpp.f
+	gfortran -E -cpp -DCHROMO f2pytemp.f > f2py_cpp.f
 	$(F2PY) -m _dpmjetIII191 -h common/_dpmjetIII191.pyf \
 	--include-paths $(DPMJET_INCS):$(PHOJET_INCS):$(PYTHIA_INCS):$(DPMJET_FLUKA_INCS) \
 	--overwrite-signature only: $(DPMJET_FUNCS) : f2py_cpp.f

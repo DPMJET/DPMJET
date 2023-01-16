@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-### Version: 19.1.4
+### Version: 19.1.5
 
 ### Status: development
 
@@ -27,9 +27,9 @@ The code is distributed with a copy of [PYTHIA 6.4.27](https://pythiasix.hepforg
 
 This and newer versions will continue supporting configuration and running though ASCII files. Instructions and options are listed in [input card interface](docs/dpmjet_steering_cards.md).
 
-### Python interface (experimental)
+### Recommended user interface [chromo](https://github.com/impy-project/chromo)
 
-The Python interface is based on [NumPy's](https://docs.scipy.org/doc/numpy/index.html) [f2py](https://docs.scipy.org/doc/numpy/f2py/index.html) package, which exposes the subroutines of a Fortran library without modifications to the original source code. The package [impy](https://gitlab.com/afedynitch/impy) (currently non-public, but almost completed.) is the recommended user interface. Don't use the python interface by yourself.
+The interface is based on [NumPy's](https://docs.scipy.org/doc/numpy/index.html) [f2py](https://docs.scipy.org/doc/numpy/f2py/index.html) package, which exposes the subroutines of a Fortran library without modifications to the original source code. The package [chromo](https://github.com/impy-project/chromo) is the recommended user interface for DPMJET.
 
 ## Building/Installation
 
@@ -44,14 +44,6 @@ make -j<n_jobs> exe
 bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```
 
-The Python library is available as a different build target
-
-```bash
-make -j<n_jobs> pylib
-```
-
-There is currently no example and using this library without `impy` is not recommended.
-
 ## Documentation
 
 We are in the process of compiling more documentation and/or examples. For now, browse the docs folder for basic instructions and a marginally outdated manual for PHOJET.
@@ -59,9 +51,9 @@ We are in the process of compiling more documentation and/or examples. For now, 
 ## Authors
 
           [Anatoli Fedynitch]*
-          ICRR - Institute for Cosmic Ray Research                                 
-          The University of Tokyo                            
-          Kashiwanoha 5-1-5, Kashiwa, Chiba, Japan
+          Institute of Physics, Academia Sinica                            
+          No. 128, Sec. 2, Academia Rd., Nangang Dist.
+          Taipei City 115201, Taiwan (R.O.C.)
           
           Stefan Roesler
           CERN, DGS-RP

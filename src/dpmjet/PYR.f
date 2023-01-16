@@ -1,4 +1,4 @@
-#ifndef IMPY
+#ifndef CHROMO
       DOUBLE PRECISION FUNCTION PYR(Idummy)
  
       IMPLICIT NONE

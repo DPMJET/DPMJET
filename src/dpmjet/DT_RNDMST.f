@@ -1,4 +1,4 @@
-#ifndef IMPY
+#ifndef CHROMO
       SUBROUTINE DT_RNDMST(Na1,Na2,Na3,Nb1)
  
       IMPLICIT NONE
