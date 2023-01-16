@@ -1,4 +1,4 @@
-#if !(defined(FOR_CORSIKA) || defined(IMPY))
+#if !(defined(FOR_CORSIKA) || defined(CHROMO))
 
       DOUBLE PRECISION FUNCTION DT_RNDM(Vdummy)
 C***********************************************************************

@@ -86,7 +86,7 @@ C  define input/output units
          CALL DT_RNDMST(22,54,76,92)
 #endif
          LI = Linp
-#if !(defined(FOR_FLUKA) || defined(IMPY))
+#if !(defined(FOR_FLUKA) || defined(CHROMO))
 C initialize random number generator in standalone (-2) mode
       ELSE IF ( Linp.EQ.-2 ) THEN
          CALL DT_RNDMST(22,54,76,92)
