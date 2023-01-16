@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-## Version: 19.3.4
+## Version: 19.3.5
 
 ### Status: release
 
@@ -33,7 +33,7 @@ This and newer versions will continue supporting configuration and running thoug
 
 ### Python interface
 
-The Python interface is based on [NumPy's](https://docs.scipy.org/doc/numpy/index.html) [f2py](https://docs.scipy.org/doc/numpy/f2py/index.html) package, which exposes the subroutines of a Fortran library without modifications to the original source code. It runs the code at native speed with very little impact on runtime. The package [impy](https://github.com/impy-project/impy) is the recommended user interface.
+The Python interface is based on [NumPy's](https://docs.scipy.org/doc/numpy/index.html) [f2py](https://docs.scipy.org/doc/numpy/f2py/index.html) package, which exposes the subroutines of a Fortran library without modifications to the original source code. It runs the code at native speed with very little impact on runtime. The package [chromo](https://github.com/impy-project/chromo) is the recommended user interface.
 
 ## Building/Installation
 

@@ -166,8 +166,8 @@ C   initialization and test of the random number generator
             CALL RNINIT(inseed,isrnd1,iseed1,iseed2)
  
          END IF
-#elif IMPY
-C        IMPY initializes random numbers externally
+#elif CHROMO
+C        CHROMO initializes random numbers externally
 #else
 C         CALL DT_RNDMTE(1)
          IF ( ITRspt.NE.1 ) CALL DT_RNDMST(22,54,76,92)
@@ -774,7 +774,7 @@ C                                                                   *
 C********************************************************************
  
          IF ( ifirst.NE.99 ) THEN
-#ifndef IMPY
+#ifndef CHROMO
             CALL DT_RNDMST(12,34,56,78)
             CALL DT_RNDMTE(1)
 #endif
@@ -1805,7 +1805,7 @@ C     what (1..4)    values for initialization (= 1..168)           *
 C     what (5..6), sdum    no meaning                               *
 C                                                                   *
 C********************************************************************
-#ifndef IMPY
+#ifndef CHROMO
          IF ( (what(1).LT.1.0D0) .OR. (what(1).GT.168.0D0) ) THEN
             na1 = 22
          ELSE

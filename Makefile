@@ -111,10 +111,10 @@ APP_EXE :=$(subst ./src/exe/,,$(APP_EXE))
 
 DUMMY_SRCS :=$(wildcard ./common/*.f)
 DUMMY_OBJS :=$(DUMMY_SRCS:.f=.o)
-IMPY_RANGEN_SRC := ../rangen.fpp
-IMPY_RANGEN_OBJ := ../rangen.o
-IMPY_LOGGING_SRC := ../logging.f
-IMPY_LOGGING_OBJ := ../logging.o
+CHROMO_RANGEN_SRC := ../rangen.fpp
+CHROMO_RANGEN_OBJ := ../rangen.o
+CHROMO_LOGGING_SRC := ../logging.f
+CHROMO_LOGGING_OBJ := ../logging.o
 
 # Portability (I know that this is insane...)
 ifeq ($(OS),Windows_NT)
@@ -159,7 +159,7 @@ idt_icihad dt_xsglau pycomp dt_initjs dt_rndmst dt_rndm dt_inucas idt_ipdgha dt_
 DPMJET_FUNCS += pho_init pho_setpar poevt1 poevt2 pho_pname pho_pmass pho_setmdl \
 pho_setpdf pycomp pho_xsect pho_borncs pho_harmci pho_fitout pho_mcini pho_ptcut \
 pytune pho_rregpar pho_sregpar pho_prevnt ipho_pdg2id ipho_id2pdg pho_harint \
-impy_openlogfile impy_closelogfile pho_harxto pho_harxpt pho_setpcomb \
+CHROMO_openlogfile CHROMO_closelogfile pho_harxto pho_harxpt pho_setpcomb \
 dt_phoxs dt_xshn dt_flahad dt_title pho_ghhias dt_getptn init_rmmard
 
 INCLU = -I$(PYTHIA_INCS) -I$(PHOJET_INCS) -I$(DPMJET_INCS) -I$(DPMJET_FLUKA_INCS)
@@ -175,7 +175,7 @@ ifneq ($(FLINCINCL_DIR),)
 endif
 
 ifeq ($(MAKECMDGOALS),pylib)
-CPPFLAGS += -DIMPY
+CPPFLAGS += -DCHROMO
 endif
 
 pylib = _dpmjetIII193$(LEXT)
@@ -185,9 +185,9 @@ all: exe
 .PHONY: pylib
 pylib: $(pylib)
 
-$(pylib): _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(IMPY_RANGEN_OBJ) $(IMPY_LOGGING_OBJ)
-	$(F2PY) -c $(F2PY_CCONF) -DIMPY --opt="$(OPT)" \
-	     _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(IMPY_RANGEN_OBJ) $(IMPY_LOGGING_OBJ)
+$(pylib): _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(CHROMO_RANGEN_OBJ) $(CHROMO_LOGGING_OBJ)
+	$(F2PY) -c $(F2PY_CCONF) -DCHROMO --opt="$(OPT)" \
+	     _dpmjetIII193.pyf $(DPMJET_OBJS) $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DUMMY_OBJS) $(CHROMO_RANGEN_OBJ) $(CHROMO_LOGGING_OBJ)
 
 .PHONY: install
 install: $(pylib)
@@ -198,7 +198,7 @@ exe: $(APP_OBJS) lib/libDPMJET.a
 	$(foreach a, $(APP_EXE), $(LD) -o bin/$(a) ./src/exe/$(a).o -Llib -lDPMJET ${\n})
 
 _dpmjetIII193.pyf:
-	$(CAT_COMMAND) $(PYF_SRCS) $(IMPY_RANGEN_SRC) $(IMPY_LOGGING_SRC) > f2pytemp.f
+	$(CAT_COMMAND) $(PYF_SRCS) $(CHROMO_RANGEN_SRC) $(CHROMO_LOGGING_SRC) > f2pytemp.f
 	gfortran -E -cpp $(CPPFLAGS) f2pytemp.f > f2py_cpp.f
 	$(F2PY) -m _dpmjetIII193 -h _dpmjetIII193.pyf \
 	--include-paths $(DPMJET_INCS):$(PHOJET_INCS):$(PYTHIA_INCS):$(DPMJET_FLUKA_INCS) \
@@ -213,10 +213,10 @@ lib/libDPMJET.a:  $(PHOJET_OBJS) $(PYTHIA_OBJS) $(DPMJET_OBJS) $(DUMMY_OBJS)
 .f.o:
 	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<
 
-$(IMPY_RANGEN_OBJ): $(IMPY_RANGEN_SRC)
+$(CHROMO_RANGEN_OBJ): $(CHROMO_RANGEN_SRC)
 	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<
 
-$(IMPY_LOGGING_OBJ): $(IMPY_LOGGING_SRC)
+$(CHROMO_LOGGING_OBJ): $(CHROMO_LOGGING_SRC)
 	$(FC) -c -cpp $(CPPFLAGS) $(OPT) $(INCLU) -o $@ $<   
 
 .PHONY: clean

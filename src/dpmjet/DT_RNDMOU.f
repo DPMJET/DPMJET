@@ -1,4 +1,4 @@
-#ifndef IMPY
+#ifndef CHROMO
       SUBROUTINE DT_RNDMOU(Uout,Cout,Cdout,Cmout,Iout,Jout)
  
       IMPLICIT NONE

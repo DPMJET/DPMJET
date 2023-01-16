@@ -2,8 +2,12 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
-19.3.4:
+19.3.5
+- rename any references to the code impy to chromo
+- changed verbosity level to LPRi > 0 for logo
+- changed some notation in Makefile
 
+19.3.4:
 - Different values for atomic mass of 12c depending on preprocessor flags
 - Change to python interface of `pho_init`
 

@@ -1,217 +1,112 @@
-      PROGRAM DPMJET
- 
-      IMPLICIT NONE
-      DOUBLE PRECISION dum , elab , epn
-      INTEGER ICAsca , idp , iemu , ievt , irej , kkmat , NEVent , 
-     &        nevts , npchar , npmass , ntchar , ntmass
-      SAVE 
- 
-C block data in DPMJET library (uncomment these declarations if library
-C option is used)
-C     EXTERNAL DT_BDEVAP,DT_BDNOPT,DT_BDPREE,DT_HADPRP,DT_BLKD46,
-C    &         DT_BLKD47,DT_RUNTT,DT_NONAME,DT_ZK,DT_BLKD43
- 
-C     EXTERNAL PYDATA
- 
-C event flag
-      COMMON /DTEVNO/ NEVent , ICAsca
-#if defined(FLDOTINCL) && defined(FOR_FLUKA)
-      INCLUDE 'inc/dtflka12ca'
-#else
+      PROGRAM DPMTEST
+
+      IMPLICIT DOUBLE PRECISION(A-H,O-Z)
+
+C event history
+      INCLUDE 'inc/dtevt1'
+C extended event history
+      INCLUDE 'inc/dtevt2'
+C particle properties (BAMJET index convention)
+      INCLUDE 'inc/dtpart'
+
       INCLUDE 'inc/dtflka'
-#endif
-C-----------------------------------------------------------------------
-C initialization
-      LPRi = 20
-      LOUt = 6
-C   the following statement provides a call to DT_USRHIS(MODE=1) for
-C   histogram initialization etc.
-      CALL DT_DTUINI(nevts,epn,npmass,npchar,ntmass,ntchar,idp,iemu)
-      WRITE (6,*) "****************************"
-      WRITE (6,*) nevts , epn , npmass , npchar , ntmass , ntchar , 
-     &            idp , iemu
-C-----------------------------------------------------------------------
-C generation of events
- 
-      DO ievt = 1 , nevts
- 
-C   some defaults, do not change!
-         NEVent = ievt
-         kkmat = -1
-         elab = epn
-C   uncomment if dpmjet3 is linked to particle transport code
-C        ICASCA = 1
- 
-C***********************************************************************
-C The following lines show how to select the target nucleus for runs
-C with composite targets (and fixed projectile and energy!).
-C
-C   Sampling of the target nucleus (mass number NTMASS, charge NTCHAR)
-C   according to the fractions defined with EMULSION input-cards.
-C   The different nuclei are numbered as KKMAT = 1,2,3,...  according to
-C   their appearance in the input-file.
-         IF ( iemu.GT.0 ) THEN
-C   Replace this selection by your own one if needed.
-            CALL DT_GETEMU(ntmass,ntchar,kkmat,0)
-C   Kkmat has to be negative for composite targets!
-            kkmat = -kkmat
-         END IF
-C***********************************************************************
- 
-C***********************************************************************
-C The following lines show how to define projectile, target and energy
-C for this event in runs with Glauber-data file pre-initialized for a
-C certain range of projectiles, targets and energies. The definitions
-C have to be within the pre-initialized parameter range.
-C
-C   projectile-id (for hadron projectiles)
-C        IDP    = 1
-C   projectile mass and charge numbers
-C        NPMASS = 12
-C        NPCHAR = 6
-C   target mass and charge numbers
-C        NTMASS = 16
-C        NTCHAR = 8
-C   lab energy
-C        ELAB = 200.0D0
-C***********************************************************************
- 
-C***********************************************************************
-C If an energy-range has been defined with the ENERGY input-card the
-C laboratory energy ELAB can be set to any value within that range. For
-C example:
-C        ELO  = 10.0D0
-C        EHI  = 1000.0D0
-C        ELAB = DT_RNDM(ELAB)*(EHI-ELO)+ELO
-C***********************************************************************
- 
-C   sampling of one event
-         CALL DT_KKINC(npmass,npchar,ntmass,ntchar,idp,elab,kkmat,irej)
- 
-C   the following statement provides a call to DT_USRHIS(MODE=2) from
-C   where the final state particles can be obtained
- 
-         IF ( irej.EQ.0 ) CALL DT_USRHIS(2)
- 
-      END DO
- 
-C-----------------------------------------------------------------------
-C output, statistics etc.
- 
-C   the following statement provides a call to DT_USRHIS(MODE=3) in
-C   order to calculate histograms etc.
-C**anfe For some reasons DT_USRHIS is permanently called from DPMJET
-C      CALL DT_USRHIS(3)
-      CALL DT_DTUOUT
+      DIMENSION IDPLIST(5)
+      DATA IDPLIST /2212,2112,-321,211,-211/
 
-      END PROGRAM
- 
-C *$ CREATE DT_USRHIS.FOR
-C *COPY DT_USRHIS
-C *
-C *===usrhis=============================================================*
-C *
-      SUBROUTINE DT_USRHIS(MODE)
- 
-C       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-C       SAVE
-C *
-C * COMMON /DTEVT1/ :
-C *                   NHKK         number of entries in common block
-C *                   NEVHKK       number of the event
-C *                   ISTHKK(i)    status code for entry i
-C *                   IDHKK(i)     identifier for the entry
-C *                                (for particles: identifier according
-C *                                 to the PDG numbering scheme)
-C *                   JMOHKK(1,i)  pointer to the entry of the first mother
-C *                                of entry i
-C *                   JMOHKK(2,i)  pointer to the entry of the second mother
-C *                                of entry i
-C *                   JDAHKK(1,i)  pointer to the entry of the first daughter
-C *                                of entry i
-C *                   JDAHKK(2,i)  pointer to the entry of the second daughter
-C *                                of entry i
-C *                   PHKK(1..3,i) 3-momentum
-C *                   PHKK(4,i)    energy
-C *                   PHKK(5,i)    mass
-C *
-C * event history
-      include 'inc/dtevt1'
-C * extended event history
-      include 'inc/dtevt2'
+      SAVE
 
-      COMMON /DTEVNO/ NEVent , ICAsca
- 
-      GOTO (1,2,3) MODE
- 
-C *------------------------------------------------------------------
-C *
-    1 CONTINUE
-C *
-C * initializations
-C *
-C *  Called with MODE=1 once at the beginning of the run.
-C *
-      RETURN
-C *
-C *------------------------------------------------------------------
-C *
-    2 CONTINUE
-C *
-C * scoring of the present event
-C *
-C *  Called with MODE=2 every time one event has been finished.
-C *
-C *  The final state particles from the actual event (number NEVHKK)
-C *  can be found in DTEVT1 and identified by their status:
-C *
-C *     ISTHKK(i) = 1    final state particle produced in
-C *                      photon-/hadron-/nucleon-nucleon collisions or
-C *                      in intranuclear cascade processes
-C *                -1    nucleons, deuterons, H-3, He-3, He-4 evaporated
-C *                      from excited nucleus and
-C *                      photons produced in nuclear deexcitation processes
-C *                1001  residual nucleus (ground state)
-C *
-C *  The types of these particles/nuclei are given in IDHKK as follows
-C *
-C *     all final state part. except nuclei :
-C *       IDHKK(i)=particle identifier according to PDG numbering scheme
-C *     nuclei (evaporation products, and residual nucleus) :
-C *       IDHKK(i)=80000, IDRES(i)=mass number, IDXRES(i)=charge number
-C *
-C *  The 4-momenta and masses can be found in PHKK (target nucleus rest frame):
-C *                   PHKK(1..3,i) 3-momentum (p_x,p_y,p_z)
-C *                   PHKK(4,i)    energy
-C *                   PHKK(5,i)    mass
-C *
-C *
-C *
-C *  Pick out the final state particles from DTEVT1 in each event for
-C *  instance by the following loop (NHKK=number of entries in the present
-C *  event) and fill your histograms
-      DO I=1,NHKK
-         IF (ABS(ISTHKK(I)).EQ.1) THEN
-         WRITE(6,'(I5, I5, 1X, 5E12.5)') NEVent, I, (PHKK(J,I), j=1,5)
-         ELSEIF (ABS(ISTHKK(I)).EQ.1001) THEN
-         ENDIF
-      END DO
- 
-C *  At any time during the run a list of the actual entries in DTEVT1 and
-C *  DTEVT2 can be obtained (output unit 6) by the following statement:
-C C     CALL DT_EVTOUT(4)
- 
-      RETURN
-C *
-C *------------------------------------------------------------------
-C *
-    3 CONTINUE
-C *
-C * output/statistics/histograms etc.
-C *
-C *  Called with MODE=3 once after all events have been sampled.
-C *
-C      CALL DT_DTUOUT
-      RETURN
- 
+      LOUT = 6
+      LPRI = 20
+
+C  general initialization 
+      ECM = 50.D0
+      NCASES = -1
+      NPMASS = 1
+      NPCHAR = 1
+      NTMASS = 1
+      NTCHAR = 1
+      IDPIDX = 1
+      IDP = IDPLIST(IDPIDX)
+      IGLAU = 1
+      ELAB = (ECM**2-AAM(1)**2-AAM(1)**2)/(2.0D0*AAM(1))
+      ELABI = 1.D10
+      PLAB = SQRT( (ELAB+AAM(1))*(ELAB-AAM(1)) )
+C       write (LOUT,*) "initialization at",epn
+C       CALL PHO_SETPDF(2212,idum, 10770, 0, 10, 0, -1)
+      WRITE(LOUT,*) NCASES,ELAB,NPMASS,NPCHAR,NTMASS,NTCHAR,IDP,IGLAU
+      Call dt_init(NCASES,ELABI,NPMASS,NPCHAR,NTMASS,NTCHAR,IDP,IGLAU)
+
+C C     Debug ACTPDF
+C       IDEB(2) = 30
+C C     Debug SETPDF
+C       IDEB(80) = 30
+C C     Debug multiparticle
+C       IDEB(90) = 30
+C C     Debug PHO_PDF
+C       ideb(1) = 25
+C C     Debug PHO_HARINI   
+C       ideb(LOUT6) = 25      
+C C     Debug PHO_HARREM
+C       ideb(28) = 20
+C C     Debug PHO_CHAN2A
+C       ideb(86) = 20
+C     Debug PHO_CHAN2A
+C       ideb(87) = 10
+C     Debug PHO_REGPAR
+C       ideb(55) = 40      
+        
+C       Do KD = 1, 100
+C         ideb(kd) = 25
+C       End Do
+C  generate events
+ 54   CONTINUE  
+      IDP = IDPLIST(IDPIDX)
+      WRITE(LOUT,*) 'Particle ID:', IDP, IDT_ICIHAD(IDP)
+
+C  number of events
+      NEVE = 10
+      ITRY = 0
+      IREJ = 0
+      KKMAT = -1
+      DO 100 K=1,NEVE
+        NEVHKK = K
+ 55     CONTINUE
+        ITRY = ITRY+1
+
+C       Random choice of projectile        
+        IRPRO = 1 + INT(DT_RNDM(DUM))*4.5D0
+        CALL dt_kkinc(NPMASS,NPCHAR,NTMASS,NTCHAR,
+     &     IDT_ICIHAD(IDPLIST(IRPRO)),ELAB, KKMAT, IREJ)
+
+        If (mod(k,1000)==0) Write(LOUT,*)  NEVENT, 'events simulated' 
+        write(LOUT,*) "nevent,bimpac,IREJ", NEVENT, bimpac,IREJ
+        IF(IREJ.NE.0) GOTO 55
+C       Print event stack        
+      !   CALL DT_EVTOUT(1)
+
+C       event loop (Print particles stack)
+        ICH = 0
+        IBAR = 0
+        DO I=1,NHKK
+          IF(ISTHKK(I).EQ.1) THEN
+            NEVENT = K
+!             Write(LOUT,*) idhkk(I)
+            ich = ich + ipho_chr3(idhkk(I),1)/3
+            ibar = ibar + ipho_bar3(idhkk(I),1)/3
+            PX = phkk(1,I)
+            PY = phkk(2,I)
+            PZ = phkk(3,I)
+            EE = phkk(4,I)
+            AM = phkk(5,I)
+            WRITE(LOUT,'(3I6,5E12.3)') nevhkk, idhkk(I),idbam(I),
+     &        PX, PY, PZ, EE, AM
+
+          ENDIF
+        ENDDO
+ 100  CONTINUE
+      Call DT_STATIS(2)
+
+      IDPIDX = IDPIDX + 1
+       IF (IDPIDX.LE.LENIDPL) GOTO 54
+
       END

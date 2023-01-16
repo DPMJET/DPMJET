@@ -12,11 +12,11 @@
  
       CHARACTER*6 cversi
       CHARACTER*11 cchang
-      DATA cversi , cchang/'19.3.4' , '30 Dec 2022'/
+      DATA cversi , cchang/'19.3.5' , '16 Jan 2023'/
  
       CALL DT_XTIME
  
-      IF ( LPRi.GT.4 ) WRITE (LOUt,99010) cversi , cchang
+      IF ( LPRi.GT.0 ) WRITE (LOUt,99010) cversi , cchang
 99010 FORMAT (1X,'+-------------------------------------------------',
      &        '----------------------+',/,1X,'|',71X,'|',/,1X,'|',23X,
      &        'DPMJET-III version ',A6,23X,'|',/,1X,'|',71X,'|',/,1X,

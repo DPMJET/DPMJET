@@ -1,5 +1,5 @@
 
-#ifndef IMPY
+#ifndef CHROMO
       SUBROUTINE DT_RNDMIN(Uin,Cin,Cdin,Cmin,Iin,Jin)
  
       IMPLICIT NONE
