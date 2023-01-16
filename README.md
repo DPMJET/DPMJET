@@ -48,12 +48,6 @@ make -j<n_jobs> exe
 bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```
 
-The Python library is available as a different build target
-
-```bash
-make -j<n_jobs> pylib
-```
-
 ## Documentation
 
 We are in the process of compiling more documentation and/or examples. For now, browse the docs folder for basic instructions and a marginally outdated manual for PHOJET.
