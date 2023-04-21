@@ -150,7 +150,7 @@ else
   CAT_COMMAND = cat
   EXESUFX = 
   PATHSEP=/
-  LEXT?=$(shell python -c "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX'))")
+  LEXT?=$(shell $(PYTHON_EXE) -c "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX'))")
   PYF_SRCS := $(PHOJET_SRCS) $(PYTHIA_SRCS) $(DPMJET_SRCS) $(DUMMY_SRCS)
 endif
 
