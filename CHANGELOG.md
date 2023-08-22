@@ -2,6 +2,11 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.3.6
+- Backport of a fix for [chromo](https://github.com/impy-project/chromo):
+- Removed old python lib build from Makefile
+- Added new `ISWmdl(6) = 4` flag forcing Pythia to accept decay settings defined in mdcy 
+
 19.3.5
 - rename any references to the code impy to chromo
 - changed verbosity level to LPRi > 0 for logo

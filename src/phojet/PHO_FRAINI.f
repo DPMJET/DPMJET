@@ -88,11 +88,18 @@ C  load optimized parameters
          PARj(42) = 1.0D0
          MSTj(12)= 2
       END IF
+C  Force pythia to follow the MDCy decay settings
+      IF ( idefab.GE.4 ) THEN
+         MSTj(21) = 1
+         MSTj(22) = 1
+      ENDIF
 C prevent particles from decaying
-      DO i = 1 , 35
-         kc = PYCOMP(idxsta(i))  
-         MDCy(kc,1) = 0
-      END DO
+      IF ( Idefau.LT.0) THEN
+         DO i = 1 , 35
+            kc = PYCOMP(idxsta(i))
+            MDCy(kc,1) = 0
+         END DO
+      END IF
 C prevent some charmed baryons which don't have a BAMJET code to be
 C set as stable
       DO i = 1 , NUNSTAB

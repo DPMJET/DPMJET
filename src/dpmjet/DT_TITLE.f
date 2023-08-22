@@ -12,7 +12,7 @@
  
       CHARACTER*6 cversi
       CHARACTER*11 cchang
-      DATA cversi , cchang/'19.3.5' , '16 Jan 2023'/
+      DATA cversi , cchang/'19.3.6' , '23 Aug 2023'/
  
       CALL DT_XTIME
  

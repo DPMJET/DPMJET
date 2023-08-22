@@ -60,7 +60,7 @@ C  color string configurations including collapsed strings and hadrons
       DIMENSION ijoin(MSCAHD)
  
       Irej = 0
-      IF ( ABS(ISWmdl(6)).GT.3 ) THEN
+      IF ( ABS(ISWmdl(6)).GT.4 ) THEN
          IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,2A,I3)')
      &        'PHO_STRFRA:ERROR: ' , 'invalid value of ISWMDL(6)' , 
      &        ISWmdl(6)
