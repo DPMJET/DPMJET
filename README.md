@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-### Version: 19.1.5
+### Version: 19.1.6
 
 ### Status: development
 

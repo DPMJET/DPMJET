@@ -1,5 +1,9 @@
 ## DPMJET-III
 
+19.1.6:
+- Removed old python lib build from Makefile
+- Added new `ISWmdl(6) = 4` flag forcing Pythia to accept decay settings defined in mdcy 
+
 19.1.5:
 - Renamed impy references to chromo due to name change of the package 
 

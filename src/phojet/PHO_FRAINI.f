@@ -57,7 +57,7 @@ C  declare stable particles
  
 C  load optimized parameters
 C*anfe try PYTHIA default
-      IF ( idefab.GE.3 .AND. .FALSE. ) THEN
+      IF ( idefab.GE.3) THEN
  
 C       PARJ(19)=0.19
 C  Lund a-parameter
@@ -76,7 +76,12 @@ C*anfe 26.08.2015 fragmentation parameters
          PARj(7) = 0.95D0
          PARj(21) = 0.42D0
       END IF
-C
+
+C  Force pythia to follow the MDCy decay settings
+      IF ( idefab.GE.4 ) THEN
+         MSTj(21) = 1
+         MSTj(22) = 1
+      ENDIF
 C  prevent particles decaying
       IF ( Idefau.LT.0 ) THEN
 C                 K0S
