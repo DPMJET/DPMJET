@@ -220,13 +220,6 @@ C  Initialize phojet with protons and other hadrons on demand
       CALL PHO_SETPAR(1,IDT_IPDGHA(ijp),0,ZERO)
       CALL PHO_SETPAR(2,2212,0,ZERO)
       CALL PHO_EVENT(-1,pp,pt,sigmax,irej1)
-      WRITE (LOUt,*) 'PHOJET event-initialization from DPM!'
-      WRITE (LOUt,*) '  sigmax = ',sigmax
-      WRITE (LOUt,*) '  irej1  = ',irej1
-      WRITE(LOUt,*) '  pp = ',pp
-      WRITE(LOUt,*) '  pt = ',pt
-
-
  
 C*sr 26.10.96
       IPAmdl(13) = isav
