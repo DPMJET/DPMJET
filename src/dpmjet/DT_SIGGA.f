@@ -24,7 +24,9 @@ C***********************************************************************
       PARAMETER (TINY10=1.0D-10,TINY2=1.0D-2,ZERO=0.0D0,DLARGE=1.0D10,
      &           OHALF=0.5D0,ONE=1.0D0)
       PARAMETER (AMPROT=0.938D0)
- 
+Cf2py intent(in) :: Nti, Xi, Q2i, Ecmi, Xnui
+Cf2py intent(out) :: Stot, Etot, Sin, Ein, Stot0
+
 C emulsion treatment
       INCLUDE 'inc/dtcomp'
  
