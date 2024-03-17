@@ -25,14 +25,6 @@ ENERGY          920.0
 * the "PHOINPUT" and "ENDINPUT" cards.
 PHOINPUT
 PROCESS           1 0 1 1 1 1 1 1
-
-PDF              2212 5 6 0 
-PDF             -2212 5 6 0 
-PDF              2112 5 6 0 
-PDF             -2112 5 6 0 
-PDF              22   5 3 0
-PDF              990  4 0 0
-
 ENDINPUT
 *
 * Output

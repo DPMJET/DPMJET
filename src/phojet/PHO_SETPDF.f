@@ -90,7 +90,8 @@ C  nucleon-nucleus / nucleus-nucleus interface to DPMJET
       ELSE IF ( Mode.EQ.-1 ) THEN
          DO i = 1 , ientry
             IF ( Idpdg.EQ.ipdfs(1,i) ) THEN
-               IF ( LPRi.GT.4 ) WRITE (LO,'(/1X,A,5I6)')
+               IF ( (LPRi.GT.4) .AND. (IDEb(80).GT.0) ) 
+     &            WRITE (LO,'(/1X,A,5I6)')
      &               'PHO_SETPDF: overwrite old particle PDF' , Idpdg , 
      &              ipdfs(2,i) , ipdfs(3,i) , ipdfs(4,i) , ipdfs(5,i)
                GOTO 150
