@@ -43,7 +43,8 @@ C*
 C     PARAMETER (NPOINT=80)
       PARAMETER (NPOINT=16)
       DIMENSION abszx(NPOINT) , weight(NPOINT)
- 
+Cf2py intent(in) :: Xi, Q2i, Ecmi, Xnui
+Cf2py intent(out) :: Stot, Sine, Sdir
       Stot = ZERO
       Sine = ZERO
       Sdir = ZERO

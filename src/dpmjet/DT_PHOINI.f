@@ -217,9 +217,8 @@ C*sr 26.10.96
 C*
  
 C  Initialize phojet with protons and other hadrons on demand
-      CALL PHO_SETPAR(1,2212,0,ZERO)
+      CALL PHO_SETPAR(1,IDT_IPDGHA(ijp),0,ZERO)
       CALL PHO_SETPAR(2,2212,0,ZERO)
- 
       CALL PHO_EVENT(-1,pp,pt,sigmax,irej1)
  
 C*sr 26.10.96

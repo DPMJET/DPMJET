@@ -1,5 +1,5 @@
 
-      SUBROUTINE DT_SIGGAT(Q2i,Ecmi,Stot,Nt)
+      SUBROUTINE DT_SIGGAT(Q2i,Ecmi,Stot,Spro,Nt)
  
 C***********************************************************************
 C Total/inelastic photon-nucleus cross sections.                       *
@@ -8,11 +8,13 @@ C This version dated 29.07.96 is written by S. Roesler                 *
 C***********************************************************************
  
       IMPLICIT NONE
-      DOUBLE PRECISION Ecmi , ONE , Q2i , rate , ratq , Stot , TINY10 , 
-     &                 TINY14 , TWO , ZERO
+      DOUBLE PRECISION Ecmi , ONE , Q2i , rate , ratq , Stot ,  Spro,
+     &                 TINY10 ,TINY14 , TWO , ZERO
       INTEGER i , i1 , i2 , j1 , j2 , Nt , ntarg
       SAVE 
- 
+Cf2py intent(in) Q2i,Ecmi,Nt
+Cf2py intent(out) Stot,Spro
+
 #if defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'inc/dtflka12ca'
 #else
@@ -75,5 +77,12 @@ C                 RATQ = (Q2I-Q2G(J1))/(Q2G(J2)-Q2G(J1))
      &       + ratq*(XSTot(i1,j2,ntarg)-XSTot(i1,j1,ntarg))
      &       + rate*ratq*(XSTot(i2,j2,ntarg)-XSTot(i1,j2,ntarg)
      &       +XSTot(i1,j1,ntarg)-XSTot(i2,j1,ntarg))
+
+      Spro = XSpro(i1,j1,ntarg)
+     &       + rate*(XSpro(i2,j1,ntarg)-XSpro(i1,j1,ntarg))
+     &       + ratq*(XSpro(i1,j2,ntarg)-XSpro(i1,j1,ntarg))
+     &       + rate*ratq*(XSpro(i2,j2,ntarg)-XSpro(i1,j2,ntarg)
+     &       +XSpro(i1,j1,ntarg)-XSpro(i2,j1,ntarg))
+
  
       END SUBROUTINE

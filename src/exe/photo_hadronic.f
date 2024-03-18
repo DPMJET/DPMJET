@@ -58,21 +58,6 @@ C  general initialization of PHOJET data structures (mandatory)
 C  (-2 means that no steering file is expected)
       irej = 20
       CALL PHO_INIT(-2,6,irej)
- 
-
-C Set PDFs to the "old" GRV98, since photon interactions are not
-C tuned to the CT14 default in the "new" DPMJET/PHOJET
-
-C  proton
-      CALL PHO_SETPDF(2212,IDUM,5,6,0,0,-1)
-      CALL PHO_SETPDF(-2212,IDUM,5,6,0,0,-1)
-C  neutron
-      CALL PHO_SETPDF(2112,IDUM,5,6,0,0,-1)
-      CALL PHO_SETPDF(-2112,IDUM,5,6,0,0,-1)
-C  photon
-      CALL PHO_SETPDF(22,IDUM,5,3,0,0,-1)
-C  pomeron
-      CALL PHO_SETPDF(990,IDUM,4,0,0,0,-1)
 
 C Set (real) photon for Side 1 (left). Last parameter is the
 C virtuality in case you need virtual photons

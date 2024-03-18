@@ -10,8 +10,8 @@ C particle properties (BAMJET index convention)
       INCLUDE 'inc/dtpart'
 
       INCLUDE 'inc/dtflka'
-      DIMENSION IDPLIST(5)
-      DATA IDPLIST /2212,2112,-321,211,-211/
+      DIMENSION IDPLIST(6)
+      DATA IDPLIST /2212,2112,-321,211,-211, 22/
 
       SAVE
 
@@ -64,7 +64,7 @@ C  generate events
       WRITE(LOUT,*) 'Particle ID:', IDP, IDT_ICIHAD(IDP)
 
 C  number of events
-      NEVE = 10
+      NEVE = 1000
       ITRY = 0
       IREJ = 0
       KKMAT = -1
@@ -74,7 +74,7 @@ C  number of events
         ITRY = ITRY+1
 
 C       Random choice of projectile        
-        IRPRO = 1 + INT(DT_RNDM(DUM))*4.5D0
+        IRPRO = 1 + INT(DT_RNDM(DUM)*5.5D0)
         CALL dt_kkinc(NPMASS,NPCHAR,NTMASS,NTCHAR,
      &     IDT_ICIHAD(IDPLIST(IRPRO)),ELAB, KKMAT, IREJ)
 
@@ -98,8 +98,8 @@ C       event loop (Print particles stack)
             PZ = phkk(3,I)
             EE = phkk(4,I)
             AM = phkk(5,I)
-            WRITE(LOUT,'(3I6,5E12.3)') nevhkk, idhkk(I),idbam(I),
-     &        PX, PY, PZ, EE, AM
+C            WRITE(LOUT,'(3I6,5E12.3)') nevhkk, idhkk(I),idbam(I),
+C     &        PX, PY, PZ, EE, AM
 
           ENDIF
         ENDDO

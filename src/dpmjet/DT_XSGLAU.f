@@ -196,8 +196,7 @@ C  maximum impact-parameter
  
 C slope, rho ( Re(f(0))/Im(f(0)) )
       IF ( ((ijproj.LE.40) .OR. ((ijproj.GE.97) .AND. (ijproj.LE.103))
-     &     .OR. (ijproj.EQ.109) .OR. (ijproj.EQ.115)) .AND. 
-     &     (ijproj.NE.7) ) THEN
+     &     .OR. (ijproj.EQ.109) .OR. (ijproj.EQ.115)) ) THEN
          IF ( MCGene.EQ.2 ) THEN
             zero1 = ZERO
             CALL DT_PHOXS(ijproj,1,ECMnn(Ie),zero1,sdum1,sdum2,sdum3,

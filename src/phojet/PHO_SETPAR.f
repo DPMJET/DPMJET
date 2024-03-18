@@ -20,7 +20,7 @@ C**********************************************************************
  
       SAVE 
  
-      INTEGER Iside , Idpdg , Idcpc
+      INTEGER Iside , Idpdg , Idcpc, idum, phmode
       DOUBLE PRECISION Pvir
  
 C  input/output channels
@@ -38,20 +38,40 @@ C  general particle data
 C  particle decay data
       INCLUDE 'inc/popar3'
  
+C  local variables
+      INTEGER i , idcpcn , idcpcr , idpdgn , idpdgr , idb , ifl1 , 
+     &        ifl2 , ifl3
+      DATA phmode / 0 /
 C  external functions
       INTEGER IPHO_PDG2ID , IPHO_CHR3 , IPHO_BAR3
       DOUBLE PRECISION PHO_PMASS
  
-C  local variables
-      INTEGER i , idcpcn , idcpcr , idpdgn , idpdgr , idb , ifl1 , 
-     &        ifl2 , ifl3
  
       IF ( IDEb(87).GE.15 ) THEN
          IF ( LPRi.GT.4 ) WRITE (LO,'(1X,A,I2,/5X,A,2I6)')
      &         'PHO_SETPAR: called for side' , Iside , 'IDPDG, IDCPC' , 
      &        Idpdg , Idcpc
       END IF
- 
+
+      IF ((phmode.EQ.0).AND.(ISide.EQ.1).AND.(Idpdg.EQ.22)) THEN
+C  proton
+         CALL PHO_SETPDF(2212,IDUM,5,6,0,0,-1)
+         CALL PHO_SETPDF(-2212,IDUM,5,6,0,0,-1)
+c  neutron
+         CALL PHO_SETPDF(2112,IDUM,5,6,0,0,-1)
+         CALL PHO_SETPDF(-2112,IDUM,5,6,0,0,-1)
+         phmode = 1
+      ELSE IF ((phmode.EQ.1).AND.(ISide.EQ.1).AND.
+     &   (Idpdg.NE.22)) THEN
+C  proton
+         CALL PHO_SETPDF(2212,idum,2,1,0,0,-1)
+         CALL PHO_SETPDF(-2212,idum,2,1,0,0,-1)
+C  neutron
+         CALL PHO_SETPDF(2112,idum,2,1,0,0,-1)
+         CALL PHO_SETPDF(-2112,idum,2,1,0,0,-1)
+         phmode = 0
+      END IF
+
       IF ( (Iside.EQ.1) .OR. (Iside.EQ.2) ) THEN
          idcpcn = Idcpc
 C  remnant?
