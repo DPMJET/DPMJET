@@ -48,6 +48,17 @@ make -j<n_jobs> exe
 bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```
 
+Meson can also be used to build the project:
+
+```bash
+meson setup build
+meson compile -C build
+# Example run
+./build/DPMJET < examples/dpmjet/ppLHC.inp
+```
+
+When available, Meson adds `-fuse-ld=mold` so the faster `mold` linker is used.
+
 ## Documentation
 
 We are in the process of compiling more documentation and/or examples. For now, browse the docs folder for basic instructions and a marginally outdated manual for PHOJET.

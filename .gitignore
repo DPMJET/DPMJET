@@ -6,3 +6,4 @@ bin/*.exe
 .vscode/
 .DS_store
 ongoing_debugging
+build/
