@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-## Version: 19.3.7
+## Version: 19.3.8
 
 ### Status: release
 
@@ -54,10 +54,8 @@ Meson can also be used to build the project:
 meson setup build
 meson compile -C build
 # Example run
-./build/DPMJET < examples/dpmjet/ppLHC.inp
+bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```
-
-When available, Meson adds `-fuse-ld=mold` so the faster `mold` linker is used.
 
 ## Documentation
 
