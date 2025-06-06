@@ -53,6 +53,7 @@ Meson can also be used to build the project:
 ```bash
 meson setup build
 meson compile -C build
+meson install -C build  # This installs executables to bin/
 # Example run
 bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```

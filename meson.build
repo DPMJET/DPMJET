@@ -45,13 +45,5 @@ foreach f : run_command('sh', '-c', 'ls src/exe/*.f', check:true).stdout().split
              include_directories: inc,
              link_with: libdpmjet,
              install: true,
-             install_dir: 'bin')
+             install_dir: meson.project_source_root() / 'bin')
 endforeach
-
-# # Custom clean target to remove both build artifacts and installed executables
-# run_target('distclean',
-#   command: [
-#     'sh', '-c', 
-#     'rm -rf build/* bin/DPMJET* bin/PHOJET* bin/pho_* bin/photo_* || true'
-#   ]
-# )
