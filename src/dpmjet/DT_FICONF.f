@@ -476,7 +476,7 @@ C   fill resnuc only if code is not used as event generator in Fluka
 C   ground state mass of the residual nucleus (should be equal to AM0T)
  
                   AMNres = AMRcl0(i)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
                   AMMres = AMNAMA(AMNres,IBRes,ICRes)
 #else
 C**af added to replace amnama from original DPMJET

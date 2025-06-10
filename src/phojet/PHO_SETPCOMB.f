@@ -33,7 +33,7 @@ C  (Anti-)Particle combination assumed to be known
       DATA ipavail/2212 , 211 , 111 , 22 , 2112 , 3122 , 3112 , 321 , 
      &     311/
  
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       DATA ifast/0/
 #else
       DATA ifast/0/

@@ -5,7 +5,7 @@ C
 C     read input parameters according to PDFs
 C
 C**********************************************************************
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       INCLUDE '(IOUNIT)'
 #else

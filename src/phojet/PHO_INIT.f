@@ -107,7 +107,7 @@ Cinitialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
-     &            '   ----        PHOJET  19.1.6       ----   '
+     &            '   ----        PHOJET  19.1.7       ----   '
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            '                                                    '
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
@@ -125,11 +125,11 @@ Cinitialize random number generator in standalone (-2) mode
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &                    '   bug reports, support and updates on:'
       IF ( LPRi.GT.0 ) WRITE (LO,*)
-     &                    '     https://github.com/afedynitch/dpmjet'
+     &                    '     https://github.com/dpmjet/dpmjet'
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Date: 2023/08/23'
-      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Revision: 19.1.6'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Date: 2023/06/10'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Revision: 19.1.7'
  
       IF ( LPRi.GT.0 ) WRITE (LO,*)
      &                         '   Code with interface to PYTHIA 6.4.27'

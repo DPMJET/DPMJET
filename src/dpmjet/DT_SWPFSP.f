@@ -2,7 +2,7 @@
       SUBROUTINE DT_SWPFSP(Idx,Lfsp,Lrnl)
  
 
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       INCLUDE '(DIMPAR)'
       INCLUDE '(PAREVT)'
 #else

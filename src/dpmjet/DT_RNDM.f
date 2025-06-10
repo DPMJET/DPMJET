@@ -70,7 +70,7 @@ C        IRNCT0 = 0
 C        IRNCT1 = 0
 C        LFIRST = .FALSE.
 C     ENDIF
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       DT_RNDM = FLRNDM(Vdummy)
 #else
  100  DT_RNDM = U(I) - U(J)

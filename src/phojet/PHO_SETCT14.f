@@ -1,7 +1,7 @@
 
       SUBROUTINE PHO_SETCT14(Tablefile, Lenfname)
       
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       INCLUDE '(IOUNIT)'
 #else
@@ -18,7 +18,7 @@ C  input/output channels
       DATA IPDsset , IPDsformat/0 , 0/
       SAVE 
  
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       LQ = INDEX (Tablefile,'/') + 1
       IF ( LQ .LT. 0 ) LQ = 0
       CALL OAUXFI(Tablefile(LQ:Lenfname), LUNRDB,'OLD',IERR)

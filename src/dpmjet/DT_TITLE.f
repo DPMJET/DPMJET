@@ -8,7 +8,7 @@
  
       CHARACTER*6 cversi
       CHARACTER*11 cchang
-      DATA cversi , cchang/'19.1.6' , '23 Aug 2023'/
+      DATA cversi , cchang/'19.1.7' , '10 Jun 2025'/
  
       CALL DT_XTIME
  
@@ -22,7 +22,7 @@
      &        'Anatoli Fedynitch (ASIoP)',25X,'|',/,1X,'|',21X,
      &        'Ralph Engel        (KIT) ',25X,'|',/,1X,'|',21X,
      &        'Johannes Ranft     (Siegen Univ.)',17X,'|',/,1X,'|',71X,
-     &        '|',/,1X,'|',8X,'https://github.com/afedynitch/dpmjet',27X,
+     &        '|',/,1X,'|',8X,'https://github.com/dpmjet/dpmjet',27X,
      &        '|',/,1X,'|',71X,'|',/,1X,
      &        '+-------------------------------------------------',
      &        '----------------------+',/,1X,
