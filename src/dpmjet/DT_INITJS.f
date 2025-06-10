@@ -119,7 +119,7 @@ C
  
 C as Fluka event-generator: allow only paprop particles to be stable
 C and let all other particles decay (i.e. those with strong decays)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
          IF ( (ITRspt.EQ.1).AND.OVwtdc) THEN
             DO i = 1 , IDMAXP
                IF ( KPToip(i).NE.0 ) THEN

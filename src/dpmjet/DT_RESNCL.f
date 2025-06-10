@@ -65,7 +65,7 @@ C treatment of residual nuclei: 4-momenta
       DIMENSION pfsp(4) , psec(4) , psec0(4)
       DIMENSION pmomb(5000) , idxb(5000) , pmomm(10000) , idxm(10000) , 
      &          idxcor(15000) , idxoth(NMXHKK)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       DOUBLE PRECISION EXMSAZ
       EXTERNAL EXMSAZ
 #else

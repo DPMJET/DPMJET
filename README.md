@@ -1,6 +1,6 @@
 # DPMJET-III and PHOJET
 
-## Version: 19.3.7
+## Version: 19.3.8
 
 ### Status: release
 
@@ -45,6 +45,16 @@ make -j<n_jobs> exe
 # Wait...
 
 # Run example
+bin/DPMJET < examples/dpmjet/ppLHC.inp
+```
+
+Meson can also be used to build the project:
+
+```bash
+meson setup build
+meson compile -C build
+meson install -C build  # This installs executables to bin/
+# Example run
 bin/DPMJET < examples/dpmjet/ppLHC.inp
 ```
 

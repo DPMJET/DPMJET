@@ -82,7 +82,7 @@ C VDM parameter for photon-nucleus interactions
 C parameters for hA-diffraction
       INCLUDE 'inc/dtdiha'
  
-#ifdef FOR_CORSIKA
+#if defined(FOR_CORSIKA)
 cdh  datadir for path to the data sets to be read in by dpmjet/phojet
       COMMON /DATADIR/ DATADIR
       CHARACTER*132    DATADIR
