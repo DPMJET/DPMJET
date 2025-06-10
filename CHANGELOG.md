@@ -2,6 +2,11 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.3.8
+
+- Minor compiler warning fixes and too long line in DT_TITLE
+- Meson build support
+
 19.3.7
 
 - Fix for photonuclear interactions in DPMJET and photon-hadron or photon-photon interactions in PHOJET
