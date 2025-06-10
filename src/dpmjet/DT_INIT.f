@@ -22,7 +22,7 @@ C***********************************************************************
      &        Npmass , Ntchar , Ntmass
 
 
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       INTEGER iseed1 , iseed2 , isrnd1 , isrnd2 
 #endif
       SAVE 
@@ -157,7 +157,7 @@ C at the first call of INIT: initialize event generation
       IF ( lstart ) THEN
          CALL DT_TITLE
 C   initialization and test of the random number generator
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
          IF ( ITRspt.NE.1 ) THEN
  
             CALL FLRNOC(isrnd1,isrnd2,iseed1,iseed2)
@@ -166,7 +166,7 @@ C   initialization and test of the random number generator
             CALL RNINIT(inseed,isrnd1,iseed1,iseed2)
  
          END IF
-#elif CHROMO
+#elif defined(CHROMO)
 C        CHROMO initializes random numbers externally
 #else
 C         CALL DT_RNDMTE(1)
@@ -191,7 +191,7 @@ C---------------------------------------------------------------------
  100  CONTINUE
 C bypass reading input cards (e.g. for use with Fluka)
 C  in this case Epn is expected to carry the beam momentum
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       IF ( Ncases.EQ.-1 ) THEN
          IP = Npmass
          IPZ = Npchar

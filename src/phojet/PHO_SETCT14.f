@@ -3,7 +3,7 @@
       
       IMPLICIT NONE
 
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       INTEGER LUNRDB, LQ
       PARAMETER ( LUNRDB = 1 )
 #endif
@@ -17,7 +17,7 @@ C  input/output channels
       DATA IPDsset , IPDsformat/0 , 0/
       SAVE 
  
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       LQ = INDEX (Tablefile,'/') + 1
       IF ( LQ .LT. 0 ) LQ = 0
       CALL OAUXFI(Tablefile(LQ:Lenfname), LUNRDB,'OLD',IERR)

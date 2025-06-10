@@ -94,7 +94,7 @@ C  general process information
 C initial values for max. number of phojet scatterings and dtunuc chains
 C to be fragmented with one pyexec call
       DATA mxphfr , mxdtfr/10 , 100/
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     COMMON / DBGPRE / LDBGPR
 C     LOGICAL LDBGPR
 #endif
@@ -124,7 +124,7 @@ C (this has to be checked here because Cronin modifies parton momenta)
          IF ( (diff1.LT.TINY10) .AND. (diff2.LT.TINY10) ) isingl(i) = 1
          nc = nc + 4
       END DO
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,I6)')
 C    &    ' EVENTB IN:',NHKK
@@ -138,7 +138,7 @@ C multiple scattering of chain ends
 C switch to PHOJET-settings for JETSET parameter
       IF ( (IT.GT.1) .AND. (MKCron.NE.0) ) CALL DT_CRONIN(2)
       CALL DT_INITJS(1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,2I6)')
 C    &    ' EVENTB INITJS:',MKCRON,NHKK
@@ -225,7 +225,7 @@ C
 C     make sure that total momenta of partons, pp and pt, are on mass
 C     shell (Cronin may have srewed this up..)
             CALL DT_MASHEL(pp,pt,PHKk(5,mop),PHKk(5,mot),ppnn,ptnn,ir1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,4I6,(/,1P,4G23.15))')
 C    &         ' EVENTB MASHEL:',I,MOP,MOT,NHKK,PP,PT
@@ -251,7 +251,7 @@ C     initialize the incoming particles in PHOJET
                CALL PHO_SETPAR(1,IDHkk(mop),0,ZERO)
  
             END IF
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,I6)')
 C    &         ' EVENTB SETPAR-1:',NHKK
@@ -260,7 +260,7 @@ C              WRITE(77,'(2X,2Z8)')ISEED1,ISEED2
 C           END IF
 #endif
             CALL PHO_SETPAR(2,IDHkk(mot),0,ZERO)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,I6)')
 C    &         ' EVENTB SETPAR-2:',NHKK
@@ -282,7 +282,7 @@ C     generate complete hadron/nucleon/photon-nucleon event with PHOJET
  
  
             CALL PHO_EVENT(2,ppnn,ptnn,dum,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,2I6,(/,1P,4G23.15))')
 C    &         ' EVENTB EVENT:',IREJ1,NHKK,PPNN,PTNN
@@ -336,7 +336,7 @@ C!      uncomment this line for internal phojet-fragmentation
 C           CALL DT_GETFSP(MO1,MO2,PPNN,PTNN,-1)
             nphosc = nphosc + 1
             CALL DT_GETPJE(mo1,mo2,ppnn,ptnn,-1,nphosc,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,2I6,(/,1P,4G23.15))')
 C    &         ' EVENTB GETPJE:',NPHOSC,NHKK,PPNN,PTNN
@@ -402,7 +402,7 @@ C     initialize the incoming particles in PHOJET
                   CALL PHO_SETPAR(1,IDHkk(mop),iremn1,ZERO)
  
                END IF
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,I6)')
 C    &            ' EVENTB SETPAR-12:',NHKK
@@ -411,7 +411,7 @@ C                 WRITE(77,'(2X,2Z8)')ISEED1,ISEED2
 C              END IF
 #endif
                CALL PHO_SETPAR(2,IDHkk(mot),iremn2,ZERO)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,I6)')
 C    &            ' EVENTB SETPAR-22:',NHKK
@@ -492,7 +492,7 @@ C     we need massless partons: transform them on mass shell
                   pttmp(k) = ptsub(k)
                END DO
                CALL DT_MASHEL(pptmp,pttmp,xmp,xmt,ppsub,ptsub,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,4I6,(/,1P,4G23.15))')
 C    &            ' EVENTB MASHEL:',I,MOP,MOT,NHKK,PPTMP,PTTMP
@@ -618,7 +618,7 @@ C
 C     generate complete remnant - nucleon/remnant event with PHOJET
  
                CALL PHO_EVENT(3,pptcms,pttcms,dum,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,2I6,(/,1P,4G23.15))')
 C    &            ' EVENTB EVENT-2:',IREJ1,NHKK,PPTCMS,PTTCMS
@@ -655,7 +655,7 @@ C!      uncomment this line for internal phojet-fragmentation
 C              CALL DT_GETFSP(MO1,MO2,PP,PT,1)
                nphosc = nphosc + 1
                CALL DT_GETPJE(mo1,mo2,pp,pt,1,nphosc,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,2I6,(/,1P,4G23.15))')
 C    &            ' EVENTB GETPJE-2:',NPHOSC,NHKK,PP,PT
@@ -695,7 +695,7 @@ C   ..and the indices of the mothers
                mot2 = nc + 3
                CALL DT_GETCSY(ifp1,pp1,mop1,ifp2,pp2,mop2,ift1,pt1,mot1,
      &                        ift2,pt2,mot2,irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C              IF ( LDBGPR ) THEN
 C                 WRITE (77,'(A,2I6)')
 C    &            ' EVENTB GETCSY:',IREJ1,NHKK
@@ -744,7 +744,7 @@ C
 C   correct chains of very low masses for possible resonances
       ELSE IF ( IREsco.EQ.1 ) THEN
          CALL DT_EVTRES(irej1)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C           IF ( LDBGPR ) THEN
 C              WRITE (77,'(A,2I6)')
 C    &         ' EVENTB EVTRES:',IREJ1,NHKK
@@ -779,7 +779,7 @@ C
       IF ( (PDBsea(1).GT.0.0D0) .OR. (PDBsea(2).GT.0.0D0) .OR. 
      &     (PDBsea(3).GT.0.0D0) ) THEN
          CALL DT_DIQBRK
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C        IF ( LDBGPR ) THEN
 C           WRITE (77,'(A,I6)')
 C    &       ' EVENTB DIQBRK:',NHKK
@@ -795,7 +795,7 @@ C     WRITE(6,*)' EVENTB: IFUSION before DENSITY,IAPROJ,IATARG',
 C    * IFUSION,IP,IT
       IF ( (IFUsion.EQ.1) .AND. (IP.GT.12) .AND. (IT.GT.12) )
      &     CALL DT_DENSITY
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,2I6)')
 C    &    ' EVENTB DENSITY:',IFUSION,NHKK
@@ -843,7 +843,7 @@ C   hadronize PHOJET chain systems
          IF ( irej1.GT.0 ) GOTO 200
          IF ( npymem.GT.npymax ) npymax = npymem
       END IF
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,5I6)')
 C    &   ' EVENTB AFTER PHOJET HADR.:',
@@ -867,7 +867,7 @@ C
 C   hadronize DTUNUC chain systems
  100  iback = mxdtfr
       CALL DT_EVTFRG(2,iback,npymem,irej2)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,4I6)')
 C    &   ' EVENTB AFTER DTUNUC HADR.:',
@@ -923,7 +923,7 @@ C    old before 7.11.6: to be kept if pyptdi is kept the old one:
 C    new: only if pyptdi is the new one
 C     PARJ(42)=0.40D0
       iesss1 = iesss1 + 1
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
  
       IF ( iesss1.LT.3 .AND. LPRi.GT.4 ) WRITE (LOUt,*)
      &      '1 PARJ(21),PARJ(23),PARJ(24),PARJ(41),PARJ(42)' , PARj(21)
@@ -944,7 +944,7 @@ C     IBACK=1
 C     WRITE(6,*)'PARJ(21),PARJ(23),PARJ(24),PARJ(41),PARJ(42)',
 C    *      PARJ(21),PARJ(23),PARJ(24),PARJ(41),PARJ(42)
 C     WRITE(6,*)'DT_EVTFRG2(2,IBACK,NPYMEM,IREJ2) ',IBACK,NPYMEM,IREJ2
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
 C     IF ( LDBGPR ) THEN
 C        WRITE (77,'(A,4I6)')
 C    &   ' EVENTB AFTER FUSION HADR.:',
@@ -974,7 +974,7 @@ C     2  Return to PYTHIA default parameters
       PARj(41) = parrj41
       PARj(42) = parrj42
       iesss2 = iesss2 + 1
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       IF ( iesss2.LT.3 ) WRITE (6,*)
      &      ' 2 PARJ(21),PARJ(23),PARJ(24),PARJ(41),PARJ(42)' , PARj(21)
      &     , PARj(23) , PARj(24) , PARj(41) , PARj(42)

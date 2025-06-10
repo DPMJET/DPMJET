@@ -6,7 +6,7 @@ C     read input parameters according to PDFs
 C
 C**********************************************************************
       IMPLICIT NONE
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       INTEGER LUNRDB
       PARAMETER ( LUNRDB = 1 )
 #endif

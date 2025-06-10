@@ -50,7 +50,7 @@ C final state from HADRIN interaction
  
       DIMENSION Ppr(5) , ppr1(5) , Pta(5) , bgta(4) , p1in(4) , p2in(4)
      &          , p1out(4) , p2out(4) , imcorr(2)
-#ifdef FOR_FLUKA
+#if defined(FOR_FLUKA)
       INTEGER   IGPART, IDD2F
       EXTERNAL  IGPART, IDD2F
 #else

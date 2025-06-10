@@ -32,7 +32,7 @@
       RETURN
       END
 
-#ifdef FOR_FLUKA      
+#if defined(FOR_FLUKA)      
       DOUBLE PRECISION FUNCTION CLFLEV (WEE)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       CALL EVEVAP (WEE)
