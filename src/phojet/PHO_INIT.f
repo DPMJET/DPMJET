@@ -128,7 +128,7 @@ C initialize random number generator in standalone (-2) mode
      &                    '     https://github.com/dpmjet/dpmjet'
       IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Date: 2025/06/19'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Date: 2025/06/10'
       IF ( LPRi.GT.0 ) WRITE (LO,*) '   Revision: 19.3.8'
  
       IF ( LPRi.GT.0 ) WRITE (LO,*)
