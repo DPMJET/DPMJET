@@ -1,5 +1,9 @@
 ## DPMJET-III
 
+19.1.7:
+- Fix line in DT_TITLE
+- Add meson build
+
 19.1.6:
 - Removed old python lib build from Makefile
 - Added new `ISWmdl(6) = 4` flag forcing Pythia to accept decay settings defined in mdcy 
