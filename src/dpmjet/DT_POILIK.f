@@ -160,6 +160,8 @@ C*sr 22.7.97
       sdi = DBLE(Nb)*sigdir
       san = DBLE(Nb)*sigano
       spl = sdi + san
+C XSPRO is the V-meson part only, add the pointlike part
+      sga = sga + spl
       rr = DT_RNDM(spl)
       IF ( rr.LT.sdi/sga ) THEN
          Ipnt = 1
