@@ -212,9 +212,15 @@ C  in this case Epn is expected to carry the beam momentum
          IPZ = Npchar
          IT = Ntmass
          ITZ = Ntchar
+C projectile (BAMJET index) for the Glauber tables, e.g. 7 for photons
+         IF ( (Npmass.LE.1) .AND. (Idp.GE.1) .AND. (Idp.LE.210) ) THEN
+            IJProj = Idp
+            IBProj = IIBar(Idp)
+         END IF
          ppn = epnsav
          VARelo = 10.D0
-         VARehi = Epn*1.D0
+C Epn was reset by DT_DEFAUL, use the value passed in
+         VARehi = epnsav
          Epn = ZERO
          cmener = ZERO
          leinp = .TRUE.

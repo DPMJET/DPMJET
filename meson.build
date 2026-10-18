@@ -1,4 +1,4 @@
-project('dpmjet', 'fortran', version: '19.3.7', default_options: ['optimization=3', 'fortran_std=legacy'])
+project('dpmjet', 'fortran', version: '19.4.0', default_options: ['optimization=3', 'fortran_std=legacy'])
 
 add_project_arguments('-Wno-uninitialized', '-fPIC',
                       '-fno-second-underscore', '-Wno-unused', '-Wno-conversion',

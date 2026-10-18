@@ -2,6 +2,14 @@
 
 For current validation plots [click here](docs/figures/193/DPMJET-III-193-validation.pdf)
 
+19.4.0
+
+Glauber sampling with `DT_INIT(NCASES=-1, ...)` (no input cards) and in photon-nucleus events:
+
+- Tables span the energy range up to `EPN`; they ended at 200 GeV lab (the `DT_DEFAUL` default), biasing impact parameters and wounded nucleons at high energies
+- Tables use the projectile index `IDP` (BAMJET) instead of the proton, e.g. 7 for photons
+- Photons: V-meson mass sampled over the same range as `DT_XSGLAU` and resampled per trial; pointlike fraction normalised to the full photon-nucleus cross section
+
 19.3.8
 
 - Minor compiler warning fixes and too long line in DT_TITLE

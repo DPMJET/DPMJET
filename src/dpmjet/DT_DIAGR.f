@@ -73,12 +73,13 @@ C n-n cross section fluctuations
      &          ji2(MAXNCL,MAXNCL) , jnt0(MAXNCL)
       DIMENSION nwa(0:MAXNCL) , nwb(0:MAXNCL)
  
-      LOGICAL lfirst
+      LOGICAL lfirst , lkeepb
       DATA lfirst/.TRUE./
  
       DATA ntargo , icnt/0 , 0/
  
       ntarg = ABS(Nidx)
+      lkeepb = .FALSE.
  
       IF ( lfirst ) THEN
          lfirst = .FALSE.
@@ -119,11 +120,10 @@ C n-n cross section fluctuations
       x = sq2/(s+sq2-AMP2)
       xnu = (s+sq2-AMP2)/(TWO*AMP)
 C photon projectiles: recalculate photon-nucleon amplitude
-      IF ( Ijproj.EQ.7 ) THEN
-C  VDM assumption: mass of V-meson
- 50      amv2 = DT_SAM2(sq2,ECMnow)
+ 40   IF ( Ijproj.EQ.7 ) THEN
+C  VDM assumption: mass of V-meson, full range as in DT_XSGLAU
+         amv2 = DT_SAM2(sq2,ECMnow)
          amv = SQRT(amv2)
-         IF ( amv.GT.2.0D0*PTCut(1) ) GOTO 50
 C  check for pointlike interaction
          CALL DT_POILIK(Nb,ntarg,ECMnow,sq2,ipnt,rpnt,1)
 C*sr 27.10.
@@ -181,6 +181,7 @@ C        SIGSH = DT_SHNTOT(IJPROJ,1,ZERO,PLAB)/10.0D0
       fca = -ROSh*rca
       ca = DCMPLX(rca,fca)
       ci = DCMPLX(ONE,ZERO)
+      IF ( lkeepb ) GOTO 200
  
 C impact parameter
  
@@ -294,7 +295,12 @@ C photon-projectile: check for supression by coherence length
  
       IF ( Jnt.EQ.0 ) THEN
 C           WRITE(6,*) ' new impact parameter required (old= ',B,')'
-         IF ( ntry.LT.500 ) GOTO 200
+         IF ( ntry.LT.500 ) THEN
+C photons: new V-meson mass at the same impact parameter
+            lkeepb = Ijproj.EQ.7
+            IF ( lkeepb ) GOTO 40
+            GOTO 200
+         END IF
          GOTO 100
       END IF
  
